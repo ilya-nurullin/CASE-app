@@ -23,5 +23,18 @@ namespace WowCaseApp
             childForm.MdiParent = this;
             childForm.Show();
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            switch (e.Node.Text.ToLower())
+            {
+                case "таблицы": { break; }
+                case "формы": { break; }
+                case "запросы": { break; }
+                case "отчеты": { break; }
+
+
+            }
+        }
     }
 }

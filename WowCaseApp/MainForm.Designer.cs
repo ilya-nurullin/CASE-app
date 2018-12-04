@@ -28,44 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Формы");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Запросы");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отчеты");
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Таблицы");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Формы");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Запросы");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Отчеты");
+            this.MainTreeView = new System.Windows.Forms.TreeView();
+            this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьНовыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // treeView1
+            // MainTreeView
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.treeView1.Location = new System.Drawing.Point(0, 28);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Узел0";
-            treeNode1.Text = "Формы";
-            treeNode2.Name = "Узел1";
-            treeNode2.Text = "Запросы";
-            treeNode3.Name = "Узел2";
-            treeNode3.Text = "Отчеты";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
-            this.treeView1.Size = new System.Drawing.Size(121, 422);
-            this.treeView1.TabIndex = 0;
+            this.MainTreeView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.MainTreeView.Location = new System.Drawing.Point(0, 28);
+            this.MainTreeView.Name = "MainTreeView";
+            treeNode5.Name = "Tables";
+            treeNode5.Text = "Таблицы";
+            treeNode6.Name = "Forms";
+            treeNode6.Text = "Формы";
+            treeNode7.Name = "Queries";
+            treeNode7.Text = "Запросы";
+            treeNode8.Name = "Reports";
+            treeNode8.Text = "Отчеты";
+            this.MainTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
+            this.MainTreeView.Size = new System.Drawing.Size(121, 422);
+            this.MainTreeView.TabIndex = 0;
+            this.MainTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
-            // menuStrip1
+            // MainMenuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MainMenuStrip.Name = "MainMenuStrip";
+            this.MainMenuStrip.Size = new System.Drawing.Size(800, 28);
+            this.MainMenuStrip.TabIndex = 1;
+            this.MainMenuStrip.Text = "menuStrip1";
             // 
             // файлToolStripMenuItem
             // 
@@ -78,7 +83,7 @@
             // создатьНовыйToolStripMenuItem
             // 
             this.создатьНовыйToolStripMenuItem.Name = "создатьНовыйToolStripMenuItem";
-            this.создатьНовыйToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.создатьНовыйToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.создатьНовыйToolStripMenuItem.Text = "Создать новый";
             this.создатьНовыйToolStripMenuItem.Click += new System.EventHandler(this.создатьНовыйToolStripMenuItem_Click);
             // 
@@ -87,14 +92,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.MainTreeView);
+            this.Controls.Add(this.MainMenuStrip);
             this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.MainMenuStrip;
             this.Name = "MainForm";
-            this.Text = "Form1";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Text = "Wow Case App";
+            this.MainMenuStrip.ResumeLayout(false);
+            this.MainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,8 +107,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.TreeView MainTreeView;
+        private System.Windows.Forms.MenuStrip MainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьНовыйToolStripMenuItem;
     }
