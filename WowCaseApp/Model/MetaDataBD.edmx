@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MetaDataDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MetaDataDBStoreContainer">
+    <EntitySet Name="TableSet" EntityType="MetaDataDB.Store.TableSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AttributeSet" EntityType="MetaDataDB.Store.AttributeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FormSet" EntityType="MetaDataDB.Store.FormSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ReportSet" EntityType="MetaDataDB.Store.ReportSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="QuerySet" EntityType="MetaDataDB.Store.QuerySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AttributeInFormSet" EntityType="MetaDataDB.Store.AttributeInFormSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AttributeInReportSet" EntityType="MetaDataDB.Store.AttributeInReportSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TableTable" EntityType="MetaDataDB.Store.TableTable" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="AttributeTable" Association="MetaDataDB.Store.AttributeTable">
+      <End Role="Attribute" EntitySet="AttributeSet" />
+      <End Role="Table" EntitySet="TableSet" />
+    </AssociationSet>
+    <AssociationSet Name="AttributeInReportReport" Association="MetaDataDB.Store.AttributeInReportReport">
+      <End Role="AttributeInReport" EntitySet="AttributeInReportSet" />
+      <End Role="Report" EntitySet="ReportSet" />
+    </AssociationSet>
+    <AssociationSet Name="AttributeInFormForm" Association="MetaDataDB.Store.AttributeInFormForm">
+      <End Role="AttributeInForm" EntitySet="AttributeInFormSet" />
+      <End Role="Form" EntitySet="FormSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TableTable_Table" Association="MetaDataDB.Store.FK_TableTable_Table">
+      <End Role="Table" EntitySet="TableSet" />
+      <End Role="TableTable" EntitySet="TableTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TableTable_Table1" Association="MetaDataDB.Store.FK_TableTable_Table1">
+      <End Role="Table1" EntitySet="TableSet" />
+      <End Role="TableTable" EntitySet="TableTable" />
+    </AssociationSet>
+    <AssociationSet Name="AttributeAttributeInForm" Association="MetaDataDB.Store.AttributeAttributeInForm">
+      <End Role="Attribute" EntitySet="AttributeSet" />
+      <End Role="AttributeInForm" EntitySet="AttributeInFormSet" />
+    </AssociationSet>
+    <AssociationSet Name="AttributeAttributeInReport" Association="MetaDataDB.Store.AttributeAttributeInReport">
+      <End Role="Attribute" EntitySet="AttributeSet" />
+      <End Role="AttributeInReport" EntitySet="AttributeInReportSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TableSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DBName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AttributeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Indexed" Type="bit" Nullable="false" />
+    <Property Name="Nullable" Type="bit" Nullable="false" />
+    <Property Name="DBName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsFKey" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsPKey" Type="bit" Nullable="false" />
+    <Property Name="Table_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FormSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QuerySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AttributeInFormSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="PointX" Type="float" Nullable="false" />
+    <Property Name="PointY" Type="float" Nullable="false" />
+    <Property Name="Width" Type="float" Nullable="false" />
+    <Property Name="Height" Type="float" Nullable="false" />
+    <Property Name="Form_Id" Type="int" Nullable="false" />
+    <Property Name="Origin_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AttributeInReportSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="PointX" Type="float" Nullable="false" />
+    <Property Name="PointY" Type="float" Nullable="false" />
+    <Property Name="Width" Type="float" Nullable="false" />
+    <Property Name="Height" Type="float" Nullable="false" />
+    <Property Name="Report_Id" Type="int" Nullable="false" />
+    <Property Name="Origin_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TableTable">
+    <Key>
+      <PropertyRef Name="TableTable_Table1_Id" />
+      <PropertyRef Name="Tables_Id" />
+    </Key>
+    <Property Name="TableTable_Table1_Id" Type="int" Nullable="false" />
+    <Property Name="Tables_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="AttributeTable">
+    <End Role="Attribute" Type="MetaDataDB.Store.AttributeSet" Multiplicity="*" />
+    <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Attribute">
+        <PropertyRef Name="Table_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AttributeInReportReport">
+    <End Role="AttributeInReport" Type="MetaDataDB.Store.AttributeInReportSet" Multiplicity="*" />
+    <End Role="Report" Type="MetaDataDB.Store.ReportSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Report">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AttributeInReport">
+        <PropertyRef Name="Report_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AttributeInFormForm">
+    <End Role="AttributeInForm" Type="MetaDataDB.Store.AttributeInFormSet" Multiplicity="*" />
+    <End Role="Form" Type="MetaDataDB.Store.FormSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Form">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AttributeInForm">
+        <PropertyRef Name="Form_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AttributeAttributeInForm">
+    <End Role="Attribute" Type="MetaDataDB.Store.AttributeSet" Multiplicity="1" />
+    <End Role="AttributeInForm" Type="MetaDataDB.Store.AttributeInFormSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attribute">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AttributeInForm">
+        <PropertyRef Name="Origin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AttributeAttributeInReport">
+    <End Role="Attribute" Type="MetaDataDB.Store.AttributeSet" Multiplicity="1" />
+    <End Role="AttributeInReport" Type="MetaDataDB.Store.AttributeInReportSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attribute">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AttributeInReport">
+        <PropertyRef Name="Origin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TableTable_Table">
+    <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="1" />
+    <End Role="TableTable" Type="MetaDataDB.Store.TableTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TableTable">
+        <PropertyRef Name="TableTable_Table1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TableTable_Table1">
+    <End Role="TableTable" Type="MetaDataDB.Store.TableTable" Multiplicity="*" />
+    <End Role="Table1" Type="MetaDataDB.Store.TableSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Table1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TableTable">
+        <PropertyRef Name="Tables_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MetaDataDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MetaDataDBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TableSet" EntityType="MetaDataDB.Table" />
+          <EntitySet Name="AttributeSet" EntityType="MetaDataDB.Attribute" />
+          <EntitySet Name="FormSet" EntityType="MetaDataDB.Form" />
+          <EntitySet Name="ReportSet" EntityType="MetaDataDB.Report" />
+          <EntitySet Name="QuerySet" EntityType="MetaDataDB.Query" />
+          <AssociationSet Name="AttributeTable" Association="MetaDataDB.AttributeTable">
+            <End Role="Attribute" EntitySet="AttributeSet" />
+            <End Role="Table" EntitySet="TableSet" />
+          </AssociationSet>
+          <AssociationSet Name="AttributeInReportReport" Association="MetaDataDB.AttributeInReportReport">
+            <End Role="AttributeInReport" EntitySet="AttributeInReportSet" />
+            <End Role="Report" EntitySet="ReportSet" />
+          </AssociationSet>
+          <AssociationSet Name="AttributeInFormForm" Association="MetaDataDB.AttributeInFormForm">
+            <End Role="AttributeInForm" EntitySet="AttributeInFormSet" />
+            <End Role="Form" EntitySet="FormSet" />
+          </AssociationSet>
+          <AssociationSet Name="TableTable" Association="MetaDataDB.TableTable">
+            <End Role="Table" EntitySet="TableSet" />
+            <End Role="Table1" EntitySet="TableSet" />
+          </AssociationSet>
+          <EntitySet Name="AttributeInFormSet" EntityType="MetaDataDB.AttributeInForm" />
+          <EntitySet Name="AttributeInReportSet" EntityType="MetaDataDB.AttributeInReport" />
+          <AssociationSet Name="AttributeAttributeInForm" Association="MetaDataDB.AttributeAttributeInForm">
+            <End Role="Attribute" EntitySet="AttributeSet" />
+            <End Role="AttributeInForm" EntitySet="AttributeInFormSet" />
+          </AssociationSet>
+          <AssociationSet Name="AttributeAttributeInReport" Association="MetaDataDB.AttributeAttributeInReport">
+            <End Role="Attribute" EntitySet="AttributeSet" />
+            <End Role="AttributeInReport" EntitySet="AttributeInReportSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Attribute" Relationship="MetaDataDB.AttributeTable" FromRole="Table" ToRole="Attribute" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="DBName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tables" Relationship="MetaDataDB.TableTable" FromRole="Table" ToRole="Table1" />
+        </EntityType>
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Table" Relationship="MetaDataDB.AttributeTable" FromRole="Attribute" ToRole="Table" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Indexed" Type="Boolean" Nullable="false" />
+          <Property Name="Nullable" Type="Boolean" Nullable="false" />
+          <Property Name="DBName" Type="String" Nullable="false" />
+          <Property Name="IsFKey" Type="String" Nullable="false" />
+          <NavigationProperty Name="AttributesInForm" Relationship="MetaDataDB.AttributeAttributeInForm" FromRole="Attribute" ToRole="AttributeInForm" />
+          <NavigationProperty Name="AttributesInReport" Relationship="MetaDataDB.AttributeAttributeInReport" FromRole="Attribute" ToRole="AttributeInReport" />
+          <Property Name="IsPKey" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AttributeInReport" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <NavigationProperty Name="Report" Relationship="MetaDataDB.AttributeInReportReport" FromRole="AttributeInReport" ToRole="Report" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PointX" Type="Double" Nullable="false" />
+          <Property Name="PointY" Type="Double" Nullable="false" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Origin" Relationship="MetaDataDB.AttributeAttributeInReport" FromRole="AttributeInReport" ToRole="Attribute" />
+        </EntityType>
+        <EntityType Name="AttributeInForm" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <NavigationProperty Name="Form" Relationship="MetaDataDB.AttributeInFormForm" FromRole="AttributeInForm" ToRole="Form" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PointX" Type="Double" Nullable="false" />
+          <Property Name="PointY" Type="Double" Nullable="false" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Origin" Relationship="MetaDataDB.AttributeAttributeInForm" FromRole="AttributeInForm" ToRole="Attribute" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AttributeInForm" Relationship="MetaDataDB.AttributeInFormForm" FromRole="Form" ToRole="AttributeInForm" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AttributeInReport" Relationship="MetaDataDB.AttributeInReportReport" FromRole="Report" ToRole="AttributeInReport" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Query">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="AttributeTable">
+          <End Type="MetaDataDB.Attribute" Role="Attribute" Multiplicity="*" />
+          <End Type="MetaDataDB.Table" Role="Table" Multiplicity="1" />
+        </Association>
+        <Association Name="AttributeInReportReport">
+          <End Type="MetaDataDB.AttributeInReport" Role="AttributeInReport" Multiplicity="*" />
+          <End Type="MetaDataDB.Report" Role="Report" Multiplicity="1" />
+        </Association>
+        <Association Name="AttributeInFormForm">
+          <End Type="MetaDataDB.AttributeInForm" Role="AttributeInForm" Multiplicity="*" />
+          <End Type="MetaDataDB.Form" Role="Form" Multiplicity="1" />
+        </Association>
+        <Association Name="TableTable">
+          <End Type="MetaDataDB.Table" Role="Table" Multiplicity="*" />
+          <End Type="MetaDataDB.Table" Role="Table1" Multiplicity="*" />
+        </Association>
+        <Association Name="AttributeAttributeInForm">
+          <End Type="MetaDataDB.Attribute" Role="Attribute" Multiplicity="1" />
+          <End Type="MetaDataDB.AttributeInForm" Role="AttributeInForm" Multiplicity="*" />
+        </Association>
+        <Association Name="AttributeAttributeInReport">
+          <End Type="MetaDataDB.Attribute" Role="Attribute" Multiplicity="1" />
+          <End Type="MetaDataDB.AttributeInReport" Role="AttributeInReport" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MetaDataDBStoreContainer" CdmEntityContainer="MetaDataDBContainer">
+    <EntitySetMapping Name="TableSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.Table)">
+        <MappingFragment StoreEntitySet="TableSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DBName" ColumnName="DBName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttributeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.Attribute)">
+        <MappingFragment StoreEntitySet="AttributeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+          <ScalarProperty Name="Nullable" ColumnName="Nullable" />
+          <ScalarProperty Name="DBName" ColumnName="DBName" />
+          <ScalarProperty Name="IsFKey" ColumnName="IsFKey" />
+          <ScalarProperty Name="IsPKey" ColumnName="IsPKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.Form)">
+        <MappingFragment StoreEntitySet="FormSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.Report)">
+        <MappingFragment StoreEntitySet="ReportSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuerySet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.Query)">
+        <MappingFragment StoreEntitySet="QuerySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttributeInFormSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.AttributeInForm)">
+        <MappingFragment StoreEntitySet="AttributeInFormSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PointX" ColumnName="PointX" />
+          <ScalarProperty Name="PointY" ColumnName="PointY" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttributeInReportSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.AttributeInReport)">
+        <MappingFragment StoreEntitySet="AttributeInReportSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PointX" ColumnName="PointX" />
+          <ScalarProperty Name="PointY" ColumnName="PointY" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AttributeTable" TypeName="MetaDataDB.AttributeTable" StoreEntitySet="AttributeSet">
+      <EndProperty Name="Table">
+        <ScalarProperty Name="Id" ColumnName="Table_Id" />
+      </EndProperty>
+      <EndProperty Name="Attribute">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AttributeInReportReport" TypeName="MetaDataDB.AttributeInReportReport" StoreEntitySet="AttributeInReportSet">
+      <EndProperty Name="Report">
+        <ScalarProperty Name="Id" ColumnName="Report_Id" />
+      </EndProperty>
+      <EndProperty Name="AttributeInReport">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AttributeInFormForm" TypeName="MetaDataDB.AttributeInFormForm" StoreEntitySet="AttributeInFormSet">
+      <EndProperty Name="Form">
+        <ScalarProperty Name="Id" ColumnName="Form_Id" />
+      </EndProperty>
+      <EndProperty Name="AttributeInForm">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TableTable" TypeName="MetaDataDB.TableTable" StoreEntitySet="TableTable">
+      <EndProperty Name="Table">
+        <ScalarProperty Name="Id" ColumnName="TableTable_Table1_Id" />
+      </EndProperty>
+      <EndProperty Name="Table1">
+        <ScalarProperty Name="Id" ColumnName="Tables_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AttributeAttributeInForm" TypeName="MetaDataDB.AttributeAttributeInForm" StoreEntitySet="AttributeInFormSet">
+      <EndProperty Name="Attribute">
+        <ScalarProperty Name="Id" ColumnName="Origin_Id" />
+      </EndProperty>
+      <EndProperty Name="AttributeInForm">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AttributeAttributeInReport" TypeName="MetaDataDB.AttributeAttributeInReport" StoreEntitySet="AttributeInReportSet">
+      <EndProperty Name="Attribute">
+        <ScalarProperty Name="Id" ColumnName="Origin_Id" />
+      </EndProperty>
+      <EndProperty Name="AttributeInReport">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="MetaDataDB.Table" Width="1.5" PointX="3.125" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetaDataDB.Attribute" Width="1.5" PointX="5.875" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetaDataDB.AttributeInReport" Width="1.5" PointX="4.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetaDataDB.AttributeInForm" Width="1.5" PointX="7" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetaDataDB.Form" Width="1.5" PointX="9.125" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetaDataDB.Report" Width="1.5" PointX="2.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetaDataDB.Query" Width="1.5" PointX="8.375" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="MetaDataDB.AttributeTable" ManuallyRouted="false" />
+        <AssociationConnector Association="MetaDataDB.AttributeInReportReport" ManuallyRouted="false" />
+        <AssociationConnector Association="MetaDataDB.AttributeInFormForm" ManuallyRouted="false" />
+        <AssociationConnector Association="MetaDataDB.TableTable" ManuallyRouted="false" />
+        <AssociationConnector Association="MetaDataDB.AttributeAttributeInForm" />
+        <AssociationConnector Association="MetaDataDB.AttributeAttributeInReport" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
