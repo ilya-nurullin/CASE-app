@@ -58,7 +58,6 @@ namespace WowCaseApp
                     MainTreeView.SelectedNode = node;
 
                     // Find the appropriate ContextMenu depending on the selected node.
-                    var s = Convert.ToString(node.Tag);
                     switch (Convert.ToString(node.Tag))
                     {
                         case "Tables":
@@ -67,6 +66,13 @@ namespace WowCaseApp
                     }
                 }
             }
+        }
+
+        private void создатьНовуюТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewTableForm form = new NewTableForm();
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }
