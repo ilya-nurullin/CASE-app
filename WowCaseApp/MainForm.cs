@@ -36,5 +36,37 @@ namespace WowCaseApp
 
             }
         }
+
+        private TreeNode m_OldSelectNode;
+
+        private void MainTreeView_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                // Point where the mouse is clicked.
+                Point p = new Point(e.X, e.Y);
+
+                // Get the node that the user has clicked.
+                TreeNode node = MainTreeView.GetNodeAt(p);
+                if (node != null)
+                {
+
+                    // Select the node the user has clicked.
+                    // The node appears selected until the menu is displayed on the screen.
+                    m_OldSelectNode = MainTreeView.SelectedNode;
+                    MainTreeView.SelectedNode = node;
+
+                    // Find the appropriate ContextMenu depending on the selected node.
+                    var s = Convert.ToString(node.Tag);
+                    switch (Convert.ToString(node.Tag))
+                    {
+                        case "Tables":
+                            tablesContextMenu.Show(MainTreeView, p);
+                            break;
+                    }
+                }
+            }
+        }
     }
 }
