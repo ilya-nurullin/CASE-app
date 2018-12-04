@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WowCaseApp
 {
-    public partial class Form1 : Form
+    public partial class ChildForm : Form
     {
-        public Form1()
+        public ChildForm()
         {
             InitializeComponent();
         }
