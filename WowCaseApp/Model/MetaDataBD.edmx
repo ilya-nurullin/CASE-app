@@ -479,7 +479,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="79">
+      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="MetaDataDB.Table" Width="1.5" PointX="3.125" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MetaDataDB.Attribute" Width="1.5" PointX="5.875" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MetaDataDB.AttributeInReport" Width="1.5" PointX="4.75" PointY="6.625" IsExpanded="true" />
