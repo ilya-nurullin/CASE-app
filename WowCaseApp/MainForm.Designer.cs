@@ -40,6 +40,8 @@
             this.entityConnection1 = new System.Data.Entity.Core.EntityClient.EntityConnection();
             this.tablesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьНовуюТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьНовыйЗапросToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
             this.MainMenuStrip.SuspendLayout();
             this.tablesContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +57,7 @@
             treeNode2.Name = "Forms";
             treeNode2.Text = "Формы";
             treeNode3.Name = "Queries";
+            treeNode3.Tag = "Queries";
             treeNode3.Text = "Запросы";
             treeNode4.Name = "Reports";
             treeNode4.Text = "Отчеты";
@@ -99,6 +102,9 @@
             this.tablesContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tablesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьНовуюТаблицуToolStripMenuItem});
+            
+            this.tablesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.создатьНовыйЗапросToolStripMenuItem});
             this.tablesContextMenu.Name = "tablesContextMenu";
             this.tablesContextMenu.Size = new System.Drawing.Size(243, 28);
             // 
@@ -108,6 +114,14 @@
             this.создатьНовуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
             this.создатьНовуюТаблицуToolStripMenuItem.Text = "Создать новую таблицу";
             this.создатьНовуюТаблицуToolStripMenuItem.Click += new System.EventHandler(this.создатьНовуюТаблицуToolStripMenuItem_Click);
+
+            // 
+            // создатьНовыйЗапросToolStripMenuItem
+            // 
+            this.создатьНовыйЗапросToolStripMenuItem.Name = "создатьНовуюТаблицуToolStripMenuItem";
+            this.создатьНовыйЗапросToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
+            this.создатьНовыйЗапросToolStripMenuItem.Text = "Создать новый запрос";
+            this.создатьНовыйЗапросToolStripMenuItem.Click += new System.EventHandler(this.создатьНовыйЗапросToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -136,6 +150,8 @@
         private System.Data.Entity.Core.EntityClient.EntityConnection entityConnection1;
         private System.Windows.Forms.ContextMenuStrip tablesContextMenu;
         private System.Windows.Forms.ToolStripMenuItem создатьНовуюТаблицуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem создатьНовыйЗапросToolStripMenuItem;
+
     }
 }
 

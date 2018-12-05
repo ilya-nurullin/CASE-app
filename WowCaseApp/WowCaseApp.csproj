@@ -54,11 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChildForm.cs">
+    <Compile Include="QueriesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChildForm.Designer.cs">
-      <DependentUpon>ChildForm.cs</DependentUpon>
+    <Compile Include="QueriesForm.Designer.cs">
+      <DependentUpon>QueriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Attribute.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
@@ -110,8 +110,8 @@
     <Compile Include="Model\Table.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ChildForm.resx">
-      <DependentUpon>ChildForm.cs</DependentUpon>
+    <EmbeddedResource Include="QueriesForm.resx">
+      <DependentUpon>QueriesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
