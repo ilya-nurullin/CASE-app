@@ -1,6 +1,6 @@
 ﻿namespace WowCaseApp
 {
-    partial class ChildForm
+    partial class QueryForm
     {
         /// <summary>
         /// Required designer variable.
