@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Таблицы");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Формы");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Запросы");
@@ -36,7 +37,11 @@
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьНовыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.entityConnection1 = new System.Data.Entity.Core.EntityClient.EntityConnection();
+            this.tablesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.создатьНовуюТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
+            this.tablesContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTreeView
@@ -45,6 +50,7 @@
             this.MainTreeView.Location = new System.Drawing.Point(0, 28);
             this.MainTreeView.Name = "MainTreeView";
             treeNode1.Name = "Tables";
+            treeNode1.Tag = "Tables";
             treeNode1.Text = "Таблицы";
             treeNode2.Name = "Forms";
             treeNode2.Text = "Формы";
@@ -57,9 +63,10 @@
             treeNode2,
             treeNode3,
             treeNode4});
-            this.MainTreeView.Size = new System.Drawing.Size(121, 422);
+            this.MainTreeView.Size = new System.Drawing.Size(146, 626);
             this.MainTreeView.TabIndex = 0;
             this.MainTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.MainTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainTreeView_MouseUp);
             // 
             // MainMenuStrip
             // 
@@ -68,7 +75,7 @@
             this.файлToolStripMenuItem});
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
-            this.MainMenuStrip.Size = new System.Drawing.Size(800, 28);
+            this.MainMenuStrip.Size = new System.Drawing.Size(1196, 28);
             this.MainMenuStrip.TabIndex = 1;
             this.MainMenuStrip.Text = "menuStrip1";
             // 
@@ -83,15 +90,30 @@
             // создатьНовыйToolStripMenuItem
             // 
             this.создатьНовыйToolStripMenuItem.Name = "создатьНовыйToolStripMenuItem";
-            this.создатьНовыйToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.создатьНовыйToolStripMenuItem.Size = new System.Drawing.Size(189, 26);
             this.создатьНовыйToolStripMenuItem.Text = "Создать новый";
             this.создатьНовыйToolStripMenuItem.Click += new System.EventHandler(this.создатьНовыйToolStripMenuItem_Click);
+            // 
+            // tablesContextMenu
+            // 
+            this.tablesContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.tablesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.создатьНовуюТаблицуToolStripMenuItem});
+            this.tablesContextMenu.Name = "tablesContextMenu";
+            this.tablesContextMenu.Size = new System.Drawing.Size(243, 28);
+            // 
+            // создатьНовуюТаблицуToolStripMenuItem
+            // 
+            this.создатьНовуюТаблицуToolStripMenuItem.Name = "создатьНовуюТаблицуToolStripMenuItem";
+            this.создатьНовуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
+            this.создатьНовуюТаблицуToolStripMenuItem.Text = "Создать новую таблицу";
+            this.создатьНовуюТаблицуToolStripMenuItem.Click += new System.EventHandler(this.создатьНовуюТаблицуToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1196, 654);
             this.Controls.Add(this.MainTreeView);
             this.Controls.Add(this.MainMenuStrip);
             this.IsMdiContainer = true;
@@ -99,6 +121,7 @@
             this.Text = "Wow Case App";
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
+            this.tablesContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,6 +133,9 @@
         private System.Windows.Forms.MenuStrip MainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьНовыйToolStripMenuItem;
+        private System.Data.Entity.Core.EntityClient.EntityConnection entityConnection1;
+        private System.Windows.Forms.ContextMenuStrip tablesContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem создатьНовуюТаблицуToolStripMenuItem;
     }
 }
 
