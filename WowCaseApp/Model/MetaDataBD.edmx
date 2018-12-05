@@ -311,6 +311,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="QueryText" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="AttributeTable">
           <End Type="MetaDataDB.Attribute" Role="Attribute" Multiplicity="*" />
@@ -479,7 +480,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="MetaDataDB.Table" Width="1.5" PointX="3.125" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MetaDataDB.Attribute" Width="1.5" PointX="5.875" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MetaDataDB.AttributeInReport" Width="1.5" PointX="4.75" PointY="6.625" IsExpanded="true" />
