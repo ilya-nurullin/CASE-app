@@ -50,7 +50,7 @@ namespace WowCaseApp
         {
             var t = (Table) comboBoxTables.SelectedItem;
 
-            var attribs = t.Attribute.Except(listBoxCurrent.Items.Cast<Attribute>().ToList()).ToList();
+            var attribs = t.Attributes.Except(listBoxCurrent.Items.Cast<Attribute>().ToList()).ToList();
 
             listBoxStock.Items.Clear();
 

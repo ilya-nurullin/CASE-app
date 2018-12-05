@@ -54,10 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QueriesForm.cs">
+    <Compile Include="Forms\Query\QueriesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QueriesForm.Designer.cs">
+    <Compile Include="Forms\Query\QueriesForm.Designer.cs">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Attribute.cs">
@@ -72,16 +72,16 @@
     <Compile Include="Model\Form.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewForm.cs">
+    <Compile Include="Forms\View\ViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ViewForm.Designer.cs">
+    <Compile Include="Forms\View\ViewForm.Designer.cs">
       <DependentUpon>ViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\MetaDataBD.Context.cs">
@@ -99,10 +99,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MetaDataBD.edmx</DependentUpon>
     </Compile>
-    <Compile Include="NewTableForm.cs">
+    <Compile Include="Forms\Table\NewTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewTableForm.Designer.cs">
+    <Compile Include="Forms\Table\NewTableForm.Designer.cs">
       <DependentUpon>NewTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -116,13 +116,13 @@
     <Compile Include="Model\Table.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="QueriesForm.resx">
+    <EmbeddedResource Include="Forms\Query\QueriesForm.resx">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewTableForm.resx">
+    <EmbeddedResource Include="Forms\Table\NewTableForm.resx">
       <DependentUpon>NewTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -135,7 +135,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ViewForm.resx">
+    <EmbeddedResource Include="Forms\View\ViewForm.resx">
       <DependentUpon>ViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="Model\MetaDataBD.edmx">
@@ -171,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\Report\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
