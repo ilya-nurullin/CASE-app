@@ -26,7 +26,6 @@ namespace WowCaseApp.Model
         public string Type { get; set; }
         public bool Indexed { get; set; }
         public bool Nullable { get; set; }
-        public string DBName { get; set; }
         public string IsFKey { get; set; }
         public bool IsPKey { get; set; }
     

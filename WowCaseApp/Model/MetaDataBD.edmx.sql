@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/05/2018 13:02:35
--- Generated from EDMX file: C:\Users\ГильманМаксимМихайло\source\repos\wow-case-cs-app\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
+-- Date Created: 12/06/2018 13:54:25
+-- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -87,7 +87,6 @@ CREATE TABLE [dbo].[AttributeSet] (
     [Type] nvarchar(max)  NOT NULL,
     [Indexed] bit  NOT NULL,
     [Nullable] bit  NOT NULL,
-    [DBName] nvarchar(max)  NOT NULL,
     [IsFKey] nvarchar(max)  NOT NULL,
     [IsPKey] bit  NOT NULL,
     [Table_Id] int  NOT NULL
