@@ -59,10 +59,12 @@ namespace WowCaseApp
                     switch (Convert.ToString(node.Tag))
                     {
                         case "Tables":
+                            { 
                             tablesContextMenu.Show(MainTreeView, p);
                             break;
+                            }
 
-                        case "Queries": { tablesContextMenu.Show(MainTreeView, p); break; }
+                        case "Queries": { queriesContextMenu.Show(MainTreeView, p); break; }
                     }
                 }
             }

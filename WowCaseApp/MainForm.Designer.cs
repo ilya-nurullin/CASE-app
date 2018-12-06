@@ -41,7 +41,7 @@
             this.tablesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьНовуюТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьНовыйЗапросToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
+            this.queriesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MainMenuStrip.SuspendLayout();
             this.tablesContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -102,11 +102,8 @@
             this.tablesContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tablesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьНовуюТаблицуToolStripMenuItem});
-            
-            this.tablesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.создатьНовыйЗапросToolStripMenuItem});
             this.tablesContextMenu.Name = "tablesContextMenu";
-            this.tablesContextMenu.Size = new System.Drawing.Size(243, 28);
+            this.tablesContextMenu.Size = new System.Drawing.Size(243, 52);
             // 
             // создатьНовуюТаблицуToolStripMenuItem
             // 
@@ -114,14 +111,21 @@
             this.создатьНовуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
             this.создатьНовуюТаблицуToolStripMenuItem.Text = "Создать новую таблицу";
             this.создатьНовуюТаблицуToolStripMenuItem.Click += new System.EventHandler(this.создатьНовуюТаблицуToolStripMenuItem_Click);
-
             // 
             // создатьНовыйЗапросToolStripMenuItem
             // 
-            this.создатьНовыйЗапросToolStripMenuItem.Name = "создатьНовуюТаблицуToolStripMenuItem";
+            this.создатьНовыйЗапросToolStripMenuItem.Name = "создатьНовыйЗапросToolStripMenuItem";
             this.создатьНовыйЗапросToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
             this.создатьНовыйЗапросToolStripMenuItem.Text = "Создать новый запрос";
             this.создатьНовыйЗапросToolStripMenuItem.Click += new System.EventHandler(this.создатьНовыйЗапросToolStripMenuItem_Click);
+            // 
+            // queriesContextMenu
+            // 
+            this.queriesContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.queriesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.создатьНовыйЗапросToolStripMenuItem});
+            this.queriesContextMenu.Name = "queriesContextMenu";
+            this.queriesContextMenu.Size = new System.Drawing.Size(211, 32);
             // 
             // MainForm
             // 
@@ -151,7 +155,7 @@
         private System.Windows.Forms.ContextMenuStrip tablesContextMenu;
         private System.Windows.Forms.ToolStripMenuItem создатьНовуюТаблицуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьНовыйЗапросToolStripMenuItem;
-
+        private System.Windows.Forms.ContextMenuStrip queriesContextMenu;
     }
 }
 
