@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WowCaseApp.Forms.View
 {
-    partial class FormsControl
+    public partial class ViewForm
     {
     }
 }
