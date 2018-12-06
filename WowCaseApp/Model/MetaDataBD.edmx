@@ -49,7 +49,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DBName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="AttributeSet">
     <Key>
@@ -246,7 +245,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Attributes" Relationship="MetaDataDB.AttributeTable" FromRole="Table" ToRole="Attribute" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="DBName" Type="String" Nullable="false" />
           <NavigationProperty Name="Tables" Relationship="MetaDataDB.TableTable" FromRole="Table" ToRole="Table1" />
         </EntityType>
         <EntityType Name="Attribute">
@@ -347,7 +345,6 @@
         <MappingFragment StoreEntitySet="TableSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="DBName" ColumnName="DBName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

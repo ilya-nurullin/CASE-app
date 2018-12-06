@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/06/2018 13:54:25
+-- Date Created: 12/06/2018 16:35:36
 -- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
@@ -75,8 +75,7 @@ GO
 -- Creating table 'TableSet'
 CREATE TABLE [dbo].[TableSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [DBName] nvarchar(max)  NOT NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
