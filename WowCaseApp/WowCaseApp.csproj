@@ -117,17 +117,20 @@
     <Compile Include="Forms\Query\QueriesForm.Designer.cs">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Attribute.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    <Compile Include="Forms\View\FormControlAttributesPage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Model\AttributeInForm.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    <Compile Include="Forms\View\FormsControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Model\AttributeInReport.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    <Compile Include="Forms\View\FormsControl.Designer.cs">
+      <DependentUpon>FormsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Form.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    <Compile Include="Forms\View\FormsControlTablePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\View\FormsControlViewPage.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -140,6 +143,24 @@
     </Compile>
     <Compile Include="Forms\View\ViewForm.Designer.cs">
       <DependentUpon>ViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Table\NewTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Table\NewTableForm.Designer.cs">
+      <DependentUpon>NewTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Attribute.cs">
+      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AttributeInForm.cs">
+      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AttributeInReport.cs">
+      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Form.cs">
+      <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\MetaDataBD.Context.cs">
       <AutoGen>True</AutoGen>
@@ -156,15 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MetaDataBD.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\NewTableForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Table\NewTableForm.Designer.cs">
-      <DependentUpon>NewTableForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\ModelExtention.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Query.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
@@ -174,6 +187,8 @@
     <Compile Include="Model\Table.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Query\QueriesForm.resx">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\NewTableForm.resx">
       <DependentUpon>NewTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\View\FormsControl.resx">
+      <DependentUpon>FormsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -215,6 +233,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\Report\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\MetaDataBD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MetaDataBD.Context.cs</LastGenOutput>
@@ -226,12 +250,6 @@
       <LastGenOutput>MetaDataBD.cs</LastGenOutput>
       <DependentUpon>MetaDataBD.edmx</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\Report\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

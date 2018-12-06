@@ -1,4 +1,4 @@
-﻿namespace WowCaseApp
+﻿namespace WowCaseApp.Forms.View
 {
     partial class ViewForm
     {
