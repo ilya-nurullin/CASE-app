@@ -24,9 +24,9 @@ namespace WowCaseApp.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public bool Indexed { get; set; }
-        public bool Nullable { get; set; }
-        public string IsFKey { get; set; }
+        public bool IsIndexed { get; set; }
+        public bool IsNullable { get; set; }
+        public bool IsFKey { get; set; }
         public bool IsPKey { get; set; }
     
         public virtual Table Table { get; set; }
