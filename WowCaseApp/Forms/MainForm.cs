@@ -65,7 +65,9 @@ namespace WowCaseApp
                             break;
                             }
 
-                        case "Queries": { tablesContextMenu.Show(MainTreeView, p); break; }
+                        case "Queries": { queriesMenuStrip.Show(MainTreeView, p); break; }
+                        case "Views": { viewsMenuStrip.Show(MainTreeView, p); break; }
+
                     }
                 }
             }
@@ -77,21 +79,21 @@ namespace WowCaseApp
             form.MdiParent = this;
             form.Show();
         }
-        private void создатьНовыйЗапросToolStripMenuItem_Click(object sender, EventArgs e)
+         
+      
+
+        private void создатьНовыйЗапросToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             QueriesForm childForm = new QueriesForm();
             childForm.MdiParent = this;
             childForm.Show();
         }
-        private void создатьНовуюФормуToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ViewForm childForm = new ViewForm();
             childForm.MdiParent = this;
             childForm.Show();
-        }
-        private void создатьНовыйОтчётToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
