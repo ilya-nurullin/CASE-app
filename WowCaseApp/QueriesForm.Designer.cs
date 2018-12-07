@@ -40,6 +40,14 @@
             this.btnDeleteAll = new System.Windows.Forms.Button();
             this.btnAddNewJoin = new System.Windows.Forms.Button();
             this.labelJoins = new System.Windows.Forms.Label();
+            this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
+            this.JoinGroupBox = new System.Windows.Forms.GroupBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CreateQuery = new System.Windows.Forms.Button();
+            this.JoinGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbTables
@@ -151,7 +159,7 @@
             // 
             // btnAddNewJoin
             // 
-            this.btnAddNewJoin.Location = new System.Drawing.Point(337, 329);
+            this.btnAddNewJoin.Location = new System.Drawing.Point(337, 328);
             this.btnAddNewJoin.Name = "btnAddNewJoin";
             this.btnAddNewJoin.Size = new System.Drawing.Size(43, 23);
             this.btnAddNewJoin.TabIndex = 10;
@@ -162,17 +170,91 @@
             // labelJoins
             // 
             this.labelJoins.AutoSize = true;
-            this.labelJoins.Location = new System.Drawing.Point(309, 309);
+            this.labelJoins.Location = new System.Drawing.Point(309, 308);
             this.labelJoins.Name = "labelJoins";
             this.labelJoins.Size = new System.Drawing.Size(112, 17);
             this.labelJoins.TabIndex = 11;
             this.labelJoins.Text = "Добавить связь";
             // 
+            // entityCommand1
+            // 
+            this.entityCommand1.CommandTimeout = 0;
+            this.entityCommand1.CommandTree = null;
+            this.entityCommand1.Connection = null;
+            this.entityCommand1.EnablePlanCaching = true;
+            this.entityCommand1.Transaction = null;
+            // 
+            // JoinGroupBox
+            // 
+            this.JoinGroupBox.Controls.Add(this.comboBox4);
+            this.JoinGroupBox.Controls.Add(this.comboBox3);
+            this.JoinGroupBox.Controls.Add(this.comboBox2);
+            this.JoinGroupBox.Controls.Add(this.comboBox1);
+            this.JoinGroupBox.Location = new System.Drawing.Point(57, 337);
+            this.JoinGroupBox.Name = "JoinGroupBox";
+            this.JoinGroupBox.Size = new System.Drawing.Size(595, 141);
+            this.JoinGroupBox.TabIndex = 12;
+            this.JoinGroupBox.TabStop = false;
+            this.JoinGroupBox.Text = "Добавление группировки";
+            this.JoinGroupBox.Visible = false;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "4"});
+            this.comboBox4.Location = new System.Drawing.Point(367, 88);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(222, 24);
+            this.comboBox4.TabIndex = 7;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "2"});
+            this.comboBox3.Location = new System.Drawing.Point(6, 88);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(222, 24);
+            this.comboBox3.TabIndex = 6;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "3"});
+            this.comboBox2.Location = new System.Drawing.Point(367, 29);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(222, 24);
+            this.comboBox2.TabIndex = 5;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1"});
+            this.comboBox1.Location = new System.Drawing.Point(6, 29);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(222, 24);
+            this.comboBox1.TabIndex = 4;
+            // 
+            // CreateQuery
+            // 
+            this.CreateQuery.Location = new System.Drawing.Point(497, 308);
+            this.CreateQuery.Name = "CreateQuery";
+            this.CreateQuery.Size = new System.Drawing.Size(155, 23);
+            this.CreateQuery.TabIndex = 13;
+            this.CreateQuery.Text = "Создать запрос";
+            this.CreateQuery.UseVisualStyleBackColor = true;
+            this.CreateQuery.Click += new System.EventHandler(this.CreateQuery_Click);
+            // 
             // QueriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(921, 510);
+            this.ClientSize = new System.Drawing.Size(829, 584);
+            this.Controls.Add(this.CreateQuery);
+            this.Controls.Add(this.JoinGroupBox);
             this.Controls.Add(this.labelJoins);
             this.Controls.Add(this.btnAddNewJoin);
             this.Controls.Add(this.btnDeleteAll);
@@ -188,6 +270,7 @@
             this.Name = "QueriesForm";
             this.Text = "ChildForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.JoinGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,5 +290,12 @@
         private System.Windows.Forms.Button btnDeleteAll;
         private System.Windows.Forms.Button btnAddNewJoin;
         private System.Windows.Forms.Label labelJoins;
+        private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
+        private System.Windows.Forms.GroupBox JoinGroupBox;
+        private System.Windows.Forms.Button CreateQuery;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
