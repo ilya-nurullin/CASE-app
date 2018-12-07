@@ -17,13 +17,13 @@ namespace WowCaseApp.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Form()
         {
-            this.AttributeInForm = new HashSet<AttributeInForm>();
+            this.AttributesInForm = new HashSet<AttributeInForm>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AttributeInForm> AttributeInForm { get; set; }
+        public virtual ICollection<AttributeInForm> AttributesInForm { get; set; }
     }
 }

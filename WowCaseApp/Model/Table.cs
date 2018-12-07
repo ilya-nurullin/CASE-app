@@ -17,16 +17,15 @@ namespace WowCaseApp.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Table()
         {
-            this.Attribute = new HashSet<Attribute>();
+            this.Attributes = new HashSet<Attribute>();
             this.Tables = new HashSet<Table>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string DBName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attribute> Attribute { get; set; }
+        public virtual ICollection<Attribute> Attributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Table> Tables { get; set; }
     }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WowCaseApp.Forms.View;
 
 namespace WowCaseApp
 {
@@ -64,7 +65,7 @@ namespace WowCaseApp
                             break;
                             }
 
-                        case "Queries": { queriesContextMenu.Show(MainTreeView, p); break; }
+                        case "Queries": { tablesContextMenu.Show(MainTreeView, p); break; }
                     }
                 }
             }
@@ -81,6 +82,16 @@ namespace WowCaseApp
             QueriesForm childForm = new QueriesForm();
             childForm.MdiParent = this;
             childForm.Show();
+        }
+        private void создатьНовуюФормуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewForm childForm = new ViewForm();
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
+        private void создатьНовыйОтчётToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
