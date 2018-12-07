@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using WowCaseApp.Model;
 using Form = System.Windows.Forms.Form;
-using Attribute = WowCaseApp.Model.Attribute;
 
 namespace WowCaseApp.Forms.View
 {
@@ -17,30 +10,36 @@ namespace WowCaseApp.Forms.View
         private MetaDataDBContainer _cont;
 
 
-        public ViewForm(MetaDataDBContainer cont)
+        public ViewForm()
         {
             InitializeComponent();
 
-            _cont = cont;
 
-            Initialize();
+            InitializeAttributePage();
+            try
+            {
+            }
+            catch (Exception e)
+            {
+                SaveError(e);
+            }
         }
 
-        void Initialize()
+        void SaveError(Exception e)
         {
-            comboBoxTables.Items.Clear();
+            if (!Directory.Exists("./logs"))
+                Directory.CreateDirectory("logs");
 
-            foreach (var t in _cont.TableSet)
+            DateTime now = DateTime.Now;
+            string fileName = $"log-{now:dd.MM.yyyy}-{now:HH.mm.ss}.txt";
+
+            var fs =File.Create("./logs/" + fileName);
+            fs.Close();
+
+            using (var sw = new StreamWriter("./logs/" + fileName))
             {
-                comboBoxTables.Items.Add(t);
+                sw.WriteLine(e.ToString());
             }
-
-            if (comboBoxTables.Items.Count > 0)
-            {
-                comboBoxTables.SelectedIndex = 0;
-                ShowAttributesInStock();
-            }
-
         }
     }
 }

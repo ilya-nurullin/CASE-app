@@ -85,7 +85,7 @@
             // 
             this.buttontoStockAll.Location = new System.Drawing.Point(213, 214);
             this.buttontoStockAll.Name = "buttontoStockAll";
-            this.buttontoStockAll.Size = new System.Drawing.Size(32, 24);
+            this.buttontoStockAll.Size = new System.Drawing.Size(43, 24);
             this.buttontoStockAll.TabIndex = 9;
             this.buttontoStockAll.Text = "<<";
             this.buttontoStockAll.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
             // 
             this.buttonToStock.Location = new System.Drawing.Point(213, 185);
             this.buttonToStock.Name = "buttonToStock";
-            this.buttonToStock.Size = new System.Drawing.Size(32, 24);
+            this.buttonToStock.Size = new System.Drawing.Size(43, 24);
             this.buttonToStock.TabIndex = 8;
             this.buttonToStock.Text = "<";
             this.buttonToStock.UseVisualStyleBackColor = true;
@@ -105,7 +105,7 @@
             // 
             this.buttonToCurrentAll.Location = new System.Drawing.Point(213, 131);
             this.buttonToCurrentAll.Name = "buttonToCurrentAll";
-            this.buttonToCurrentAll.Size = new System.Drawing.Size(32, 24);
+            this.buttonToCurrentAll.Size = new System.Drawing.Size(43, 24);
             this.buttonToCurrentAll.TabIndex = 7;
             this.buttonToCurrentAll.Text = ">>";
             this.buttonToCurrentAll.UseVisualStyleBackColor = true;
@@ -113,9 +113,10 @@
             // 
             // buttonToCurrent
             // 
+            this.buttonToCurrent.Enabled = false;
             this.buttonToCurrent.Location = new System.Drawing.Point(213, 102);
             this.buttonToCurrent.Name = "buttonToCurrent";
-            this.buttonToCurrent.Size = new System.Drawing.Size(32, 24);
+            this.buttonToCurrent.Size = new System.Drawing.Size(43, 24);
             this.buttonToCurrent.TabIndex = 6;
             this.buttonToCurrent.Text = ">";
             this.buttonToCurrent.UseVisualStyleBackColor = true;
@@ -136,8 +137,10 @@
             this.listBoxCurrent.ItemHeight = 16;
             this.listBoxCurrent.Location = new System.Drawing.Point(282, 79);
             this.listBoxCurrent.Name = "listBoxCurrent";
+            this.listBoxCurrent.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listBoxCurrent.Size = new System.Drawing.Size(172, 212);
             this.listBoxCurrent.TabIndex = 4;
+            this.listBoxCurrent.Click += new System.EventHandler(this.listBoxCurrent_Click);
             // 
             // listBoxStock
             // 
@@ -145,8 +148,10 @@
             this.listBoxStock.ItemHeight = 16;
             this.listBoxStock.Location = new System.Drawing.Point(14, 79);
             this.listBoxStock.Name = "listBoxStock";
+            this.listBoxStock.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listBoxStock.Size = new System.Drawing.Size(172, 212);
             this.listBoxStock.TabIndex = 3;
+            this.listBoxStock.Click += new System.EventHandler(this.listBoxStock_Click);
             // 
             // labelTableAttributes
             // 
@@ -173,6 +178,7 @@
             this.comboBoxTables.Name = "comboBoxTables";
             this.comboBoxTables.Size = new System.Drawing.Size(440, 24);
             this.comboBoxTables.TabIndex = 0;
+            this.comboBoxTables.SelectedValueChanged += new System.EventHandler(this.comboBoxTables_SelectedValueChanged);
             // 
             // tabPage2
             // 
