@@ -8,5 +8,10 @@ namespace WowCaseApp.Forms.View
 {
     public partial class ViewForm
     {
+        public void InitializeViewPage()
+        {
+
+        }
+
     }
 }
