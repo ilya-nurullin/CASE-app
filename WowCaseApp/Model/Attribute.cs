@@ -14,25 +14,13 @@ namespace WowCaseApp.Model
     
     public partial class Attribute
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Attribute()
-        {
-            this.AttributesInForm = new HashSet<AttributeInForm>();
-            this.AttributesInReport = new HashSet<AttributeInReport>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
+        public string RealName { get; set; }
         public string Type { get; set; }
         public bool IsIndexed { get; set; }
         public bool IsNullable { get; set; }
         public bool IsFKey { get; set; }
         public bool IsPKey { get; set; }
-    
-        public virtual Table Table { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AttributeInForm> AttributesInForm { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AttributeInReport> AttributesInReport { get; set; }
     }
 }

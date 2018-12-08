@@ -14,16 +14,8 @@ namespace WowCaseApp.Model
     
     public partial class Form
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Form()
-        {
-            this.AttributesInForm = new HashSet<AttributeInForm>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AttributeInForm> AttributesInForm { get; set; }
+        public string Data { get; set; }
     }
 }
