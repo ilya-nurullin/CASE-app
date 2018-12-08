@@ -63,7 +63,7 @@
             treeNode2,
             treeNode3,
             treeNode4});
-            this.MainTreeView.Size = new System.Drawing.Size(146, 626);
+            this.MainTreeView.Size = new System.Drawing.Size(146, 758);
             this.MainTreeView.TabIndex = 0;
             this.MainTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.MainTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainTreeView_MouseUp);
@@ -75,7 +75,7 @@
             this.файлToolStripMenuItem});
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
-            this.MainMenuStrip.Size = new System.Drawing.Size(1196, 28);
+            this.MainMenuStrip.Size = new System.Drawing.Size(1567, 28);
             this.MainMenuStrip.TabIndex = 1;
             this.MainMenuStrip.Text = "menuStrip1";
             // 
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1196, 654);
+            this.ClientSize = new System.Drawing.Size(1567, 786);
             this.Controls.Add(this.MainTreeView);
             this.Controls.Add(this.MainMenuStrip);
             this.IsMdiContainer = true;

@@ -15,6 +15,7 @@ namespace WowCaseApp
         public MainForm()
         {
             InitializeComponent();
+            создатьНовуюТаблицуToolStripMenuItem_Click(null, null); // todo: remove
         }
 
         private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
