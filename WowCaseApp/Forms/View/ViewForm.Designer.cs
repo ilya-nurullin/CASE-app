@@ -41,9 +41,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxTables = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.PanelViewPage = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.PanelViewPage = new System.Windows.Forms.Panel();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -196,6 +196,15 @@
             this.tabPage2.Text = "Форма";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // PanelViewPage
+            // 
+            this.PanelViewPage.AutoScroll = true;
+            this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelViewPage.Location = new System.Drawing.Point(3, 3);
+            this.PanelViewPage.Name = "PanelViewPage";
+            this.PanelViewPage.Size = new System.Drawing.Size(786, 415);
+            this.PanelViewPage.TabIndex = 0;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.dataGridView1);
@@ -217,15 +226,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(792, 421);
             this.dataGridView1.TabIndex = 0;
             // 
-            // PanelViewPage
-            // 
-            this.PanelViewPage.AutoScroll = true;
-            this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelViewPage.Location = new System.Drawing.Point(3, 3);
-            this.PanelViewPage.Name = "PanelViewPage";
-            this.PanelViewPage.Size = new System.Drawing.Size(786, 415);
-            this.PanelViewPage.TabIndex = 0;
-            // 
             // ViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -234,6 +234,7 @@
             this.Controls.Add(this.tabControl);
             this.Name = "ViewForm";
             this.Text = "VIewForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
