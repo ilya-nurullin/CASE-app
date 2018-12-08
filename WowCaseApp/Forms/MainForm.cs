@@ -3,23 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DotNetEnv;
 using WowCaseApp.Forms.View;
+using WowCaseApp.Model;
 
 namespace WowCaseApp
 {
-    public partial class MainForm : Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MainForm));
+        private static readonly MetaDataDBContainer metaDbContainer = new MetaDataDBContainer();
+        private static readonly SqlConnection dbConnection = new SqlConnection(Env.GetString("DBConnectionString"));
 
         public MainForm()
         {
             InitializeComponent();
+            dbConnection.Open();
             log.Debug("App started");
+            log.Debug("Total tables in MetaDB: " + metaDbContainer.TableSet.Count());
+            log.Debug("Working DB name is " + dbConnection.Database);
         }
 
         private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
@@ -66,7 +74,7 @@ namespace WowCaseApp
 
         private void создатьНовуюТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewTableForm form = new NewTableForm();
+            NewTableForm form = new NewTableForm(metaDbContainer, dbConnection);
             form.MdiParent = this;
             form.Show();
         }
