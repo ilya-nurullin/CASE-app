@@ -16,6 +16,7 @@ namespace WowCaseApp
         static void Main()
         {
             Initialize();
+            log4net.Config.XmlConfigurator.Configure();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

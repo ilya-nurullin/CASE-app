@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,12 @@ namespace WowCaseApp
 {
     public partial class MainForm : Form
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MainForm));
+
         public MainForm()
         {
             InitializeComponent();
+            log.Debug("App started");
         }
 
         private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)

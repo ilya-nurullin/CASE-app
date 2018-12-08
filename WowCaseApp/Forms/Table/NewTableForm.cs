@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,12 @@ namespace WowCaseApp
 {
     public partial class NewTableForm : Form
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(NewTableForm));
+
         public NewTableForm()
         {
             InitializeComponent();
+            log.Debug("NewTableForm opened");
         }
     }
 }
