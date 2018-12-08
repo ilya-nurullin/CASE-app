@@ -9,7 +9,7 @@ namespace WowCaseApp.Forms.View
 {
     public partial class ViewForm : Form
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MainForm));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ViewForm));
 
 
         private MetaDataDBContainer _cont;
