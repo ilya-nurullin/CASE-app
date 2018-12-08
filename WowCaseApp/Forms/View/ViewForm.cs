@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using log4net;
 using WowCaseApp.Model;
-using Form = System.Windows.Forms.Form;
+using View = WowCaseApp.Model.View;
 
 namespace WowCaseApp.Forms.View
 {
@@ -13,6 +13,7 @@ namespace WowCaseApp.Forms.View
 
 
         private MetaDataDBContainer _cont;
+        private Model.View view;
 
 
         public ViewForm()
@@ -21,6 +22,51 @@ namespace WowCaseApp.Forms.View
 
             try
             {
+                _cont = new MetaDataDBContainer();
+                view = new Model.View("NewView");
+                _cont.ViewSet.Add(view);
+                _cont.SaveChanges();
+
+                InitializeAttributePage();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Возникла ошибка");
+                log.Error(e);
+                //SaveError(e);
+            }
+        }
+
+        public ViewForm(MetaDataDBContainer Container, string ViewName)
+        {
+            InitializeComponent();
+
+            try
+            {
+                _cont = Container;
+                view = new Model.View(ViewName);
+                _cont.ViewSet.Add(view);
+                _cont.SaveChanges();
+
+                InitializeAttributePage();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Возникла ошибка");
+                log.Error(e);
+                //SaveError(e);
+            }
+        }
+
+        public ViewForm(MetaDataDBContainer Container, Model.View View)
+        {
+            InitializeComponent();
+
+            try
+            {
+                _cont = Container;
+                view = View;
+
                 InitializeAttributePage();
             }
             catch (Exception e)
@@ -39,7 +85,7 @@ namespace WowCaseApp.Forms.View
                     InitializeAttributePage();
                     break;
                 case "Form":
-                    //InitializeAttributePage();
+                    InitializeViewPage();
                     break;
                 case "Table":
                     //InitializeAttributePage();
