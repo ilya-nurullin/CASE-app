@@ -98,7 +98,7 @@
         <EntityContainer Name="MetaDataDBContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TableSet" EntityType="MetaDataDB.Table" />
           <EntitySet Name="AttributeSet" EntityType="MetaDataDB.Attribute" />
-          <EntitySet Name="ViewSet1" EntityType="MetaDataDB.View" />
+          <EntitySet Name="ViewSet" EntityType="MetaDataDB.View" />
           <EntitySet Name="ReportSet" EntityType="MetaDataDB.Report" />
           <EntitySet Name="QuerySet" EntityType="MetaDataDB.Query" />
           <AssociationSet Name="AttributeTable" Association="MetaDataDB.AttributeTable">
@@ -194,7 +194,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ViewSet1">
+    <EntitySetMapping Name="ViewSet">
       <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.View)">
         <MappingFragment StoreEntitySet="VIewSet">
           <ScalarProperty Name="Id" ColumnName="Id" />

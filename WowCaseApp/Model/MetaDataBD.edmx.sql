@@ -71,7 +71,7 @@ CREATE TABLE [dbo].[AttributeSet] (
 );
 GO
 
--- Creating table 'ViewSet1'
+-- Creating table 'ViewSet'
 CREATE TABLE [dbo].[ViewSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
@@ -111,9 +111,9 @@ ADD CONSTRAINT [PK_AttributeSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'ViewSet1'
-ALTER TABLE [dbo].[ViewSet1]
-ADD CONSTRAINT [PK_ViewSet1]
+-- Creating primary key on [Id] in table 'ViewSet'
+ALTER TABLE [dbo].[ViewSet]
+ADD CONSTRAINT [PK_ViewSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
