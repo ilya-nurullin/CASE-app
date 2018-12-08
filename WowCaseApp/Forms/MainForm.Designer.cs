@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Таблицы");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Формы");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Запросы");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Отчеты");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Таблицы");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Формы");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Запросы");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Отчеты");
             this.MainTreeView = new System.Windows.Forms.TreeView();
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,26 +55,25 @@
             this.MainTreeView.Location = new System.Drawing.Point(0, 28);
             this.MainTreeView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MainTreeView.Name = "MainTreeView";
-            treeNode17.Name = "Tables";
-            treeNode17.Tag = "Tables";
-            treeNode17.Text = "Таблицы";
-            treeNode18.Name = "Forms";
-            treeNode18.Tag = "Views";
-            treeNode18.Text = "Формы";
-            treeNode19.Name = "Queries";
-            treeNode19.Tag = "Queries";
-            treeNode19.Text = "Запросы";
-            treeNode20.Name = "Reports";
-            treeNode20.Tag = "Reports";
-            treeNode20.Text = "Отчеты";
+            treeNode5.Name = "Tables";
+            treeNode5.Tag = "Tables";
+            treeNode5.Text = "Таблицы";
+            treeNode6.Name = "Forms";
+            treeNode6.Tag = "Views";
+            treeNode6.Text = "Формы";
+            treeNode7.Name = "Queries";
+            treeNode7.Tag = "Queries";
+            treeNode7.Text = "Запросы";
+            treeNode8.Name = "Reports";
+            treeNode8.Tag = "Reports";
+            treeNode8.Text = "Отчеты";
             this.MainTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20});
-            this.MainTreeView.Size = new System.Drawing.Size(145, 626);
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
+            this.MainTreeView.Size = new System.Drawing.Size(145, 707);
             this.MainTreeView.TabIndex = 0;
-            this.MainTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.MainTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainTreeView_MouseUp);
             // 
             // MainMenuStrip
@@ -85,7 +84,7 @@
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
             this.MainMenuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.MainMenuStrip.Size = new System.Drawing.Size(1196, 28);
+            this.MainMenuStrip.Size = new System.Drawing.Size(1377, 28);
             this.MainMenuStrip.TabIndex = 1;
             this.MainMenuStrip.Text = "menuStrip1";
             // 
@@ -140,7 +139,7 @@
             this.viewsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.viewsMenuStrip.Name = "queriesMenuStrip";
-            this.viewsMenuStrip.Size = new System.Drawing.Size(233, 56);
+            this.viewsMenuStrip.Size = new System.Drawing.Size(233, 28);
             this.viewsMenuStrip.Tag = "Views";
             // 
             // toolStripMenuItem1
@@ -154,12 +153,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1196, 654);
+            this.ClientSize = new System.Drawing.Size(1377, 735);
             this.Controls.Add(this.MainTreeView);
             this.Controls.Add(this.MainMenuStrip);
             this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wow Case App";
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();

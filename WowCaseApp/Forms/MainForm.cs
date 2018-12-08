@@ -23,19 +23,6 @@ namespace WowCaseApp
            
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            switch (e.Node.Text.ToLower())
-            {
-                case "таблицы": { break; }
-                case "формы": { break; }
-                case "запросы": { break; }
-                case "отчеты": { break; }
-
-
-            }
-        }
-
         private TreeNode m_OldSelectNode;
 
         private void MainTreeView_MouseUp(object sender, MouseEventArgs e)
