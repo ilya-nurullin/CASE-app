@@ -15,10 +15,11 @@ namespace WowCaseApp.Forms.View
         {
             _cont = new MetaDataDBContainer();
 
-            Table tb = new Table("LadaChild", "LadaChild");
-            
+            //Table tb = new Table("LadaChild", "LadaChild");
 
-            _cont.SaveChanges();
+            //_cont.TableSet.Add(tb);
+
+            //_cont.SaveChanges();
 
 
             comboBoxMainTable.Items.Clear();
@@ -45,20 +46,20 @@ namespace WowCaseApp.Forms.View
 
             var attribs = t.Attributes.Except(listBoxCurrent.Items.Cast<Model.Attribute>());
 
-            if (comboBoxChildTable.SelectedItem == null)
-                return;
+            if (comboBoxChildTable.SelectedItem != null)
+            {
+                t = (Table) comboBoxChildTable.SelectedItem;
 
-            t = (Table)comboBoxChildTable.SelectedItem;
+                attribs = attribs.Union(t.Attributes.Except(listBoxCurrent.Items.Cast<Model.Attribute>())).ToList();
+            }
 
-            attribs = attribs.Union(t.Attributes.Except(listBoxCurrent.Items.Cast<Model.Attribute>())).ToList();
-            
             listBoxStock.Items.Clear();
 
             foreach (var a in attribs)
                 listBoxStock.Items.Add(a);
         }
 
-        void ChangeMainTableComboBox()
+        void ChangeTableComboBox()
         {
             var list = listBoxCurrent.Items.Cast<Model.Attribute>();
             if (comboBoxMainTable.SelectedItem == null)
@@ -78,13 +79,23 @@ namespace WowCaseApp.Forms.View
                 return;
             }
 
-            //comboBoxTables.Select();
             Table t = (Table)comboBoxMainTable.SelectedItem;
 
             List<Table> tablelists = new List<Table>();
 
             if (list.Except(t.Attributes).Any())
             {
+                var childAttribute = list.Except(t.Attributes).First();
+
+                Table chT= new Table();
+
+                foreach (var tChild in t.ChildTables)
+                {
+                    if (tChild.Attributes.Contains(childAttribute))
+                        chT = tChild;
+                }
+
+                tablelists.Add(chT); 
             }
             else
             {
@@ -93,12 +104,14 @@ namespace WowCaseApp.Forms.View
 
             comboBoxMainTable.Items.Clear();
             comboBoxChildTable.Items.Clear();
-            // todo доделать
 
             foreach (var tbl in tablelists)
                 comboBoxChildTable.Items.Add(tbl);
 
+            comboBoxMainTable.Items.Add(t);
             comboBoxMainTable.SelectedItem = t;
+
+            ShowAttributesInStock();
         }
 
         void MoveAttributesFromStockToCurrent(IEnumerable<Attribute> list)

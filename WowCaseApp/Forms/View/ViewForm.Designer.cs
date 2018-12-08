@@ -30,6 +30,7 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboBoxChildTable = new System.Windows.Forms.ComboBox();
             this.buttontoStockAll = new System.Windows.Forms.Button();
             this.buttonToStock = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.PanelViewPage = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -91,6 +91,16 @@
             this.tabPage1.Text = "Атрибуты";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(296, 6);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(118, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Подчинённая таблица";
+            // 
             // comboBoxChildTable
             // 
             this.comboBoxChildTable.FormattingEnabled = true;
@@ -99,6 +109,7 @@
             this.comboBoxChildTable.Name = "comboBoxChildTable";
             this.comboBoxChildTable.Size = new System.Drawing.Size(201, 21);
             this.comboBoxChildTable.TabIndex = 10;
+            this.comboBoxChildTable.SelectedValueChanged += new System.EventHandler(this.comboBoxTables_SelectedValueChanged);
             // 
             // buttontoStockAll
             // 
@@ -113,6 +124,7 @@
             // 
             // buttonToStock
             // 
+            this.buttonToStock.Enabled = false;
             this.buttonToStock.Location = new System.Drawing.Point(221, 150);
             this.buttonToStock.Margin = new System.Windows.Forms.Padding(2);
             this.buttonToStock.Name = "buttonToStock";
@@ -214,7 +226,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(592, 340);
+            this.tabPage2.Size = new System.Drawing.Size(495, 289);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Tag = "Form";
             this.tabPage2.Text = "Форма";
@@ -227,7 +239,7 @@
             this.PanelViewPage.Location = new System.Drawing.Point(2, 2);
             this.PanelViewPage.Margin = new System.Windows.Forms.Padding(2);
             this.PanelViewPage.Name = "PanelViewPage";
-            this.PanelViewPage.Size = new System.Drawing.Size(588, 336);
+            this.PanelViewPage.Size = new System.Drawing.Size(491, 285);
             this.PanelViewPage.TabIndex = 0;
             // 
             // tabPage3
@@ -236,7 +248,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(592, 340);
+            this.tabPage3.Size = new System.Drawing.Size(495, 289);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Tag = "Table";
             this.tabPage3.Text = "Таблица";
@@ -250,18 +262,8 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(592, 340);
+            this.dataGridView1.Size = new System.Drawing.Size(495, 289);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(296, 6);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(118, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Подчинённая таблица";
             // 
             // ViewForm
             // 
