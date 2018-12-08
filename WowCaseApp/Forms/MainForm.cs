@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WowCaseApp.Forms.View;
 
 namespace WowCaseApp
 {
@@ -20,9 +21,7 @@ namespace WowCaseApp
 
         private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChildForm childForm = new ChildForm();
-            childForm.MdiParent = this;
-            childForm.Show();
+           
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -64,6 +63,18 @@ namespace WowCaseApp
                         case "Tables":
                             tablesContextMenu.Show(MainTreeView, p);
                             break;
+
+                        case "Queries":
+                            tablesContextMenu.Show(MainTreeView, p);
+                            break;
+
+                        case "Views":
+                            tablesContextMenu.Show(MainTreeView, p);
+                            break;
+
+                        case "Reports":
+                            tablesContextMenu.Show(MainTreeView, p);
+                            break;
                     }
                 }
             }
@@ -74,6 +85,22 @@ namespace WowCaseApp
             NewTableForm form = new NewTableForm();
             form.MdiParent = this;
             form.Show();
+        }
+        private void создатьНовыйЗапросToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QueriesForm childForm = new QueriesForm();
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
+        private void создатьНовуюФормуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewForm childForm = new ViewForm();
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
+        private void создатьНовыйОтчётToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

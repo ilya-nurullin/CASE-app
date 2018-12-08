@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/04/2018 13:47:21
--- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\MetaDataBD.edmx
+-- Date Created: 12/06/2018 21:53:50
+-- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,56 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_AttributeTable]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AttributeSet] DROP CONSTRAINT [FK_AttributeTable];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AttributeInReportReport]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AttributeInReportSet] DROP CONSTRAINT [FK_AttributeInReportReport];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AttributeInFormForm]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AttributeInFormSet] DROP CONSTRAINT [FK_AttributeInFormForm];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TableTable_Table]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TableTable] DROP CONSTRAINT [FK_TableTable_Table];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TableTable_Table1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TableTable] DROP CONSTRAINT [FK_TableTable_Table1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AttributeAttributeInForm]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AttributeInFormSet] DROP CONSTRAINT [FK_AttributeAttributeInForm];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AttributeAttributeInReport]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AttributeInReportSet] DROP CONSTRAINT [FK_AttributeAttributeInReport];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[TableSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TableSet];
+GO
+IF OBJECT_ID(N'[dbo].[AttributeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AttributeSet];
+GO
+IF OBJECT_ID(N'[dbo].[FormSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FormSet];
+GO
+IF OBJECT_ID(N'[dbo].[ReportSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ReportSet];
+GO
+IF OBJECT_ID(N'[dbo].[QuerySet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[QuerySet];
+GO
+IF OBJECT_ID(N'[dbo].[AttributeInFormSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AttributeInFormSet];
+GO
+IF OBJECT_ID(N'[dbo].[AttributeInReportSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AttributeInReportSet];
+GO
+IF OBJECT_ID(N'[dbo].[TableTable]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TableTable];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -30,8 +75,7 @@ GO
 -- Creating table 'TableSet'
 CREATE TABLE [dbo].[TableSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [DBName] nvarchar(max)  NOT NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -40,10 +84,9 @@ CREATE TABLE [dbo].[AttributeSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Type] nvarchar(max)  NOT NULL,
-    [Indexed] bit  NOT NULL,
-    [Nullable] bit  NOT NULL,
-    [DBName] nvarchar(max)  NOT NULL,
-    [IsFKey] nvarchar(max)  NOT NULL,
+    [IsIndexed] bit  NOT NULL,
+    [IsNullable] bit  NOT NULL,
+    [IsFKey] bit  NOT NULL,
     [IsPKey] bit  NOT NULL,
     [Table_Id] int  NOT NULL
 );
@@ -66,7 +109,8 @@ GO
 -- Creating table 'QuerySet'
 CREATE TABLE [dbo].[QuerySet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(max)  NOT NULL,
+    [QueryText] nvarchar(max)  NOT NULL
 );
 GO
 

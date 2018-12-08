@@ -49,7 +49,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DBName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="AttributeSet">
     <Key>
@@ -58,10 +57,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Indexed" Type="bit" Nullable="false" />
-    <Property Name="Nullable" Type="bit" Nullable="false" />
-    <Property Name="DBName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IsFKey" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsIndexed" Type="bit" Nullable="false" />
+    <Property Name="IsNullable" Type="bit" Nullable="false" />
+    <Property Name="IsFKey" Type="bit" Nullable="false" />
     <Property Name="IsPKey" Type="bit" Nullable="false" />
     <Property Name="Table_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -85,6 +83,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="QueryText" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="AttributeInFormSet">
     <Key>
@@ -244,9 +243,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Attribute" Relationship="MetaDataDB.AttributeTable" FromRole="Table" ToRole="Attribute" />
+          <NavigationProperty Name="Attributes" Relationship="MetaDataDB.AttributeTable" FromRole="Table" ToRole="Attribute" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="DBName" Type="String" Nullable="false" />
           <NavigationProperty Name="Tables" Relationship="MetaDataDB.TableTable" FromRole="Table" ToRole="Table1" />
         </EntityType>
         <EntityType Name="Attribute">
@@ -257,10 +255,9 @@
           <NavigationProperty Name="Table" Relationship="MetaDataDB.AttributeTable" FromRole="Attribute" ToRole="Table" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Type" Type="String" Nullable="false" />
-          <Property Name="Indexed" Type="Boolean" Nullable="false" />
-          <Property Name="Nullable" Type="Boolean" Nullable="false" />
-          <Property Name="DBName" Type="String" Nullable="false" />
-          <Property Name="IsFKey" Type="String" Nullable="false" />
+          <Property Name="IsIndexed" Type="Boolean" Nullable="false" />
+          <Property Name="IsNullable" Type="Boolean" Nullable="false" />
+          <Property Name="IsFKey" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AttributesInForm" Relationship="MetaDataDB.AttributeAttributeInForm" FromRole="Attribute" ToRole="AttributeInForm" />
           <NavigationProperty Name="AttributesInReport" Relationship="MetaDataDB.AttributeAttributeInReport" FromRole="Attribute" ToRole="AttributeInReport" />
           <Property Name="IsPKey" Type="Boolean" Nullable="false" />
@@ -294,7 +291,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="AttributeInForm" Relationship="MetaDataDB.AttributeInFormForm" FromRole="Form" ToRole="AttributeInForm" />
+          <NavigationProperty Name="AttributesInForm" Relationship="MetaDataDB.AttributeInFormForm" FromRole="Form" ToRole="AttributeInForm" />
           <Property Name="Name" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Report">
@@ -302,7 +299,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="AttributeInReport" Relationship="MetaDataDB.AttributeInReportReport" FromRole="Report" ToRole="AttributeInReport" />
+          <NavigationProperty Name="AttributesInReport" Relationship="MetaDataDB.AttributeInReportReport" FromRole="Report" ToRole="AttributeInReport" />
           <Property Name="Name" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Query">
@@ -311,6 +308,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="QueryText" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="AttributeTable">
           <End Type="MetaDataDB.Attribute" Role="Attribute" Multiplicity="*" />
@@ -347,7 +345,6 @@
         <MappingFragment StoreEntitySet="TableSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="DBName" ColumnName="DBName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -357,9 +354,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Indexed" ColumnName="Indexed" />
-          <ScalarProperty Name="Nullable" ColumnName="Nullable" />
-          <ScalarProperty Name="DBName" ColumnName="DBName" />
+          <ScalarProperty Name="IsIndexed" ColumnName="IsIndexed" />
+          <ScalarProperty Name="IsNullable" ColumnName="IsNullable" />
           <ScalarProperty Name="IsFKey" ColumnName="IsFKey" />
           <ScalarProperty Name="IsPKey" ColumnName="IsPKey" />
         </MappingFragment>
@@ -386,6 +382,7 @@
         <MappingFragment StoreEntitySet="QuerySet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="QueryText" ColumnName="QueryText" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -479,7 +476,7 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="fcafab598d0c4fb7a68b6a53735cc033" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="MetaDataDB.Table" Width="1.5" PointX="3.125" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MetaDataDB.Attribute" Width="1.5" PointX="5.875" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MetaDataDB.AttributeInReport" Width="1.5" PointX="4.75" PointY="6.625" IsExpanded="true" />
