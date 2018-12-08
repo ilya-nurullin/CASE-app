@@ -12,7 +12,7 @@ namespace WowCaseApp.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Form
+    public partial class View
     {
         public int Id { get; set; }
         public string Name { get; set; }
