@@ -24,11 +24,11 @@ namespace WowCaseApp.Model
         }
     }
 
-    partial class Form
+    partial class View
     {
-        public Form() { }
+        public View() { }
 
-        public Form(string name)
+        public View(string name)
         {
             Name = name;
         }
