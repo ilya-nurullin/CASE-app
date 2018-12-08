@@ -5,6 +5,8 @@ namespace WowCaseApp.Model
 {
     partial class Attribute
     {
+        public Attribute() { }
+
         public Attribute(string name, string realname, string type, Table table, bool isIndexed = false, bool isNulable = true, bool isPKey = false, bool isFKey = false)
         {
             Name = name;
@@ -24,6 +26,8 @@ namespace WowCaseApp.Model
 
     partial class Form
     {
+        public Form() { }
+
         public Form(string name)
         {
             Name = name;
@@ -37,6 +41,8 @@ namespace WowCaseApp.Model
 
     partial class Query
     {
+        public Query() { }
+
         public Query(string name)
         {
             Name = name;
@@ -50,6 +56,8 @@ namespace WowCaseApp.Model
 
     partial class Report
     {
+        public Report() { }
+
         public Report(string name)
         {
             Name = name;

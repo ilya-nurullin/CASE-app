@@ -15,33 +15,23 @@ namespace WowCaseApp.Forms.View
         {
             _cont = new MetaDataDBContainer();
 
-            //Table tb = new Table() { Name = "LadaChild" };
-            //var tbl =(from x in _cont.TableSet where x.Name == "Lada" select x).First();
-            //tbl.Tables.Add(tb);
-            //tb.Tables.Add(tbl);
+            //Table tb = new Table("LadaChild", "LadaChild");
+
             //_cont.TableSet.Add(tb);
-
-            //var a = new Attribute("Name", "String", tb);
-            //_cont.AttributeSet.Add(a);
-            //tb.Attributes.Add(a);
-
-            //a = new Attribute("Count", "Int32", tb);
-            //_cont.AttributeSet.Add(a);
-            //tb.Attributes.Add(a);
 
             //_cont.SaveChanges();
 
 
-            comboBoxTables.Items.Clear();
+            comboBoxMainTable.Items.Clear();
 
             foreach (var t in _cont.TableSet)
             {
-                comboBoxTables.Items.Add(t);
+                comboBoxMainTable.Items.Add(t);
             }
 
-            if (comboBoxTables.Items.Count > 0)
+            if (comboBoxMainTable.Items.Count > 0)
             {
-                comboBoxTables.SelectedIndex = 0;
+                comboBoxMainTable.SelectedIndex = 0;
                 ShowAttributesInStock();
             }
 
@@ -49,9 +39,19 @@ namespace WowCaseApp.Forms.View
 
         void ShowAttributesInStock()
         {
-            var t = (Table)comboBoxTables.SelectedItem;
+            if (comboBoxMainTable.SelectedItem ==null)
+                return;
 
-            var attribs = t.Attributes.Except(listBoxCurrent.Items.Cast<Model.Attribute>().ToList()).ToList();
+            var t = (Table)comboBoxMainTable.SelectedItem;
+
+            var attribs = t.Attributes.Except(listBoxCurrent.Items.Cast<Model.Attribute>());
+
+            if (comboBoxChildTable.SelectedItem != null)
+            {
+                t = (Table) comboBoxChildTable.SelectedItem;
+
+                attribs = attribs.Union(t.Attributes.Except(listBoxCurrent.Items.Cast<Model.Attribute>())).ToList();
+            }
 
             listBoxStock.Items.Clear();
 
@@ -61,40 +61,57 @@ namespace WowCaseApp.Forms.View
 
         void ChangeTableComboBox()
         {
-            //var list = listBoxCurrent.Items.Cast<Model.Attribute>();
-            //if (!list.Any())
-            //{
-            //    Table table = (Table)comboBoxTables.SelectedItem;
-            //    comboBoxTables.Items.Clear();
+            var list = listBoxCurrent.Items.Cast<Model.Attribute>();
+            if (comboBoxMainTable.SelectedItem == null)
+                return;
 
-            //    foreach (var tb in _cont.TableSet)
-            //    {
-            //        comboBoxTables.Items.Add(tb);
-            //    }
-            //    comboBoxTables.SelectedItem = table;
-            //    return;
-            //}
+            if (!list.Any())
+            {
+                Table table = (Table)comboBoxMainTable.SelectedItem;
+                comboBoxMainTable.Items.Clear();
+                comboBoxChildTable.Items.Clear();
 
-            ////comboBoxTables.Select();
-            //Table t = (Table)comboBoxTables.SelectedItem;
-            //List<Table> tableCurrAttList = new List<Table>();
-            //comboBoxTables.Items.Clear();
+                foreach (var tb in _cont.TableSet)
+                {
+                    comboBoxMainTable.Items.Add(tb);
+                }
+                comboBoxMainTable.SelectedItem = table;
+                return;
+            }
 
-            //var tablelists = t.ChildTables.ToList();
-            //foreach (var attr in listBoxCurrent.Items.Cast<Attribute>())
-            //    tableCurrAttList.Add(attr);
-            //tablelists = tablelists.Intersect(tableCurrAttList.Distinct()).ToList();
-            //if (tablelists.Count == 0)
-            //{
-            //    tablelists = t.Tables.Intersect(_cont.TableSet).ToList();
-            //    //tablelists.Add(t);
-            //}
-            //tablelists.Add(t);
+            Table t = (Table)comboBoxMainTable.SelectedItem;
 
-            //foreach (var tbl in tablelists)
-            //    comboBoxTables.Items.Add(tbl);
+            List<Table> tablelists = new List<Table>();
 
-            //comboBoxTables.SelectedItem = t;
+            if (list.Except(t.Attributes).Any())
+            {
+                var childAttribute = list.Except(t.Attributes).First();
+
+                Table chT= new Table();
+
+                foreach (var tChild in t.ChildTables)
+                {
+                    if (tChild.Attributes.Contains(childAttribute))
+                        chT = tChild;
+                }
+
+                tablelists.Add(chT); 
+            }
+            else
+            {
+                tablelists = t.ChildTables.ToList();
+            }
+
+            comboBoxMainTable.Items.Clear();
+            comboBoxChildTable.Items.Clear();
+
+            foreach (var tbl in tablelists)
+                comboBoxChildTable.Items.Add(tbl);
+
+            comboBoxMainTable.Items.Add(t);
+            comboBoxMainTable.SelectedItem = t;
+
+            ShowAttributesInStock();
         }
 
         void MoveAttributesFromStockToCurrent(IEnumerable<Attribute> list)

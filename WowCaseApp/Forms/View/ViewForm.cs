@@ -48,6 +48,5 @@ namespace WowCaseApp.Forms.View
 
             
         }
-
     }
 }

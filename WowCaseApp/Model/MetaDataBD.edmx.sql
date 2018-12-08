@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/08/2018 16:15:07
+-- Date Created: 12/08/2018 18:00:24
 -- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
@@ -19,6 +19,9 @@ GO
 
 IF OBJECT_ID(N'[dbo].[FK_AttributeTable]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AttributeSet] DROP CONSTRAINT [FK_AttributeTable];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TableTable]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TableSet] DROP CONSTRAINT [FK_TableTable];
 GO
 
 -- --------------------------------------------------
@@ -50,7 +53,7 @@ CREATE TABLE [dbo].[TableSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [RealName] nvarchar(max)  NOT NULL,
-    [TableTable_Table1_Id] int  NOT NULL
+    [TableTable_Table1_Id] int  NULL
 );
 GO
 
