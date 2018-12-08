@@ -30,6 +30,11 @@ namespace WowCaseApp
             log.Debug("Working DB name is " + dbConnection.Database);
         }
 
+        ~MainForm()
+        {
+            dbConnection.Close();
+        }
+
         private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
         {
            
