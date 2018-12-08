@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/08/2018 18:00:24
+-- Date Created: 12/08/2018 19:08:47
 -- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
@@ -71,8 +71,8 @@ CREATE TABLE [dbo].[AttributeSet] (
 );
 GO
 
--- Creating table 'FormSet'
-CREATE TABLE [dbo].[FormSet] (
+-- Creating table 'ViewSet1'
+CREATE TABLE [dbo].[ViewSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Data] nvarchar(max)  NOT NULL
@@ -111,9 +111,9 @@ ADD CONSTRAINT [PK_AttributeSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'FormSet'
-ALTER TABLE [dbo].[FormSet]
-ADD CONSTRAINT [PK_FormSet]
+-- Creating primary key on [Id] in table 'ViewSet1'
+ALTER TABLE [dbo].[ViewSet1]
+ADD CONSTRAINT [PK_ViewSet1]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

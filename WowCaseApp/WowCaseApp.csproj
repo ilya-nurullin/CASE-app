@@ -150,9 +150,6 @@
     <Compile Include="Model\Attribute.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Form.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\MetaDataBD.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +173,9 @@
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Table.cs">
+      <DependentUpon>MetaDataBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\View.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
