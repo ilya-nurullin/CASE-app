@@ -30,7 +30,5 @@ namespace WowCaseApp.Model
         public virtual DbSet<Form> FormSet { get; set; }
         public virtual DbSet<Report> ReportSet { get; set; }
         public virtual DbSet<Query> QuerySet { get; set; }
-        public virtual DbSet<AttributeInForm> AttributeInFormSet { get; set; }
-        public virtual DbSet<AttributeInReport> AttributeInReportSet { get; set; }
     }
 }

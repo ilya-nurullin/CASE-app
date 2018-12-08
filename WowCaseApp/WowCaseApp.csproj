@@ -150,12 +150,6 @@
     <Compile Include="Model\Attribute.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\AttributeInForm.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\AttributeInReport.cs">
-      <DependentUpon>MetaDataBD.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\Form.cs">
       <DependentUpon>MetaDataBD.tt</DependentUpon>
     </Compile>

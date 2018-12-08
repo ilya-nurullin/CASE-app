@@ -5,11 +5,11 @@ namespace WowCaseApp.Model
 {
     partial class Attribute
     {
-        public Attribute(string name, string type, Table table, bool isIndexed = false, bool isNulable = true, bool isPKey = false, bool isFKey = false)
+        public Attribute(string name, string realname, string type, Table table, bool isIndexed = false, bool isNulable = true, bool isPKey = false, bool isFKey = false)
         {
             Name = name;
+            RealName = realname;
             Type = type;
-            Table = table;
             IsIndexed = isIndexed;
             IsNullable = isNulable;
             IsPKey = isPKey;
@@ -18,43 +18,7 @@ namespace WowCaseApp.Model
 
         public override string ToString()
         {
-            return $"{Table.Name}.{Name}";
-        }
-    }
-
-    partial class AttributeInForm
-    {
-        public AttributeInForm(Attribute origin, Form form, int pointX, int pointY, int width, int height)
-        {
-            Origin = origin;
-            Form = form;
-            PointX = pointX;
-            PointY = pointY;
-            Width = width;
-            Height = height;
-        }
-
-        public override string ToString()
-        {
-            return Origin.ToString();
-        }
-    }
-
-    partial class AttributeInReport
-    {
-        public AttributeInReport(Attribute origin, Report report, int pointX, int pointY, int width, int height)
-        {
-            Origin = origin;
-            Report = report;
-            PointX = pointX;
-            PointY = pointY;
-            Width = width;
-            Height = height;
-        }
-
-        public override string ToString()
-        {
-            return Origin.ToString();
+            return $"{Name}";
         }
     }
 
@@ -99,9 +63,10 @@ namespace WowCaseApp.Model
 
     partial class Table
     {
-        public Table(string name)
+        public Table(string name, string realname)
         {
             Name = name;
+            RealName = realname;
         }
 
         public override string ToString()

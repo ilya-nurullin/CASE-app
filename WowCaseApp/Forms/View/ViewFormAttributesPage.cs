@@ -13,8 +13,6 @@ namespace WowCaseApp.Forms.View
     {
         void InitializeAttributePage()
         {
-            this.MaximizeBox = true;
-
             _cont = new MetaDataDBContainer();
 
             //Table tb = new Table() { Name = "LadaChild" };
@@ -63,40 +61,40 @@ namespace WowCaseApp.Forms.View
 
         void ChangeTableComboBox()
         {
-            var list = listBoxCurrent.Items.Cast<Model.Attribute>();
-            if (!list.Any())
-            {
-                Table table = (Table)comboBoxTables.SelectedItem;
-                comboBoxTables.Items.Clear();
+            //var list = listBoxCurrent.Items.Cast<Model.Attribute>();
+            //if (!list.Any())
+            //{
+            //    Table table = (Table)comboBoxTables.SelectedItem;
+            //    comboBoxTables.Items.Clear();
 
-                foreach (var tb in _cont.TableSet)
-                {
-                    comboBoxTables.Items.Add(tb);
-                }
-                comboBoxTables.SelectedItem = table;
-                return;
-            }
+            //    foreach (var tb in _cont.TableSet)
+            //    {
+            //        comboBoxTables.Items.Add(tb);
+            //    }
+            //    comboBoxTables.SelectedItem = table;
+            //    return;
+            //}
 
-            //comboBoxTables.Select();
-            Table t = (Table)comboBoxTables.SelectedItem;
-            List<Table> tableCurrAttList = new List<Table>();
-            comboBoxTables.Items.Clear();
+            ////comboBoxTables.Select();
+            //Table t = (Table)comboBoxTables.SelectedItem;
+            //List<Table> tableCurrAttList = new List<Table>();
+            //comboBoxTables.Items.Clear();
 
-            var tablelists = t.Tables.ToList();
-            foreach (var attr in listBoxCurrent.Items.Cast<Attribute>())
-                tableCurrAttList.Add(attr.Table);
-            tablelists = tablelists.Intersect(tableCurrAttList.Distinct()).ToList();
-            if (tablelists.Count == 0)
-            {
-                tablelists = t.Tables.Intersect(_cont.TableSet).ToList();
-                //tablelists.Add(t);
-            }
-            tablelists.Add(t);
+            //var tablelists = t.ChildTables.ToList();
+            //foreach (var attr in listBoxCurrent.Items.Cast<Attribute>())
+            //    tableCurrAttList.Add(attr);
+            //tablelists = tablelists.Intersect(tableCurrAttList.Distinct()).ToList();
+            //if (tablelists.Count == 0)
+            //{
+            //    tablelists = t.Tables.Intersect(_cont.TableSet).ToList();
+            //    //tablelists.Add(t);
+            //}
+            //tablelists.Add(t);
 
-            foreach (var tbl in tablelists)
-                comboBoxTables.Items.Add(tbl);
+            //foreach (var tbl in tablelists)
+            //    comboBoxTables.Items.Add(tbl);
 
-            comboBoxTables.SelectedItem = t;
+            //comboBoxTables.SelectedItem = t;
         }
 
         void MoveAttributesFromStockToCurrent(IEnumerable<Attribute> list)

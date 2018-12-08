@@ -18,15 +18,16 @@ namespace WowCaseApp.Model
         public Table()
         {
             this.Attributes = new HashSet<Attribute>();
-            this.Tables = new HashSet<Table>();
+            this.ChildTables = new HashSet<Table>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string RealName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attribute> Attributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Table> Tables { get; set; }
+        public virtual ICollection<Table> ChildTables { get; set; }
     }
 }
