@@ -28,8 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.PanelViewPage = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.countLabel = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.downButton = new System.Windows.Forms.Button();
+            this.upButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxChildTable = new System.Windows.Forms.ComboBox();
             this.buttontoStockAll = new System.Windows.Forms.Button();
@@ -42,40 +51,106 @@
             this.labelTableAttributes = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxMainTable = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.PanelViewPage = new System.Windows.Forms.Panel();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.countLabel = new System.Windows.Forms.Label();
-            this.tabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl
+            // tabPage2
             // 
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Controls.Add(this.tabPage3);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(2);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(503, 315);
-            this.tabControl.TabIndex = 0;
-            this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
+            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.PanelViewPage);
+            this.tabPage2.Controls.Add(this.panel1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Size = new System.Drawing.Size(495, 289);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Tag = "Form";
+            this.tabPage2.Text = "Форма";
+            // 
+            // PanelViewPage
+            // 
+            this.PanelViewPage.AutoScroll = true;
+            this.PanelViewPage.BackColor = System.Drawing.Color.White;
+            this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PanelViewPage.Location = new System.Drawing.Point(2, 41);
+            this.PanelViewPage.Margin = new System.Windows.Forms.Padding(2);
+            this.PanelViewPage.Name = "PanelViewPage";
+            this.PanelViewPage.Size = new System.Drawing.Size(491, 248);
+            this.PanelViewPage.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.countLabel);
+            this.panel1.Controls.Add(this.radioButton2);
+            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(491, 39);
+            this.panel1.TabIndex = 0;
+            // 
+            // countLabel
+            // 
+            this.countLabel.AutoSize = true;
+            this.countLabel.Location = new System.Drawing.Point(130, 13);
+            this.countLabel.Name = "countLabel";
+            this.countLabel.Size = new System.Drawing.Size(24, 13);
+            this.countLabel.TabIndex = 4;
+            this.countLabel.Text = "1/1";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(383, 10);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(83, 17);
+            this.radioButton2.TabIndex = 3;
+            this.radioButton2.Text = "Изменение";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(292, 10);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(76, 17);
+            this.radioButton1.TabIndex = 2;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Просмотр";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(177, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 32);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Следующий >";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 32);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "< Предыдущий";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.downButton);
+            this.tabPage1.Controls.Add(this.upButton);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.comboBoxChildTable);
             this.tabPage1.Controls.Add(this.buttontoStockAll);
@@ -97,6 +172,28 @@
             this.tabPage1.Tag = "Attributes";
             this.tabPage1.Text = "Атрибуты";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // downButton
+            // 
+            this.downButton.Enabled = false;
+            this.downButton.Location = new System.Drawing.Point(449, 137);
+            this.downButton.Name = "downButton";
+            this.downButton.Size = new System.Drawing.Size(24, 23);
+            this.downButton.TabIndex = 13;
+            this.downButton.Text = "▼";
+            this.downButton.UseVisualStyleBackColor = true;
+            this.downButton.Click += new System.EventHandler(this.downButton_Click);
+            // 
+            // upButton
+            // 
+            this.upButton.Enabled = false;
+            this.upButton.Location = new System.Drawing.Point(449, 103);
+            this.upButton.Name = "upButton";
+            this.upButton.Size = new System.Drawing.Size(24, 23);
+            this.upButton.TabIndex = 12;
+            this.upButton.Text = "▲";
+            this.upButton.UseVisualStyleBackColor = true;
+            this.upButton.Click += new System.EventHandler(this.upButton_Click);
             // 
             // label2
             // 
@@ -180,7 +277,7 @@
             this.listBoxCurrent.Location = new System.Drawing.Point(296, 64);
             this.listBoxCurrent.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxCurrent.Name = "listBoxCurrent";
-            this.listBoxCurrent.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listBoxCurrent.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxCurrent.Size = new System.Drawing.Size(130, 173);
             this.listBoxCurrent.TabIndex = 4;
             this.listBoxCurrent.Click += new System.EventHandler(this.listBoxCurrent_Click);
@@ -191,7 +288,7 @@
             this.listBoxStock.Location = new System.Drawing.Point(51, 64);
             this.listBoxStock.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxStock.Name = "listBoxStock";
-            this.listBoxStock.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listBoxStock.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxStock.Size = new System.Drawing.Size(130, 173);
             this.listBoxStock.TabIndex = 3;
             this.listBoxStock.Click += new System.EventHandler(this.listBoxStock_Click);
@@ -226,114 +323,18 @@
             this.comboBoxMainTable.TabIndex = 0;
             this.comboBoxMainTable.SelectedValueChanged += new System.EventHandler(this.comboBoxTables_SelectedValueChanged);
             // 
-            // tabPage2
+            // tabControl
             // 
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.PanelViewPage);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(495, 289);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Tag = "Form";
-            this.tabPage2.Text = "Форма";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.countLabel);
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(491, 39);
-            this.panel1.TabIndex = 1;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(383, 10);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(83, 17);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.Text = "Изменение";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(292, 10);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(76, 17);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Просмотр";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(177, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 32);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Следующий >";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(7, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "< Предыдущий";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // PanelViewPage
-            // 
-            this.PanelViewPage.AutoScroll = true;
-            this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelViewPage.Location = new System.Drawing.Point(2, 46);
-            this.PanelViewPage.Margin = new System.Windows.Forms.Padding(2);
-            this.PanelViewPage.Name = "PanelViewPage";
-            this.PanelViewPage.Size = new System.Drawing.Size(491, 241);
-            this.PanelViewPage.TabIndex = 0;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.dataGridView1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(495, 289);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Tag = "Table";
-            this.tabPage3.Text = "Таблица";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(495, 289);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // countLabel
-            // 
-            this.countLabel.AutoSize = true;
-            this.countLabel.Location = new System.Drawing.Point(130, 13);
-            this.countLabel.Name = "countLabel";
-            this.countLabel.Size = new System.Drawing.Size(24, 13);
-            this.countLabel.TabIndex = 4;
-            this.countLabel.Text = "1/1";
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(503, 315);
+            this.tabControl.TabIndex = 0;
+            this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
             // 
             // ViewForm
             // 
@@ -345,25 +346,31 @@
             this.Name = "ViewForm";
             this.Text = "VIewForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.tabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Panel PanelViewPage;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label countLabel;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button downButton;
+        private System.Windows.Forms.Button upButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxChildTable;
         private System.Windows.Forms.Button buttontoStockAll;
         private System.Windows.Forms.Button buttonToStock;
         private System.Windows.Forms.Button buttonToCurrentAll;
@@ -374,14 +381,6 @@
         private System.Windows.Forms.Label labelTableAttributes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxMainTable;
-        private System.Windows.Forms.Panel PanelViewPage;
-        private System.Windows.Forms.ComboBox comboBoxChildTable;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label countLabel;
+        private System.Windows.Forms.TabControl tabControl;
     }
 }

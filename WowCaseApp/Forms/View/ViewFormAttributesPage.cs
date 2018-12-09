@@ -146,14 +146,14 @@ namespace WowCaseApp.Forms.View
         {
             MoveAttributesFromStockToCurrent(listBoxStock.SelectedItems.Cast<Model.Attribute>());
             listBoxStock.ClearSelected();
-            listBoxStock_Click(listBoxStock, null);
+            listBoxStock_Click(null, null);
             ChangeTableComboBox();
         }
         private void buttonToCurrentAll_Click(object sender, EventArgs e)
         {
             MoveAttributesFromStockToCurrent(listBoxStock.Items.Cast<Model.Attribute>());
             listBoxStock.ClearSelected();
-            listBoxStock_Click(listBoxStock, null);
+            listBoxStock_Click(null, null);
             ChangeTableComboBox();
         }
         private void buttonToStock_Click(object sender, EventArgs e)
@@ -174,16 +174,64 @@ namespace WowCaseApp.Forms.View
 
         private void listBoxCurrent_Click(object sender, EventArgs e)
         {
-            buttonToStock.Enabled = ((ListBox)sender).SelectedItems.Count > 0;
+            buttonToStock.Enabled = listBoxCurrent.SelectedItems.Count > 0;
+
+            UpdateUpDownButtons();
         }
         private void listBoxStock_Click(object sender, EventArgs e)
         {
-            buttonToCurrent.Enabled = ((ListBox)sender).SelectedItems.Count > 0;
+            buttonToCurrent.Enabled = listBoxStock.SelectedItems.Count > 0;
         }
         
         private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
         {
             ShowAttributesInStock();
+        }
+
+        private void upButton_Click(object sender, EventArgs e)
+        {
+            MoveItemInCurrentListBox(-1);
+            UpdateUpDownButtons();
+        }
+        private void downButton_Click(object sender, EventArgs e)
+        {
+            MoveItemInCurrentListBox(1);
+            UpdateUpDownButtons();
+        }
+
+        private void UpdateUpDownButtons()
+        {
+            int max = -1, min = listBoxCurrent.Items.Count;
+            foreach (var si in listBoxCurrent.SelectedItems)
+            {
+                int index = listBoxCurrent.Items.IndexOf(si);
+                max = index > max ? index : max;
+                min = index < min ? index : min;
+            }
+            upButton.Enabled = listBoxCurrent.SelectedItems.Count > 0 && min > 0;
+            downButton.Enabled = listBoxCurrent.SelectedItems.Count > 0 && max < listBoxCurrent.Items.Count - 1;
+        }
+
+        private void MoveItemInCurrentListBox(int direction)
+        {
+            if (listBoxCurrent.SelectedItem == null || listBoxCurrent.SelectedIndex < 0)
+                return;
+
+            var arr = new object[listBoxCurrent.SelectedItems.Count];
+            listBoxCurrent.SelectedItems.CopyTo(arr, 0);
+            if (direction > 0)
+                arr = arr.Reverse().ToArray();
+            foreach (var selectedItem in arr)
+            {
+                int newIndex = listBoxCurrent.Items.IndexOf(selectedItem) + direction;
+
+                if (newIndex < 0 || newIndex >= listBoxCurrent.Items.Count)
+                    return; 
+                
+                listBoxCurrent.Items.Remove(selectedItem);
+                listBoxCurrent.Items.Insert(newIndex, selectedItem);
+                listBoxCurrent.SetSelected(newIndex, true);
+            }
         }
     }
 }

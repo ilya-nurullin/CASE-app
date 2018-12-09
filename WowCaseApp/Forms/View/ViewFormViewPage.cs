@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WowCaseApp.Model;
@@ -47,6 +48,7 @@ namespace WowCaseApp.Forms.View
                 GenerateComponentsOneValue(childAttributes);
             }
 
+            RestuctcturePanel();
             LoadData(mainT,childT,mainAttributes, childAttributes);
         }
         public void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
@@ -78,9 +80,9 @@ namespace WowCaseApp.Forms.View
 
                 }
 
-                c.Name = a.Name;
+                c.Name = a.RealName;
                 
-                PanelViewPage.Controls.Add(new Label() { Text = a.Name, Name = a.RealName + "_label" });
+                PanelViewPage.Controls.Add(new Label() { Text = a.Name, Name = a.RealName + "_label"});
                 PanelViewPage.Controls.Add(c);
             }
         }
@@ -88,7 +90,7 @@ namespace WowCaseApp.Forms.View
         {
             if (attributes.Any())
             {
-                PanelViewPage.Controls.Add(new Label() {Name = table.Name+"_label"});
+                PanelViewPage.Controls.Add(new Label() {Name = table.Name+"_label" });
                 PanelViewPage.Controls.Add(new DataGridView(){Name = table.Name + "_dgv" });
             }
         }
@@ -165,6 +167,17 @@ namespace WowCaseApp.Forms.View
             // where {mainT.RealName}_FK = {getValueIdFromTable(mainT)}
 
             dgv.DataSource = new DataView(ds.Tables[0], $"{mainT.RealName}_FK = {getValueIdFromTable(mainT)}", "", DataViewRowState.CurrentRows);
+        }
+
+        public void RestuctcturePanel()
+        {
+            int previousY = 0;
+
+            foreach (Control c in PanelViewPage.Controls)
+            {
+                c.Location = new Point(0, previousY);
+                previousY += c.Height;
+            }
         }
 
         public string getValueIdFromTable(Table T)

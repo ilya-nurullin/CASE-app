@@ -80,7 +80,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        private void tabControl_Selected(object sender, System.Windows.Forms.TabControlEventArgs e)
+        private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             switch (tabControl.SelectedTab.Tag)
             {
