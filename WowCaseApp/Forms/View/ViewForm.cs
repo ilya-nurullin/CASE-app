@@ -82,7 +82,7 @@ namespace WowCaseApp.Forms.View
             switch (tabControl.SelectedTab.Tag)
             {
                 case "Attributes":
-                    InitializeAttributePage();
+                    //InitializeAttributePage();
                     break;
                 case "Form":
                     InitializeViewPage();

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WowCaseApp.Model;
 using Attribute = WowCaseApp.Model.Attribute;
@@ -13,8 +11,6 @@ namespace WowCaseApp.Forms.View
     {
         void InitializeAttributePage()
         {
-            _cont = new MetaDataDBContainer();
-
             //Table tb = new Table("LadaChild", "LadaChild");
 
             //_cont.TableSet.Add(tb);
@@ -75,14 +71,19 @@ namespace WowCaseApp.Forms.View
                 {
                     comboBoxMainTable.Items.Add(tb);
                 }
+
+                comboBoxMainTable.Text = "";
+                comboBoxChildTable.Text = "";
+
                 comboBoxMainTable.SelectedItem = table;
                 return;
             }
 
             Table t = (Table)comboBoxMainTable.SelectedItem;
 
-            List<Table> tablelists = new List<Table>();
+            List<Table> childTablelists = new List<Table>();
 
+            // есть атрибуты кроме главной таблицы
             if (list.Except(t.Attributes).Any())
             {
                 var childAttribute = list.Except(t.Attributes).First();
@@ -95,21 +96,36 @@ namespace WowCaseApp.Forms.View
                         chT = tChild;
                 }
 
-                tablelists.Add(chT); 
+                // Если атрибуты только не главной таблицы
+                if (!list.Intersect(t.Attributes).Any())
+                {
+                    t = chT;
+                    childTablelists = t.ChildTables.ToList();
+                }
+                else
+                {
+                    childTablelists.Add(chT);
+                }
+
             }
             else
             {
-                tablelists = t.ChildTables.ToList();
+                childTablelists = t.ChildTables.ToList();
             }
 
             comboBoxMainTable.Items.Clear();
             comboBoxChildTable.Items.Clear();
 
-            foreach (var tbl in tablelists)
-                comboBoxChildTable.Items.Add(tbl);
+            comboBoxMainTable.Text = "";
+            comboBoxChildTable.Text = "";
 
             comboBoxMainTable.Items.Add(t);
+            foreach (var tbl in childTablelists)
+                comboBoxChildTable.Items.Add(tbl);
+
+
             comboBoxMainTable.SelectedItem = t;
+            comboBoxChildTable.SelectedIndex = childTablelists.Any()?0:-1;
 
             ShowAttributesInStock();
         }
@@ -133,7 +149,6 @@ namespace WowCaseApp.Forms.View
             listBoxStock_Click(listBoxStock, null);
             ChangeTableComboBox();
         }
-
         private void buttonToCurrentAll_Click(object sender, EventArgs e)
         {
             MoveAttributesFromStockToCurrent(listBoxStock.Items.Cast<Model.Attribute>());
@@ -141,7 +156,6 @@ namespace WowCaseApp.Forms.View
             listBoxStock_Click(listBoxStock, null);
             ChangeTableComboBox();
         }
-
         private void buttonToStock_Click(object sender, EventArgs e)
         {
             MoveAttributesFromCurrentToStock(listBoxCurrent.SelectedItems.Cast<Model.Attribute>());
@@ -150,7 +164,6 @@ namespace WowCaseApp.Forms.View
 
             ChangeTableComboBox();
         }
-
         private void buttontoStockAll_Click(object sender, EventArgs e)
         {
             MoveAttributesFromCurrentToStock(listBoxCurrent.Items.Cast<Model.Attribute>());
@@ -163,13 +176,11 @@ namespace WowCaseApp.Forms.View
         {
             buttonToStock.Enabled = ((ListBox)sender).SelectedItems.Count > 0;
         }
-
         private void listBoxStock_Click(object sender, EventArgs e)
         {
             buttonToCurrent.Enabled = ((ListBox)sender).SelectedItems.Count > 0;
         }
-
-
+        
         private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
         {
             ShowAttributesInStock();

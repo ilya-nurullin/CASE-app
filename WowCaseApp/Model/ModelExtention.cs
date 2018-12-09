@@ -31,6 +31,7 @@ namespace WowCaseApp.Model
         public View(string name)
         {
             Name = name;
+            Data = "";
         }
 
         public override string ToString()
@@ -61,6 +62,7 @@ namespace WowCaseApp.Model
         public Report(string name)
         {
             Name = name;
+            Data = "";
         }
 
         public override string ToString()
