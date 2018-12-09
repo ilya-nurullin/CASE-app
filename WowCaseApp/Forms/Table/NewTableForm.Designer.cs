@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tableNameTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttrType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.IsPK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsNullable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsIndexed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.DefaultValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tableNameTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -68,54 +68,6 @@
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.Size = new System.Drawing.Size(1128, 538);
             this.dataGridView.TabIndex = 0;
-            // 
-            // Title
-            // 
-            this.Title.Frozen = true;
-            this.Title.HeaderText = "Название столбца";
-            this.Title.Name = "Title";
-            this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Title.Width = 200;
-            // 
-            // AttrType
-            // 
-            this.AttrType.Frozen = true;
-            this.AttrType.HeaderText = "Тип";
-            this.AttrType.Items.AddRange(new object[] {
-            "Строка",
-            "Текст",
-            "Целое число со знаком",
-            "Целое число без знака",
-            "Дробное число",
-            "Дата",
-            "Дата и время",
-            "Да/нет"});
-            this.AttrType.Name = "AttrType";
-            this.AttrType.Width = 150;
-            // 
-            // IsPK
-            // 
-            this.IsPK.HeaderText = "Является ПК?";
-            this.IsPK.Name = "IsPK";
-            this.IsPK.Width = 110;
-            // 
-            // IsNullable
-            // 
-            this.IsNullable.HeaderText = "Может быть пустым?";
-            this.IsNullable.Name = "IsNullable";
-            this.IsNullable.Width = 160;
-            // 
-            // IsIndexed
-            // 
-            this.IsIndexed.HeaderText = "Индексируется?";
-            this.IsIndexed.Name = "IsIndexed";
-            this.IsIndexed.Width = 130;
-            // 
-            // DefaultValue
-            // 
-            this.DefaultValue.HeaderText = "По умолчанию";
-            this.DefaultValue.Name = "DefaultValue";
-            this.DefaultValue.Width = 150;
             // 
             // menuStrip1
             // 
@@ -161,6 +113,13 @@
             this.splitContainer1.SplitterDistance = 35;
             this.splitContainer1.TabIndex = 2;
             // 
+            // tableNameTextBox
+            // 
+            this.tableNameTextBox.Location = new System.Drawing.Point(105, 8);
+            this.tableNameTextBox.Name = "tableNameTextBox";
+            this.tableNameTextBox.Size = new System.Drawing.Size(213, 22);
+            this.tableNameTextBox.TabIndex = 1;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -170,12 +129,53 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Имя таблицы";
             // 
-            // tableNameTextBox
+            // Title
             // 
-            this.tableNameTextBox.Location = new System.Drawing.Point(105, 8);
-            this.tableNameTextBox.Name = "tableNameTextBox";
-            this.tableNameTextBox.Size = new System.Drawing.Size(213, 22);
-            this.tableNameTextBox.TabIndex = 1;
+            this.Title.Frozen = true;
+            this.Title.HeaderText = "Название столбца";
+            this.Title.Name = "Title";
+            this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Title.Width = 200;
+            // 
+            // AttrType
+            // 
+            this.AttrType.Frozen = true;
+            this.AttrType.HeaderText = "Тип";
+            this.AttrType.Items.AddRange(new object[] {
+            "Да/нет",
+            "Дата",
+            "Дата и время",
+            "Дробное число",
+            "Строка",
+            "Текст",
+            "Автоинкремент",
+            "Целое число со знаком"});
+            this.AttrType.Name = "AttrType";
+            this.AttrType.Width = 150;
+            // 
+            // IsPK
+            // 
+            this.IsPK.HeaderText = "Является ПК?";
+            this.IsPK.Name = "IsPK";
+            this.IsPK.Width = 110;
+            // 
+            // IsNullable
+            // 
+            this.IsNullable.HeaderText = "Может быть пустым?";
+            this.IsNullable.Name = "IsNullable";
+            this.IsNullable.Width = 160;
+            // 
+            // IsIndexed
+            // 
+            this.IsIndexed.HeaderText = "Индексируется?";
+            this.IsIndexed.Name = "IsIndexed";
+            this.IsIndexed.Width = 130;
+            // 
+            // DefaultValue
+            // 
+            this.DefaultValue.HeaderText = "По умолчанию";
+            this.DefaultValue.Name = "DefaultValue";
+            this.DefaultValue.Width = 150;
             // 
             // NewTableForm
             // 
@@ -208,14 +208,14 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem добавитьСсылкуНаДругуюТаблицыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox tableNameTextBox;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewComboBoxColumn AttrType;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsPK;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsNullable;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsIndexed;
         private System.Windows.Forms.DataGridViewTextBoxColumn DefaultValue;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TextBox tableNameTextBox;
-        private System.Windows.Forms.Label label1;
     }
 }

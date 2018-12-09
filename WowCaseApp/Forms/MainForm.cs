@@ -33,6 +33,7 @@ namespace WowCaseApp
         ~MainForm()
         {
             dbConnection.Close();
+            log.Debug("App stopped");
         }
 
         private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
