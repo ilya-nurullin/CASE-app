@@ -8,7 +8,7 @@
   <EntityContainer Name="MetaDataDBStoreContainer">
     <EntitySet Name="TableSet" EntityType="MetaDataDB.Store.TableSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AttributeSet" EntityType="MetaDataDB.Store.AttributeSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="VIewSet" EntityType="MetaDataDB.Store.VIewSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ViewSet" EntityType="MetaDataDB.Store.ViewSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ReportSet" EntityType="MetaDataDB.Store.ReportSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="QuerySet" EntityType="MetaDataDB.Store.QuerySet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="AttributeTable" Association="MetaDataDB.Store.AttributeTable">
@@ -16,6 +16,10 @@
       <End Role="Table" EntitySet="TableSet" />
     </AssociationSet>
     <AssociationSet Name="TableTable" Association="MetaDataDB.Store.TableTable">
+      <End Role="Table" EntitySet="TableSet" />
+      <End Role="Table1" EntitySet="TableSet" />
+    </AssociationSet>
+    <AssociationSet Name="TableTable1" Association="MetaDataDB.Store.TableTable1">
       <End Role="Table" EntitySet="TableSet" />
       <End Role="Table1" EntitySet="TableSet" />
     </AssociationSet>
@@ -28,6 +32,7 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RealName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TableTable_Table1_Id" Type="int" Nullable="true" />
+    <Property Name="TableTable1_Table1_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="AttributeSet">
     <Key>
@@ -43,7 +48,7 @@
     <Property Name="IsPKey" Type="bit" Nullable="false" />
     <Property Name="AttributeTable_Attribute_Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="VIewSet">
+  <EntityType Name="ViewSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -91,6 +96,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="TableTable1">
+    <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="0..1" />
+    <End Role="Table1" Type="MetaDataDB.Store.TableSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Table1">
+        <PropertyRef Name="TableTable1_Table1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -109,6 +126,10 @@
             <End Role="Table" EntitySet="TableSet" />
             <End Role="Table1" EntitySet="TableSet" />
           </AssociationSet>
+          <AssociationSet Name="TableTable1" Association="MetaDataDB.TableTable1">
+            <End Role="Table" EntitySet="TableSet" />
+            <End Role="Table1" EntitySet="TableSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Table">
           <Key>
@@ -119,6 +140,7 @@
           <Property Name="Name" Type="String" Nullable="false" />
           <NavigationProperty Name="ChildTables" Relationship="MetaDataDB.TableTable" FromRole="Table" ToRole="Table1" />
           <Property Name="RealName" Type="String" Nullable="false" />
+          <NavigationProperty Name="ParentTables" Relationship="MetaDataDB.TableTable1" FromRole="Table" ToRole="Table1" />
         </EntityType>
         <EntityType Name="Attribute">
           <Key>
@@ -165,6 +187,10 @@
           <End Type="MetaDataDB.Table" Role="Table" Multiplicity="0..1" />
           <End Type="MetaDataDB.Table" Role="Table1" Multiplicity="*" />
         </Association>
+        <Association Name="TableTable1">
+          <End Type="MetaDataDB.Table" Role="Table" Multiplicity="0..1" />
+          <End Type="MetaDataDB.Table" Role="Table1" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -196,7 +222,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="ViewSet">
       <EntityTypeMapping TypeName="IsTypeOf(MetaDataDB.View)">
-        <MappingFragment StoreEntitySet="VIewSet">
+        <MappingFragment StoreEntitySet="ViewSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Data" ColumnName="Data" />
@@ -238,6 +264,15 @@
       </EndProperty>
       <Condition ColumnName="TableTable_Table1_Id" IsNull="false" />
     </AssociationSetMapping>
+    <AssociationSetMapping Name="TableTable1" TypeName="MetaDataDB.TableTable1" StoreEntitySet="TableSet">
+      <EndProperty Name="Table">
+        <ScalarProperty Name="Id" ColumnName="TableTable1_Table1_Id" />
+      </EndProperty>
+      <EndProperty Name="Table1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="TableTable1_Table1_Id" IsNull="false" />
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -266,6 +301,7 @@
         <EntityTypeShape EntityType="MetaDataDB.Query" Width="1.5" PointX="6.875" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="MetaDataDB.AttributeTable" ManuallyRouted="false" />
         <AssociationConnector Association="MetaDataDB.TableTable" />
+        <AssociationConnector Association="MetaDataDB.TableTable1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
