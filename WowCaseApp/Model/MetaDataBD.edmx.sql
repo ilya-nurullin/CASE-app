@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/08/2018 19:08:47
+-- Date Created: 12/09/2018 12:44:13
 -- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
@@ -34,8 +34,8 @@ GO
 IF OBJECT_ID(N'[dbo].[AttributeSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AttributeSet];
 GO
-IF OBJECT_ID(N'[dbo].[FormSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[FormSet];
+IF OBJECT_ID(N'[dbo].[ViewSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ViewSet];
 GO
 IF OBJECT_ID(N'[dbo].[ReportSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ReportSet];
@@ -53,7 +53,8 @@ CREATE TABLE [dbo].[TableSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [RealName] nvarchar(max)  NOT NULL,
-    [TableTable_Table1_Id] int  NULL
+    [TableTable_Table1_Id] int  NULL,
+    [TableTable1_Table1_Id] int  NULL
 );
 GO
 
@@ -161,6 +162,21 @@ GO
 CREATE INDEX [IX_FK_TableTable]
 ON [dbo].[TableSet]
     ([TableTable_Table1_Id]);
+GO
+
+-- Creating foreign key on [TableTable1_Table1_Id] in table 'TableSet'
+ALTER TABLE [dbo].[TableSet]
+ADD CONSTRAINT [FK_TableTable1]
+    FOREIGN KEY ([TableTable1_Table1_Id])
+    REFERENCES [dbo].[TableSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TableTable1'
+CREATE INDEX [IX_FK_TableTable1]
+ON [dbo].[TableSet]
+    ([TableTable1_Table1_Id]);
 GO
 
 -- --------------------------------------------------
