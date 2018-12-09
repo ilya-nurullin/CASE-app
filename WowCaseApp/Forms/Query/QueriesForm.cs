@@ -109,12 +109,12 @@ namespace WowCaseApp
 
 
                 string Select = $"SELECT {Elements} FROM {Tables} WHERE {Where1} {Where2} {Where3}";
-
+                
                 MessageBox.Show(Select);
             }
             catch (Exception a)
             {
-                MessageBox.Show($"Неверный запрос. Ошибка {a.Message} ");
+                MessageBox.Show($"Неверный запрос. Ошибка в запросе. ");
             }
         }
 
