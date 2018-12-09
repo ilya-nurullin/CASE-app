@@ -7,7 +7,7 @@ namespace WowCaseApp.Model
     {
         public Attribute() { }
 
-        public Attribute(string name, string realname, string type, Table table, bool isIndexed = false, bool isNulable = true, bool isPKey = false, bool isFKey = false)
+        public Attribute(string name, string realname, string type, bool isIndexed = false, bool isNulable = true, bool isPKey = false, bool isFKey = false)
         {
             Name = name;
             RealName = realname;
