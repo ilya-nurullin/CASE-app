@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.IO;
 using System.Windows.Forms;
 using log4net;
@@ -9,8 +10,8 @@ namespace WowCaseApp.Forms.View
 {
     public partial class ViewForm : Form
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ViewForm));
-
+        private static readonly ILog _log = LogManager.GetLogger(typeof(ViewForm));
+        private static SqlConnection _dbConnection;
 
         private MetaDataDBContainer _cont;
         private Model.View view;
@@ -32,17 +33,18 @@ namespace WowCaseApp.Forms.View
             catch (Exception e)
             {
                 MessageBox.Show("Возникла ошибка");
-                log.Error(e);
+                _log.Error(e);
                 //SaveError(e);
             }
         }
 
-        public ViewForm(MetaDataDBContainer Container, string ViewName)
+        public ViewForm(MetaDataDBContainer Container, SqlConnection dbConnection, string ViewName)
         {
             InitializeComponent();
 
             try
             {
+                _dbConnection = dbConnection;
                 _cont = Container;
                 view = new Model.View(ViewName);
                 _cont.ViewSet.Add(view);
@@ -53,17 +55,18 @@ namespace WowCaseApp.Forms.View
             catch (Exception e)
             {
                 MessageBox.Show("Возникла ошибка");
-                log.Error(e);
+                _log.Error(e);
                 //SaveError(e);
             }
         }
 
-        public ViewForm(MetaDataDBContainer Container, Model.View View)
+        public ViewForm(MetaDataDBContainer Container, SqlConnection dbConnection, Model.View View)
         {
             InitializeComponent();
 
             try
             {
+                _dbConnection = dbConnection;
                 _cont = Container;
                 view = View;
 
@@ -72,7 +75,7 @@ namespace WowCaseApp.Forms.View
             catch (Exception e)
             {
                 MessageBox.Show("Возникла ошибка");
-                log.Error(e);
+                _log.Error(e);
                 //SaveError(e);
             }
         }
