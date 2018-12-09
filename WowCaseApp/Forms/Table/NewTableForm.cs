@@ -115,6 +115,11 @@ namespace WowCaseApp
             if (!isIndexed)
                 return "";
 
+            if (new string[] { "Строка", "Текст" }.Contains(Row2Val<string>(row, "type")))
+            {
+                return "";
+            }
+
             return $"CREATE INDEX i{rowIndex} ON {tableName} (col{rowIndex});";
         }
 
