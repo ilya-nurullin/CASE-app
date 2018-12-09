@@ -180,6 +180,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlExecutor.cs" />
     <EmbeddedResource Include="Forms\Query\QueriesForm.resx">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,9 +224,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\Report\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\MetaDataBD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
