@@ -47,7 +47,7 @@ namespace WowCaseApp.Forms.View
                 GenerateComponentsOneValue(childAttributes);
             }
 
-            LoadData(0, mainT,childT,mainAttributes, childAttributes);
+            LoadData(mainT,childT,mainAttributes, childAttributes);
         }
         public void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
         {
