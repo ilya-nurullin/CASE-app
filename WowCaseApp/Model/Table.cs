@@ -19,6 +19,7 @@ namespace WowCaseApp.Model
         {
             this.Attributes = new HashSet<Attribute>();
             this.ChildTables = new HashSet<Table>();
+            this.ParentTables = new HashSet<Table>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,7 @@ namespace WowCaseApp.Model
         public virtual ICollection<Attribute> Attributes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Table> ChildTables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Table> ParentTables { get; set; }
     }
 }

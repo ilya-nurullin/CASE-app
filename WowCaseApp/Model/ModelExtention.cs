@@ -7,13 +7,13 @@ namespace WowCaseApp.Model
     {
         public Attribute() { }
 
-        public Attribute(string name, string realname, string type, Table table, bool isIndexed = false, bool isNulable = true, bool isPKey = false, bool isFKey = false)
+        public Attribute(string name, string realname, string type, bool isIndexed = false, bool isNullable = true, bool isPKey = false, bool isFKey = false)
         {
             Name = name;
             RealName = realname;
             Type = type;
             IsIndexed = isIndexed;
-            IsNullable = isNulable;
+            IsNullable = isNullable;
             IsPKey = isPKey;
             IsFKey = isFKey;
         }
@@ -31,6 +31,7 @@ namespace WowCaseApp.Model
         public View(string name)
         {
             Name = name;
+            Data = "";
         }
 
         public override string ToString()
@@ -61,6 +62,7 @@ namespace WowCaseApp.Model
         public Report(string name)
         {
             Name = name;
+            Data = "";
         }
 
         public override string ToString()
