@@ -16,8 +16,7 @@ namespace WowCaseApp.Forms.View
             //_cont.TableSet.Add(tb);
 
             //_cont.SaveChanges();
-
-
+            
             comboBoxMainTable.Items.Clear();
 
             foreach (var t in _cont.TableSet)

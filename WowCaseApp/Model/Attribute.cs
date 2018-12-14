@@ -12,6 +12,7 @@ namespace WowCaseApp.Model
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class Attribute
     {
         public int Id { get; set; }
