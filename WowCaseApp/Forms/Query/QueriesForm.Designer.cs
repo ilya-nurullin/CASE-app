@@ -68,6 +68,7 @@
             this.cmbTables.Name = "cmbTables";
             this.cmbTables.Size = new System.Drawing.Size(351, 24);
             this.cmbTables.TabIndex = 0;
+            this.cmbTables.SelectedIndexChanged += new System.EventHandler(this.cmbTables_SelectedIndexChanged);
             // 
             // labelTables
             // 
