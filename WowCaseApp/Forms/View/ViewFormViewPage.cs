@@ -16,12 +16,12 @@ namespace WowCaseApp.Forms.View
 {
     public partial class ViewForm
     {
-        private static int _indexValue=0;
-        private int _size = 0;
-        private bool _isListBoxCurrentChanged = true;
-        private static List<SavedControl> _savedControls= new List<SavedControl>();
+        static int _indexValue=0;
+        int _size = 0;
+        bool _isListBoxCurrentChanged = true;
+        static List<SavedControl> _savedControls= new List<SavedControl>();
 
-        public void InitializeViewPage()
+        void InitializeViewPage()
         {
             _indexValue = 0;
             if (_isListBoxCurrentChanged)
@@ -31,7 +31,7 @@ namespace WowCaseApp.Forms.View
             _isListBoxCurrentChanged = false;
         }
 
-        private void GenerateView(Table mainT, Table childT, IEnumerable<Attribute> currentAttribs)
+        void GenerateView(Table mainT, Table childT, IEnumerable<Attribute> currentAttribs)
         {
             if (!currentAttribs.Any())
             {
@@ -61,7 +61,7 @@ namespace WowCaseApp.Forms.View
             RestuctcturePanel();
             LoadData(mainT,childT,mainAttributes, childAttributes);
         }
-        private void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
+        void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
         {
             foreach (var a in attributes)
             {
@@ -107,7 +107,7 @@ namespace WowCaseApp.Forms.View
                 _savedControls.Add(new SavedControl(a,c));
             }
         }
-        private void GenerateComponentsManyValues(Table table,IEnumerable<Attribute> attributes)
+        void GenerateComponentsManyValues(Table table,IEnumerable<Attribute> attributes)
         {
             if (attributes.Any())
             {
@@ -130,7 +130,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        private void LoadData()
+        void LoadData()
         {
             var mainT = (Table)comboBoxMainTable.SelectedItem;
             var childT = (Table)comboBoxChildTable.SelectedItem;
@@ -141,7 +141,7 @@ namespace WowCaseApp.Forms.View
 
             LoadData(mainT,childT,mainAttributes,childAttributes);
         }
-        private void LoadData(Table mainT, Table childT, IEnumerable<Attribute> mainAttributes, IEnumerable<Attribute> childAttributes)
+        void LoadData(Table mainT, Table childT, IEnumerable<Attribute> mainAttributes, IEnumerable<Attribute> childAttributes)
         {
             _size = getSizeTable(mainT);
 
@@ -165,7 +165,7 @@ namespace WowCaseApp.Forms.View
                 }
             }
         }
-        private void LoadDataOneValue(Table sourceTable, Attribute attribute, Control control)
+        void LoadDataOneValue(Table sourceTable, Attribute attribute, Control control)
         {
             string text = $"Select top {_indexValue+ 1} * from [{sourceTable.RealName}]";
 
@@ -193,7 +193,7 @@ namespace WowCaseApp.Forms.View
                 sqlreader.Close();
             }
         }
-        private void LoadDataManyValue(Table mainT, Table sourceTable, IEnumerable<Attribute> attributes, DataGridView dgv)
+        void LoadDataManyValue(Table mainT, Table sourceTable, IEnumerable<Attribute> attributes, DataGridView dgv)
         {
             string attribs = "";
 
@@ -219,7 +219,7 @@ namespace WowCaseApp.Forms.View
             dgv.DataSource = new DataView(ds.Tables[0], $"{mainT.RealName}_FK = {getValueIdFromTable(mainT)}", "", DataViewRowState.CurrentRows);
         }
 
-        public void RestuctcturePanel()
+        void RestuctcturePanel()
         {
             int previousY = 0;
 
@@ -230,7 +230,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        public string getValueIdFromTable(Table T)
+        string getValueIdFromTable(Table T)
         {
             string primaryAttributename = T.Attributes.First(a => a.IsPKey).RealName;
 
@@ -261,7 +261,7 @@ namespace WowCaseApp.Forms.View
             }
 
         }
-        public int getSizeTable(Table T)
+        int getSizeTable(Table T)
         {
             string text = $"SELECT Count(*) FROM {T.RealName}";
 
@@ -287,7 +287,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        public void SavePanel()
+        void SavePanel()
         {
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream m = new MemoryStream())
@@ -301,7 +301,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        public void LoadViewForm()
+        void LoadViewForm()
         {
             InitializeAttributePage();
 
@@ -334,7 +334,7 @@ namespace WowCaseApp.Forms.View
             tabControl.SelectTab(1);
         }
 
-        private void buttonPrevVal_Click(object sender, EventArgs e)
+        void buttonPrevVal_Click(object sender, EventArgs e)
         {
             if (_indexValue == 0)
                 return;
@@ -342,7 +342,7 @@ namespace WowCaseApp.Forms.View
             _indexValue--;
             LoadData();
         }
-        private void buttonNextVal_Click(object sender, EventArgs e)
+        void buttonNextVal_Click(object sender, EventArgs e)
         {
             if (_indexValue == _size - 1)
                 return;
@@ -352,17 +352,17 @@ namespace WowCaseApp.Forms.View
         }
 
         // ----------- Перетаскивание----------------
-        bool _isDown;
+        bool _isMouseButtonDown;
         Control curControl;
-        private Point previous;
-        private void Control_MouseDown(object sender, MouseEventArgs e)
+        Point previous;
+        void Control_MouseDown(object sender, MouseEventArgs e)
         {
-            _isDown = true;
+            _isMouseButtonDown = true;
             curControl = sender as Control;
         }
-        private void Control_MouseMove(object sender, MouseEventArgs e)
+        void Control_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_isDown && sender is Control c && curControl.Equals(sender))
+            if (_isMouseButtonDown && sender is Control c && curControl.Equals(sender))
             {
                 var p =PanelViewPage.PointToClient(Control.MousePosition);
                 p.X = p.X > 0 ? p.X : 0;
@@ -370,9 +370,9 @@ namespace WowCaseApp.Forms.View
                 c.Location = p;
             }
         }
-        private void Control_MouseUp(object sender, MouseEventArgs e)
+        void Control_MouseUp(object sender, MouseEventArgs e)
         {
-            _isDown = false;
+            _isMouseButtonDown = false;
             curControl = null;
         }
     }
