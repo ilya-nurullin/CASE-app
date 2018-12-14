@@ -283,7 +283,12 @@ namespace WowCaseApp.Forms.View
         private void Control_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDown && sender is Control c && curControl.Equals(sender))
-                c.Location= PanelViewPage.PointToClient(Control.MousePosition);
+            {
+                var p =PanelViewPage.PointToClient(Control.MousePosition);
+                p.X = p.X > 0 ? p.X : 0;
+                p.Y = p.Y > 0 ? p.Y : 0;
+                c.Location = p;
+            }
         }
         private void Control_MouseUp(object sender, MouseEventArgs e)
         {
