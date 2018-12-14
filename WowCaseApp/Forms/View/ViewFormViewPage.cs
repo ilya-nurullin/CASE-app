@@ -81,8 +81,16 @@ namespace WowCaseApp.Forms.View
                 }
 
                 c.Name = a.RealName;
-                
-                PanelViewPage.Controls.Add(new Label() { Text = a.Name, Name = a.RealName + "_label"});
+                c.MouseDown += Control_MouseDown;
+                c.MouseMove+= Control_MouseMove;
+                c.MouseUp += Control_MouseUp;
+
+                Control control = new Label() {Text = a.Name, Name = a.RealName + "_label"};
+                control.MouseDown += Control_MouseDown;
+                control.MouseMove += Control_MouseMove;
+                control.MouseUp += Control_MouseUp;
+
+                PanelViewPage.Controls.Add(control);
                 PanelViewPage.Controls.Add(c);
             }
         }
@@ -90,8 +98,19 @@ namespace WowCaseApp.Forms.View
         {
             if (attributes.Any())
             {
-                PanelViewPage.Controls.Add(new Label() {Name = table.Name+"_label" });
-                PanelViewPage.Controls.Add(new DataGridView(){Name = table.Name + "_dgv" });
+                Control control = new Label() {Name = table.Name + "_label"};
+                control.MouseDown += Control_MouseDown;
+                control.MouseMove += Control_MouseMove;
+                control.MouseUp += Control_MouseUp;
+
+                PanelViewPage.Controls.Add(control);
+
+                control = new DataGridView() { Name = table.Name + "_dgv" };
+                control.MouseDown += Control_MouseDown;
+                control.MouseMove += Control_MouseMove;
+                control.MouseUp += Control_MouseUp;
+
+                PanelViewPage.Controls.Add(control);
             }
         }
 
@@ -210,6 +229,25 @@ namespace WowCaseApp.Forms.View
                 sqlreader.Close();
             }
 
+        }
+
+        bool isDown;
+        Control curControl;
+        private Point previous;
+        private void Control_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDown = true;
+            curControl = sender as Control;
+        }
+        private void Control_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDown && sender is Control c && curControl.Equals(sender))
+                c.Location= PanelViewPage.PointToClient(Control.MousePosition);
+        }
+        private void Control_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDown = false;
+            curControl = null;
         }
     }
 }
