@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetEnv;
+using WowCaseApp.Forms;
 using WowCaseApp.Forms.View;
 using WowCaseApp.Model;
 
@@ -96,7 +97,10 @@ namespace WowCaseApp
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            ViewForm childForm = new ViewForm(metaDbContainer,dbConnection,"MyForm");
+            GetStringForm gsf = new GetStringForm("Создание формы","Введите название формы");
+            if (gsf.ShowDialog() != DialogResult.OK)
+                return;
+            ViewForm childForm = new ViewForm(metaDbContainer,dbConnection, gsf.Value);
             childForm.MdiParent = this;
             childForm.Show();
         }
