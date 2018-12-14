@@ -1,24 +1,35 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WowCaseApp.Forms.Query;
 using WowCaseApp.Model;
 
 namespace WowCaseApp
 {
     public partial class QueriesForm : Form
     {
-        private MetaDataDBContainer _cont = new MetaDataDBContainer();
-        public QueriesForm()
+        private readonly MetaDataDBContainer metaDbContainer;
+        private readonly SqlConnection dbConnection;
+        private static readonly ILog log = LogManager.GetLogger(typeof(NewTableForm));
+        private readonly SqlExecutor sqlExecutor;
+
+        public QueriesForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection)
         {
             InitializeComponent();
             cmbTables.SelectedIndex = 0;
-            // cmbTables.DataSource = _cont.TableSet;
+            log.Debug("QueriesForm opened");
+            this.metaDbContainer = metaDataDbContainer;
+            this.dbConnection = dbConnection;
+            sqlExecutor = new SqlExecutor(dbConnection);
+         cmbTables.DataSource = metaDataDbContainer.TableSet.Select(x=>x.Name).ToList();
             // cmbItems1.DataSource = listBoxSelected.Items;
             /*cmbJoins.SelectedIndex = 0;
             cmbOperations.SelectedIndex = 0;*/
@@ -118,8 +129,15 @@ namespace WowCaseApp
             }
         }
 
+        private void btnAddJoin_Click(object sender, EventArgs e)
+        {
+            var elementsForQuery = listBoxSelected.Items.Cast<string>().ToArray();
 
 
+            string Tables = String.Join(",", elementsForQuery.Select(x => x.Substring(0, x.IndexOf("."))).Distinct());
+            JoinForm joinForm = new JoinForm(Tables);
+            joinForm.ShowDialog();
+        }
     }
 
     public static class Extension

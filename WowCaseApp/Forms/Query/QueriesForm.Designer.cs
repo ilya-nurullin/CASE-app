@@ -53,6 +53,7 @@
             this.txbValues3 = new System.Windows.Forms.TextBox();
             this.cmbOperations3 = new System.Windows.Forms.ComboBox();
             this.cmbItems3 = new System.Windows.Forms.ComboBox();
+            this.btnAddJoin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbTables
@@ -112,10 +113,6 @@
             // 
             this.listBoxSelected.FormattingEnabled = true;
             this.listBoxSelected.ItemHeight = 16;
-            this.listBoxSelected.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
             this.listBoxSelected.Location = new System.Drawing.Point(424, 135);
             this.listBoxSelected.Name = "listBoxSelected";
             this.listBoxSelected.Size = new System.Drawing.Size(228, 164);
@@ -327,11 +324,22 @@
             this.cmbItems3.Size = new System.Drawing.Size(228, 24);
             this.cmbItems3.TabIndex = 22;
             // 
+            // btnAddJoin
+            // 
+            this.btnAddJoin.Location = new System.Drawing.Point(57, 308);
+            this.btnAddJoin.Name = "btnAddJoin";
+            this.btnAddJoin.Size = new System.Drawing.Size(144, 23);
+            this.btnAddJoin.TabIndex = 26;
+            this.btnAddJoin.Text = "Добавить связь";
+            this.btnAddJoin.UseVisualStyleBackColor = true;
+            this.btnAddJoin.Click += new System.EventHandler(this.btnAddJoin_Click);
+            // 
             // QueriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1124, 584);
+            this.Controls.Add(this.btnAddJoin);
             this.Controls.Add(this.cmbJoins3);
             this.Controls.Add(this.txbValues3);
             this.Controls.Add(this.cmbOperations3);
@@ -357,7 +365,7 @@
             this.Controls.Add(this.labelTables);
             this.Controls.Add(this.cmbTables);
             this.Name = "QueriesForm";
-            this.Text = "ChildForm";
+            this.Text = "Queries";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -391,5 +399,6 @@
         private System.Windows.Forms.TextBox txbValues3;
         private System.Windows.Forms.ComboBox cmbOperations3;
         private System.Windows.Forms.ComboBox cmbItems3;
+        private System.Windows.Forms.Button btnAddJoin;
     }
 }

@@ -89,7 +89,7 @@ namespace WowCaseApp
 
         private void создатьНовыйЗапросToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            QueriesForm childForm = new QueriesForm();
+            QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection);
             childForm.MdiParent = this;
             childForm.Show();
         }
