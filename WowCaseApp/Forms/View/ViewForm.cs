@@ -10,11 +10,11 @@ namespace WowCaseApp.Forms.View
 {
     public partial class ViewForm : Form
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(ViewForm));
-        private static SqlConnection _dbConnection;
+        static readonly ILog _log = LogManager.GetLogger(typeof(ViewForm));
+        static SqlConnection _dbConnection;
 
-        private MetaDataDBContainer _cont;
-        private Model.View view;
+        MetaDataDBContainer _cont;
+        Model.View view;
 
 
         public ViewForm()
@@ -81,7 +81,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        private void tabControl_Selected(object sender, TabControlEventArgs e)
+        void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             switch (tabControl.SelectedTab.Tag)
             {
@@ -96,7 +96,7 @@ namespace WowCaseApp.Forms.View
             
         }
 
-        private void ViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        void ViewForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("Сохранить?", "Закрытие формы",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)

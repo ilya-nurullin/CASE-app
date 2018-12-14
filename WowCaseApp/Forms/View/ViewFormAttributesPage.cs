@@ -135,7 +135,7 @@ namespace WowCaseApp.Forms.View
                 listBoxCurrent.Items.Remove(attr);
         }
 
-        private void buttonToCurrent_Click(object sender, EventArgs e)
+        void buttonToCurrent_Click(object sender, EventArgs e)
         {
             _isListBoxCurrentChanged = true;
             MoveAttributesFromStockToCurrent(listBoxStock.SelectedItems.Cast<Model.Attribute>());
@@ -143,7 +143,7 @@ namespace WowCaseApp.Forms.View
             listBoxStock_Click(null, null);
             ChangeTableComboBox();
         }
-        private void buttonToCurrentAll_Click(object sender, EventArgs e)
+        void buttonToCurrentAll_Click(object sender, EventArgs e)
             {
             _isListBoxCurrentChanged = true;
             MoveAttributesFromStockToCurrent(listBoxStock.Items.Cast<Model.Attribute>());
@@ -151,7 +151,7 @@ namespace WowCaseApp.Forms.View
             listBoxStock_Click(null, null);
             ChangeTableComboBox();
         }
-        private void buttonToStock_Click(object sender, EventArgs e)
+        void buttonToStock_Click(object sender, EventArgs e)
         {
             _isListBoxCurrentChanged = true;
             MoveAttributesFromCurrentToStock(listBoxCurrent.SelectedItems.Cast<Model.Attribute>());
@@ -160,7 +160,7 @@ namespace WowCaseApp.Forms.View
 
             ChangeTableComboBox();
         }
-        private void buttontoStockAll_Click(object sender, EventArgs e)
+        void buttontoStockAll_Click(object sender, EventArgs e)
         {
             _isListBoxCurrentChanged = true;
             MoveAttributesFromCurrentToStock(listBoxCurrent.Items.Cast<Model.Attribute>());
@@ -169,34 +169,34 @@ namespace WowCaseApp.Forms.View
             ChangeTableComboBox();
         }
 
-        private void listBoxCurrent_Click(object sender, EventArgs e)
+        void listBoxCurrent_Click(object sender, EventArgs e)
         {
             buttonToStock.Enabled = listBoxCurrent.SelectedItems.Count > 0;
 
             UpdateUpDownButtons();
         }
-        private void listBoxStock_Click(object sender, EventArgs e)
+        void listBoxStock_Click(object sender, EventArgs e)
         {
             buttonToCurrent.Enabled = listBoxStock.SelectedItems.Count > 0;
         }
         
-        private void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
+        void comboBoxTables_SelectedValueChanged(object sender, EventArgs e)
         {
             ShowAttributesInStock();
         }
 
-        private void upButton_Click(object sender, EventArgs e)
+        void upButton_Click(object sender, EventArgs e)
         {
             MoveItemInCurrentListBox(-1);
             UpdateUpDownButtons();
         }
-        private void downButton_Click(object sender, EventArgs e)
+        void downButton_Click(object sender, EventArgs e)
         {
             MoveItemInCurrentListBox(1);
             UpdateUpDownButtons();
         }
 
-        private void UpdateUpDownButtons()
+        void UpdateUpDownButtons()
         {
             int max = -1, min = listBoxCurrent.Items.Count;
             foreach (var si in listBoxCurrent.SelectedItems)
@@ -209,7 +209,7 @@ namespace WowCaseApp.Forms.View
             downButton.Enabled = listBoxCurrent.SelectedItems.Count > 0 && max < listBoxCurrent.Items.Count - 1;
         }
 
-        private void MoveItemInCurrentListBox(int direction)
+        void MoveItemInCurrentListBox(int direction)
         {
             if (listBoxCurrent.SelectedItem == null || listBoxCurrent.SelectedIndex < 0)
                 return;

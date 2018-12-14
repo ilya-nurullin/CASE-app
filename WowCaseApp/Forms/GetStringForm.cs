@@ -24,11 +24,9 @@ namespace WowCaseApp.Forms
             label.Text = Label;
         }
 
-        private string _value;
+        public string Value { get; private set; }
 
-        public string Value => _value;
-
-        private void buttonOk_Click(object sender, EventArgs e)
+        void buttonOk_Click(object sender, EventArgs e)
         {
             if (textBox.Text.Trim() == "")
             {
@@ -36,7 +34,7 @@ namespace WowCaseApp.Forms
                 return;
             }
 
-            _value = textBox.Text.Trim();
+            Value = textBox.Text.Trim();
             DialogResult = DialogResult.OK;
             Close();
         }
