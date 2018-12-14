@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/09/2018 12:44:13
--- Generated from EDMX file: D:\Сохранить\Other\lll курс\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
+-- Date Created: 12/14/2018 15:22:47
+-- Generated from EDMX file: D:\Сохранить\Other\lll курс\ll модуль\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -22,6 +22,9 @@ IF OBJECT_ID(N'[dbo].[FK_AttributeTable]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_TableTable]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TableSet] DROP CONSTRAINT [FK_TableTable];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TableTable1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TableSet] DROP CONSTRAINT [FK_TableTable1];
 GO
 
 -- --------------------------------------------------
@@ -76,7 +79,7 @@ GO
 CREATE TABLE [dbo].[ViewSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Data] nvarchar(max)  NOT NULL
+    [Data] varbinary(max)  NOT NULL
 );
 GO
 
@@ -84,7 +87,7 @@ GO
 CREATE TABLE [dbo].[ReportSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Data] nvarchar(max)  NOT NULL
+    [Data] varbinary(max)  NOT NULL
 );
 GO
 
