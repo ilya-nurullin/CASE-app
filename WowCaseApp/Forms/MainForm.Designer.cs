@@ -42,7 +42,7 @@
             this.queriesMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьНовыйЗапросToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьНовуюФормуToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
             this.tablesContextMenu.SuspendLayout();
             this.queriesMenuStrip.SuspendLayout();
@@ -137,17 +137,17 @@
             // 
             this.viewsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.viewsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.создатьНовуюФормуToolStripMenuItem1});
             this.viewsMenuStrip.Name = "queriesMenuStrip";
-            this.viewsMenuStrip.Size = new System.Drawing.Size(233, 28);
+            this.viewsMenuStrip.Size = new System.Drawing.Size(233, 56);
             this.viewsMenuStrip.Tag = "Views";
             // 
-            // toolStripMenuItem1
+            // создатьНовуюФормуToolStripMenuItem1
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(232, 24);
-            this.toolStripMenuItem1.Text = "Создать новую форму";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.создатьНовуюФормуToolStripMenuItem1.Name = "создатьНовуюФормуToolStripMenuItem1";
+            this.создатьНовуюФормуToolStripMenuItem1.Size = new System.Drawing.Size(232, 24);
+            this.создатьНовуюФормуToolStripMenuItem1.Text = "Создать новую форму";
+            this.создатьНовуюФормуToolStripMenuItem1.Click += new System.EventHandler(this.создатьНовуюФормуToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
@@ -182,7 +182,7 @@
         private System.Windows.Forms.ContextMenuStrip queriesMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem создатьНовыйЗапросToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip viewsMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem создатьНовуюФормуToolStripMenuItem1;
     }
 }
 
