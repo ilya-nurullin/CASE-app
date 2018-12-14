@@ -17,16 +17,21 @@ namespace WowCaseApp.Forms.View
     public partial class ViewForm
     {
         private static int _indexValue=0;
+        private int _size = 0;
+        private bool _isListBoxCurrentChanged = true;
         private static List<SavedControl> _savedControls= new List<SavedControl>();
 
         public void InitializeViewPage()
         {
             _indexValue = 0;
-            //if (!view.Data.Any())
-            GenerateView((Table)comboBoxMainTable.SelectedItem, (Table)comboBoxChildTable.SelectedItem, listBoxCurrent.Items.Cast<Attribute>());
+            if (_isListBoxCurrentChanged)
+                GenerateView((Table)comboBoxMainTable.SelectedItem, (Table)comboBoxChildTable.SelectedItem, listBoxCurrent.Items.Cast<Attribute>());
+            else LoadViewForm();
+
+            _isListBoxCurrentChanged = false;
         }
 
-        public void GenerateView(Table mainT, Table childT, IEnumerable<Attribute> currentAttribs)
+        private void GenerateView(Table mainT, Table childT, IEnumerable<Attribute> currentAttribs)
         {
             if (!currentAttribs.Any())
             {
@@ -56,7 +61,7 @@ namespace WowCaseApp.Forms.View
             RestuctcturePanel();
             LoadData(mainT,childT,mainAttributes, childAttributes);
         }
-        public void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
+        private void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
         {
             foreach (var a in attributes)
             {
@@ -102,7 +107,7 @@ namespace WowCaseApp.Forms.View
                 _savedControls.Add(new SavedControl(a,c));
             }
         }
-        public void GenerateComponentsManyValues(Table table,IEnumerable<Attribute> attributes)
+        private void GenerateComponentsManyValues(Table table,IEnumerable<Attribute> attributes)
         {
             if (attributes.Any())
             {
@@ -125,8 +130,23 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        public void LoadData(Table mainT, Table childT, IEnumerable<Attribute> mainAttributes, IEnumerable<Attribute> childAttributes)
+        private void LoadData()
         {
+            var mainT = (Table)comboBoxMainTable.SelectedItem;
+            var childT = (Table)comboBoxChildTable.SelectedItem;
+            var currentAttribs = listBoxCurrent.Items.Cast<Attribute>();
+
+            var mainAttributes = currentAttribs.Intersect(mainT.Attributes);
+            var childAttributes = currentAttribs.Except(mainT.Attributes);
+
+            LoadData(mainT,childT,mainAttributes,childAttributes);
+        }
+        private void LoadData(Table mainT, Table childT, IEnumerable<Attribute> mainAttributes, IEnumerable<Attribute> childAttributes)
+        {
+            _size = getSizeTable(mainT);
+
+            countLabel.Text = $"{_indexValue + 1}/{_size}";
+
             foreach (var a in mainAttributes)
             {
                 LoadDataOneValue(mainT, a, PanelViewPage.Controls[a.RealName]);
@@ -145,7 +165,7 @@ namespace WowCaseApp.Forms.View
                 }
             }
         }
-        public void LoadDataOneValue(Table sourceTable, Attribute attribute, Control control)
+        private void LoadDataOneValue(Table sourceTable, Attribute attribute, Control control)
         {
             string text = $"Select top {_indexValue+ 1} * from [{sourceTable.RealName}]";
 
@@ -173,7 +193,7 @@ namespace WowCaseApp.Forms.View
                 sqlreader.Close();
             }
         }
-        public void LoadDataManyValue(Table mainT, Table sourceTable, IEnumerable<Attribute> attributes, DataGridView dgv)
+        private void LoadDataManyValue(Table mainT, Table sourceTable, IEnumerable<Attribute> attributes, DataGridView dgv)
         {
             string attribs = "";
 
@@ -221,7 +241,7 @@ namespace WowCaseApp.Forms.View
             try
             {
                 if (!sqlreader.Read())
-                    throw new Exception($"LoadDataOneValue[ViewForm] - no data (index was {_indexValue})");
+                    throw new Exception($"getValueIdFromTable[ViewForm] - no data (index was {_indexValue})");
 
                 for (int i = 0; i < _indexValue; i++)
                 {
@@ -241,6 +261,31 @@ namespace WowCaseApp.Forms.View
             }
 
         }
+        public int getSizeTable(Table T)
+        {
+            string text = $"SELECT Count(*) FROM {T.RealName}";
+
+            var command = new SqlCommand(text, _dbConnection);
+            var sqlreader = command.ExecuteReader();
+            try
+            {
+                if (!sqlreader.Read())
+                    throw new Exception($"getSizeTable[ViewForm] - no data (index was {_indexValue})");
+
+                //sqlreader.Read();
+                
+                return sqlreader.GetInt32(0);
+            }
+            catch (Exception e)
+            {
+                _log.Error(e);
+                return 0;
+            }
+            finally
+            {
+                sqlreader.Close();
+            }
+        }
 
         public void SavePanel()
         {
@@ -248,18 +293,33 @@ namespace WowCaseApp.Forms.View
             using (MemoryStream m = new MemoryStream())
             {
                 bf.Serialize(m,_savedControls);
+                bf.Serialize(m, comboBoxMainTable.SelectedItem);
+                bf.Serialize(m, comboBoxChildTable.SelectedItem??new object());
+                bf.Serialize(m, listBoxCurrent.Items);
                 view.Data = m.ToArray();
                 _cont.SaveChanges();
             }
         }
 
-        public void LoadPanel()
+        public void LoadViewForm()
         {
+            InitializeAttributePage();
+
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream m = new MemoryStream(view.Data))
             {
                 _savedControls = (List<SavedControl>)bf.Deserialize(m);
+                comboBoxMainTable.SelectedItem=(Table)bf.Deserialize(m);  
+                comboBoxChildTable.SelectedItem=(Table)bf.Deserialize(m);
+                listBoxCurrent.Items.Clear();
+                foreach (var obj in (ListBox.ObjectCollection)bf.Deserialize(m))
+                {
+                    listBoxCurrent.Items.Add(obj);
+                }
             }
+
+            ShowAttributesInStock();
+
 
             PanelViewPage.Controls.Clear();
 
@@ -269,20 +329,40 @@ namespace WowCaseApp.Forms.View
 
                 PanelViewPage.Controls.Add(c);
             }
+
+            _isListBoxCurrentChanged = false;
+            tabControl.SelectTab(1);
         }
-   
+
+        private void buttonPrevVal_Click(object sender, EventArgs e)
+        {
+            if (_indexValue == 0)
+                return;
+
+            _indexValue--;
+            LoadData();
+        }
+        private void buttonNextVal_Click(object sender, EventArgs e)
+        {
+            if (_indexValue == _size - 1)
+                return;
+
+            _indexValue++;
+            LoadData();
+        }
+
         // ----------- Перетаскивание----------------
-        bool isDown;
+        bool _isDown;
         Control curControl;
         private Point previous;
         private void Control_MouseDown(object sender, MouseEventArgs e)
         {
-            isDown = true;
+            _isDown = true;
             curControl = sender as Control;
         }
         private void Control_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDown && sender is Control c && curControl.Equals(sender))
+            if (_isDown && sender is Control c && curControl.Equals(sender))
             {
                 var p =PanelViewPage.PointToClient(Control.MousePosition);
                 p.X = p.X > 0 ? p.X : 0;
@@ -292,7 +372,7 @@ namespace WowCaseApp.Forms.View
         }
         private void Control_MouseUp(object sender, MouseEventArgs e)
         {
-            isDown = false;
+            _isDown = false;
             curControl = null;
         }
     }

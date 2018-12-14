@@ -70,7 +70,8 @@ namespace WowCaseApp.Forms.View
                 _cont = Container;
                 view = View;
 
-                InitializeAttributePage();
+                LoadViewForm();
+                //InitializeAttributePage();
             }
             catch (Exception e)
             {
@@ -89,9 +90,6 @@ namespace WowCaseApp.Forms.View
                     break;
                 case "Form":
                     InitializeViewPage();
-                    break;
-                case "Table":
-                    //InitializeAttributePage();
                     break;
             }
 

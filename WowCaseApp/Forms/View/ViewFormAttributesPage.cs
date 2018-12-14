@@ -10,13 +10,7 @@ namespace WowCaseApp.Forms.View
     public partial class ViewForm
     {
         void InitializeAttributePage()
-        {
-            //Table tb = new Table("LadaChild", "LadaChild");
-
-            //_cont.TableSet.Add(tb);
-
-            //_cont.SaveChanges();
-            
+        {           
             comboBoxMainTable.Items.Clear();
 
             foreach (var t in _cont.TableSet)
@@ -143,13 +137,15 @@ namespace WowCaseApp.Forms.View
 
         private void buttonToCurrent_Click(object sender, EventArgs e)
         {
+            _isListBoxCurrentChanged = true;
             MoveAttributesFromStockToCurrent(listBoxStock.SelectedItems.Cast<Model.Attribute>());
             listBoxStock.ClearSelected();
             listBoxStock_Click(null, null);
             ChangeTableComboBox();
         }
         private void buttonToCurrentAll_Click(object sender, EventArgs e)
-        {
+            {
+            _isListBoxCurrentChanged = true;
             MoveAttributesFromStockToCurrent(listBoxStock.Items.Cast<Model.Attribute>());
             listBoxStock.ClearSelected();
             listBoxStock_Click(null, null);
@@ -157,6 +153,7 @@ namespace WowCaseApp.Forms.View
         }
         private void buttonToStock_Click(object sender, EventArgs e)
         {
+            _isListBoxCurrentChanged = true;
             MoveAttributesFromCurrentToStock(listBoxCurrent.SelectedItems.Cast<Model.Attribute>());
             listBoxCurrent.ClearSelected();
             listBoxCurrent_Click(listBoxCurrent, null);
@@ -165,6 +162,7 @@ namespace WowCaseApp.Forms.View
         }
         private void buttontoStockAll_Click(object sender, EventArgs e)
         {
+            _isListBoxCurrentChanged = true;
             MoveAttributesFromCurrentToStock(listBoxCurrent.Items.Cast<Model.Attribute>());
             listBoxCurrent.ClearSelected();
             listBoxCurrent_Click(listBoxCurrent, null);
