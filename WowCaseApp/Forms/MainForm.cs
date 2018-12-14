@@ -96,7 +96,7 @@ namespace WowCaseApp
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            ViewForm childForm = new ViewForm();
+            ViewForm childForm = new ViewForm(metaDbContainer,dbConnection,"MyForm");
             childForm.MdiParent = this;
             childForm.Show();
         }
