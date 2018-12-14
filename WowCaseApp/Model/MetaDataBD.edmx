@@ -54,7 +54,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Data" Type="varbinary(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ReportSet">
     <Key>
@@ -62,7 +62,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Data" Type="varbinary(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="QuerySet">
     <Key>
