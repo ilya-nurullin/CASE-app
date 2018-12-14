@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using WowCaseApp.Model;
 using Attribute = WowCaseApp.Model.Attribute;
@@ -15,10 +17,12 @@ namespace WowCaseApp.Forms.View
     public partial class ViewForm
     {
         private static int _indexValue=0;
+        private static List<SavedControl> _savedControls= new List<SavedControl>();
 
         public void InitializeViewPage()
         {
             _indexValue = 0;
+            //if (!view.Data.Any())
             GenerateView((Table)comboBoxMainTable.SelectedItem, (Table)comboBoxChildTable.SelectedItem, listBoxCurrent.Items.Cast<Attribute>());
         }
 
@@ -36,6 +40,7 @@ namespace WowCaseApp.Forms.View
             var childAttributes = currentAttribs.Except(mainT.Attributes);
 
             PanelViewPage.Controls.Clear();
+            _savedControls.Clear();
 
             GenerateComponentsOneValue(mainAttributes);
             // main is a Parent
@@ -85,32 +90,38 @@ namespace WowCaseApp.Forms.View
                 c.MouseMove+= Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
 
-                Control control = new Label() {Text = a.Name, Name = a.RealName + "_label"};
-                control.MouseDown += Control_MouseDown;
-                control.MouseMove += Control_MouseMove;
-                control.MouseUp += Control_MouseUp;
+                Control label = new Label() {Text = a.Name, Name = a.RealName + "_label"};
+                label.MouseDown += Control_MouseDown;
+                label.MouseMove += Control_MouseMove;
+                label.MouseUp += Control_MouseUp;
 
-                PanelViewPage.Controls.Add(control);
+                PanelViewPage.Controls.Add(label);
                 PanelViewPage.Controls.Add(c);
+
+                _savedControls.Add(new SavedControl(a,label));
+                _savedControls.Add(new SavedControl(a,c));
             }
         }
         public void GenerateComponentsManyValues(Table table,IEnumerable<Attribute> attributes)
         {
             if (attributes.Any())
             {
-                Control control = new Label() {Name = table.Name + "_label"};
-                control.MouseDown += Control_MouseDown;
-                control.MouseMove += Control_MouseMove;
-                control.MouseUp += Control_MouseUp;
+                Control label = new Label(); // {Name = table.Name + "_label"};
+                label.MouseDown += Control_MouseDown;
+                label.MouseMove += Control_MouseMove;
+                label.MouseUp += Control_MouseUp;
 
-                PanelViewPage.Controls.Add(control);
+                PanelViewPage.Controls.Add(label);
 
-                control = new DataGridView() { Name = table.Name + "_dgv" };
-                control.MouseDown += Control_MouseDown;
-                control.MouseMove += Control_MouseMove;
-                control.MouseUp += Control_MouseUp;
+                Control dgv = new DataGridView() { Name = table.Name + "_dgv" };
+                dgv.MouseDown += Control_MouseDown;
+                dgv.MouseMove += Control_MouseMove;
+                dgv.MouseUp += Control_MouseUp;
 
-                PanelViewPage.Controls.Add(control);
+                PanelViewPage.Controls.Add(dgv);
+                
+                _savedControls.Add(new SavedControl(null, label));
+                _savedControls.Add(new SavedControl(null, dgv));
             }
         }
 
@@ -231,6 +242,36 @@ namespace WowCaseApp.Forms.View
 
         }
 
+        public void SavePanel()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream m = new MemoryStream())
+            {
+                bf.Serialize(m,_savedControls);
+                view.Data = m.ToArray();
+                _cont.SaveChanges();
+            }
+        }
+
+        public void LoadPanel()
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream m = new MemoryStream(view.Data))
+            {
+                _savedControls = (List<SavedControl>)bf.Deserialize(m);
+            }
+
+            PanelViewPage.Controls.Clear();
+
+            foreach (var savedControl in _savedControls)
+            {
+                Control c = savedControl.toControl();
+
+                PanelViewPage.Controls.Add(c);
+            }
+        }
+   
+        // ----------- Перетаскивание----------------
         bool isDown;
         Control curControl;
         private Point previous;

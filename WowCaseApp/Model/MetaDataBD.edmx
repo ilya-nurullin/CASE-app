@@ -161,7 +161,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Data" Type="String" Nullable="false" />
+          <Property Name="Data" Type="Binary" Nullable="false" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -169,7 +169,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Data" Type="String" Nullable="false" />
+          <Property Name="Data" Type="Binary" Nullable="false" />
         </EntityType>
         <EntityType Name="Query">
           <Key>

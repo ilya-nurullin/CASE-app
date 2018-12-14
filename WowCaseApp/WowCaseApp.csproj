@@ -120,6 +120,7 @@
     <Compile Include="Forms\Query\QueriesForm.Designer.cs">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\View\SavedControl.cs" />
     <Compile Include="Forms\View\ViewFormAttributesPage.cs">
       <SubType>Form</SubType>
     </Compile>
