@@ -65,15 +65,9 @@ namespace WowCaseApp
                     // Find the appropriate ContextMenu depending on the selected node.
                     switch (Convert.ToString(node.Tag))
                     {
-                        case "Tables":
-                            { 
-                            tablesContextMenu.Show(MainTreeView, p);
-                            break;
-                            }
-
+                        case "Tables":{tablesContextMenu.Show(MainTreeView, p);break;}
                         case "Queries": { queriesMenuStrip.Show(MainTreeView, p); break; }
                         case "Views": { viewsMenuStrip.Show(MainTreeView, p); break; }
-
                     }
                 }
             }
@@ -85,17 +79,13 @@ namespace WowCaseApp
             form.MdiParent = this;
             form.Show();
         }
-         
-      
-
         private void создатьНовыйЗапросToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             QueriesForm childForm = new QueriesForm();
             childForm.MdiParent = this;
             childForm.Show();
         }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void создатьНовуюФормуToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             GetStringForm gsf = new GetStringForm("Создание формы","Введите название формы");
             if (gsf.ShowDialog() != DialogResult.OK)
