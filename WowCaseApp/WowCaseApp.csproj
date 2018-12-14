@@ -120,6 +120,12 @@
     <Compile Include="Forms\GetStringForm.Designer.cs">
       <DependentUpon>GetStringForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Query\JoinForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Query\JoinForm.Designer.cs">
+      <DependentUpon>JoinForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Query\QueriesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +196,9 @@
     <Compile Include="SqlExecutor.cs" />
     <EmbeddedResource Include="Forms\GetStringForm.resx">
       <DependentUpon>GetStringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Query\JoinForm.resx">
+      <DependentUpon>JoinForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Query\QueriesForm.resx">
       <DependentUpon>QueriesForm.cs</DependentUpon>

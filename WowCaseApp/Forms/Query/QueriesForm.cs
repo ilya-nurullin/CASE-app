@@ -1,35 +1,67 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WowCaseApp.Forms.Query;
+using WowCaseApp.Model;
 
 namespace WowCaseApp
 {
     public partial class QueriesForm : Form
     {
-        public QueriesForm()
+        private readonly MetaDataDBContainer metaDbContainer;
+        private readonly SqlConnection dbConnection;
+        private static readonly ILog log = LogManager.GetLogger(typeof(NewTableForm));
+        private readonly SqlExecutor sqlExecutor;
+
+        public QueriesForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection)
         {
             InitializeComponent();
+          //  cmbTables.SelectedIndex = 0;
+            log.Debug("QueriesForm opened");
+            this.metaDbContainer = metaDataDbContainer;
+            this.dbConnection = dbConnection;
+            sqlExecutor = new SqlExecutor(dbConnection);
+            cmbTables.DataSource = metaDataDbContainer.TableSet.Select(x=>x.Name).ToList();
+            cmbTables.SelectedIndex = 0;
+            // cmbItems1.DataSource = listBoxSelected.Items;
+            /*cmbJoins.SelectedIndex = 0;
+            cmbOperations.SelectedIndex = 0;*/
         }
-
-        private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdateDataSourse()
         {
-
+            cmbItems1.DataSource = null;
+            cmbItems1.DataSource = listBoxSelected.Items;
+            cmbItems2.DataSource = null;
+            cmbItems2.DataSource = listBoxSelected.Items;
+            cmbItems3.DataSource = null;
+            cmbItems3.DataSource = listBoxSelected.Items;
         }
 
         private void btnDeleteAll_Click(object sender, EventArgs e)
         {
             listBoxSelected.Items.Clear();
+
+
+            UpdateDataSourse();
+
+
+
         }
 
         private void btnAddAll_Click(object sender, EventArgs e)
         {
             listBoxSelected.Items.AddRangeDistinct(listBoxAvailable.Items, cmbTables.SelectedItem.ToString());
+            UpdateDataSourse();
+
+
 
         }
 
@@ -37,66 +69,102 @@ namespace WowCaseApp
         {
             if (listBoxSelected.SelectedItem != null)
                 listBoxSelected.Items.Remove(listBoxSelected.SelectedItem);
+            UpdateDataSourse();
+
+
+
         }
 
         private void btnAddSelected_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
+
                 var a = cmbTables.SelectedItem.ToString() + "." + listBoxAvailable.SelectedItem.ToString();
 
                 if (listBoxAvailable.SelectedItem != null && cmbTables.SelectedItem != null && !listBoxSelected.Items.Contains(a))
                 {
                     listBoxSelected.Items.Add(a);
                 }
+
             }
-            catch  { }
+            catch { }
+
+            UpdateDataSourse();
+
+
 
         }
 
         private void btnAddNewJoin_Click(object sender, EventArgs e)
         {
-            if (this.Height <= btnAddNewJoin.Location.Y+btnAddNewJoin.Height+50) { }
-     else
-            {
-                //GroupBox groupBoxAdded =  new GroupBox();
 
-                //groupBoxAdded.Controls.Add(this.comboBox4);
-                //groupBoxAdded.Controls.Add(this.comboBox3);
-                //groupBoxAdded.Controls.Add(this.comboBox2);
-                //groupBoxAdded.Controls.Add(this.comboBox1);
-                //groupBoxAdded.Location = new System.Drawing.Point(57, 337);
-                // groupBoxAdded.Size = new System.Drawing.Size(595, 141);
-                //groupBoxAdded.TabIndex = 12;
-                //groupBoxAdded.TabStop = false;
-               
-                //groupBoxAdded.Visible = true;
-                //groupBoxAdded.Name = "groupBox"+MyGroupBox.getNewId();
-                //groupBoxAdded.Text= "Добавление группировки" + MyGroupBox.id;
-                //groupBoxAdded.Location=  MyGroupBox.getNewLocation();
-                //this.Controls.Add(groupBoxAdded);
-                
-            btnAddNewJoin.Location = new Point(btnAddNewJoin.Location.X, btnAddNewJoin.Location.Y + 10);
-            }
 
         }
 
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private GroupBox CreateNewJoin()
-        {
-            return null;
-        }
 
         private void CreateQuery_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var elementsForQuery = listBoxSelected.Items.Cast<string>().ToArray();
+
+                //Convert TableNames to TableRealNames as String
+                string Tables = String.Join(",", elementsForQuery.Select(x => x.Substring(0, x.IndexOf("."))).Distinct().ToList().Select(c => { c = metaDbContainer.TableSet.Where(y => y.Name == c).Select(z => z.RealName).FirstOrDefault(); return c; }).ToList());
+
+
+
+                //Convert TableName.Attrib to TableRealName.AttribRealName as String
+                string Elements = String.Join(",", elementsForQuery.Distinct().ToList().Select(c => { c = metaDbContainer.TableSet.Where(y => y.Name == c.Substring(0, c.IndexOf("."))).Select(z => z.RealName).FirstOrDefault()+"."+ metaDbContainer.AttributeSet.Where(y => y.Name == c.Substring(c.IndexOf(".")+1)).Select(z => z.RealName).FirstOrDefault(); return c; }).ToList());
+
+
+
+
+                /* string Where1 = cmbItems1.Text.ToString() +" "+ cmbOperations1.Text.ToString() +" "+ txbValues1.Text.ToString() + " "+ cmbJoins1.Text.ToString()  ;
+                 string Where2 = cmbItems2.Text.ToString() + " " + cmbOperations2.Text.ToString() + " " + txbValues2.Text.ToString() + " " + cmbJoins2.Text.ToString();
+                 string Where3 = cmbItems3.Text.ToString() + " " + cmbOperations3.Text.ToString() + " " + txbValues3.Text.ToString() + " " + cmbJoins3.Text.ToString();
+
+     */
+
+                //With WHERE Clause
+                // string Select = $"SELECT {Elements} FROM {Tables} WHERE {Where1} {Where2} {Where3}";
+
+                //Without WHERE Clause
+                 string Select =$"SELECT {Elements} FROM {Tables}";
+                
+                
+              // HandMade Tryier
+              //  string Select = $"SELECT t14122018_105044.col1 FROM t14122018_105044";
+
+                //sqlExecutor.ExecuteNonQuery(Select);
+                var cmd = new SqlCommand(Select, dbConnection);
+                var readed = cmd.ExecuteReader();
+                while (readed.Read())
+                {
+                    MessageBox.Show(readed[0].ToString());
+                }
+                MessageBox.Show(Select);
+
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show($"Неверный запрос. Ошибка в запросе. ", a.InnerException.ToString());
+            }
+        }
+
+        private void btnAddJoin_Click(object sender, EventArgs e)
+        {
             var elementsForQuery = listBoxSelected.Items.Cast<string>().ToArray();
+
+
+            string Tables = String.Join(",", elementsForQuery.Select(x => x.Substring(0, x.IndexOf("."))).Distinct());
+            JoinForm joinForm = new JoinForm(Tables);
+            joinForm.ShowDialog();
+        }
+
+        private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBoxAvailable.DataSource = metaDbContainer.TableSet.Where(x => x.Name == cmbTables.SelectedItem).FirstOrDefault().Attributes.Select(y=>y.Name).ToList();
         }
     }
 
@@ -110,7 +178,7 @@ namespace WowCaseApp
                 var a = SelectedTables + "." + temp.ToString();
                 if (!lb.Contains(a))
                 {
-                   
+
 
                     lb.Add(a);
                 }
@@ -118,26 +186,5 @@ namespace WowCaseApp
 
         }
     }
-    public class MyGroupBox : GroupBox
-    {
-        public static int id = 0;
-        public static Point curLocation= new Point(57,162);
-
-        public static int getNewId()
-        {
-            return ++id;
-        }
-       
-        public static Point getNewLocation()
-        {
-
-         
-            curLocation.Y += 200;
-
-            return curLocation;
-
-           
-        }
-
-    }
+    
 }
