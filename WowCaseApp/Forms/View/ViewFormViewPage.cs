@@ -357,11 +357,13 @@ namespace WowCaseApp.Forms.View
         Point previous;
         void Control_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             _isMouseButtonDown = true;
             curControl = sender as Control;
         }
         void Control_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             if (_isMouseButtonDown && sender is Control c && curControl.Equals(sender))
             {
                 var p =PanelViewPage.PointToClient(Control.MousePosition);
@@ -372,6 +374,7 @@ namespace WowCaseApp.Forms.View
         }
         void Control_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left) return;
             _isMouseButtonDown = false;
             curControl = null;
         }
