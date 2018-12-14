@@ -97,5 +97,18 @@ namespace WowCaseApp.Forms.View
 
             
         }
+
+        private void ViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Сохранить?", "Закрытие формы",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            SavePanel();
+            _cont.SaveChanges();
+        }
     }
 }
