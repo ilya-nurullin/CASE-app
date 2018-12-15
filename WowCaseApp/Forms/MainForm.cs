@@ -13,6 +13,7 @@ using DotNetEnv;
 using WowCaseApp.Forms;
 using WowCaseApp.Forms.View;
 using WowCaseApp.Model;
+using View = WowCaseApp.Model.View;
 
 namespace WowCaseApp
 {
@@ -29,8 +30,9 @@ namespace WowCaseApp
             log.Debug("App started");
             log.Debug("Total tables in MetaDB: " + metaDbContainer.TableSet.Count());
             log.Debug("Working DB name is " + dbConnection.Database);
-        }
 
+            LoadTreeView();
+        }
         ~MainForm()
         {
             dbConnection.Close();
@@ -63,14 +65,72 @@ namespace WowCaseApp
                     MainTreeView.SelectedNode = node;
 
                     // Find the appropriate ContextMenu depending on the selected node.
-                    switch (Convert.ToString(node.Tag))
+                    string tag = Convert.ToString(node.Tag);
+                    switch (tag)
                     {
                         case "Tables":{tablesContextMenu.Show(MainTreeView, p);break;}
                         case "Queries": { queriesMenuStrip.Show(MainTreeView, p); break; }
                         case "Views": { viewsMenuStrip.Show(MainTreeView, p); break; }
+                        default:
+                        {
+                            childNodesMenuStrip.Tag = node.Tag;
+                            childNodesMenuStrip.Show(MainTreeView, p);break;
+                        }
                     }
                 }
             }
+        }
+
+        private void LoadTreeView()
+        {
+            var nodes = MainTreeView.Nodes; 
+            foreach (TreeNode node in nodes)
+            {
+                switch (node.Tag)
+                {
+                    case "Tables":
+                    {
+                        foreach (var t in metaDbContainer.TableSet)
+                        {
+                            TreeNode tn = new TreeNode(t.Name);
+                            tn.Tag = $"[tabl]{t.RealName}";
+                            node.Nodes.Add(tn);
+                        }
+                        break;
+                    }
+                    case "Queries":
+                    {
+                        foreach (var q in metaDbContainer.QuerySet)
+                        {
+                            TreeNode tn = new TreeNode(q.Name);
+                            tn.Tag = $"[quer]{q.Name}";
+                            node.Nodes.Add(tn);
+                        }
+                        break;
+                    }
+                    case "Views":
+                    {
+                        foreach (var v in metaDbContainer.QuerySet)
+                        {
+                            TreeNode tn = new TreeNode(v.Name);
+                            tn.Tag = $"[view]{v.Name}";
+                            node.Nodes.Add(tn);
+                        }
+                        break;
+                    }
+                    case "Reports":
+                    {
+                        foreach (var r in metaDbContainer.QuerySet)
+                        {
+                            TreeNode tn = new TreeNode(r.Name);
+                            tn.Tag = $"[repo]{r.Name}";
+                            node.Nodes.Add(tn);
+                        }
+                        break;
+                    }
+                }
+            }
+            MainTreeView.ExpandAll();
         }
 
         private void создатьНовуюТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,6 +153,196 @@ namespace WowCaseApp
             ViewForm childForm = new ViewForm(metaDbContainer,dbConnection, gsf.Value);
             childForm.MdiParent = this;
             childForm.Show();
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStrip tsmi = ((ToolStripMenuItem)sender).GetCurrentParent();
+
+            switch (tsmi.Tag.ToString().Substring(0, 6))
+            {
+                case "[tabl]":
+                {
+                    OpenTable(tsmi.Tag.ToString().Substring(6)); 
+                    break;
+                }
+                case "[quer]":
+                {
+                    OpenQuery(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+                case "[view]":
+                {
+                    OpenView(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+                case "[repo]":
+                {
+                    OpenReport(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+            }
+        }
+        private void OpenTable(string name)
+        {
+            //TODO
+        }
+        private void OpenQuery(string name)
+        {
+            //TODO
+        }
+        private void OpenView(string name)
+        {
+            View v = metaDbContainer.ViewSet.Find(name);
+            ViewForm vf = new ViewForm(metaDbContainer,dbConnection, v);
+            vf.MdiParent = this;
+            vf.Show();
+        }
+        private void OpenReport(string name)
+        {
+            //TODO
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStrip tsmi = ((ToolStripMenuItem)sender).GetCurrentParent();
+
+            switch (tsmi.Tag.ToString().Substring(0, 6))
+            {
+                case "[tabl]":
+                {
+                    DeleteTable(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+                case "[quer]":
+                {
+                    DeleteQuery(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+                case "[view]":
+                {
+                    DeleteView(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+                case "[repo]":
+                {
+                    DeleteReport(tsmi.Tag.ToString().Substring(6));
+                    break;
+                }
+            }
+        }
+        private void DeleteTable(string name)
+        {
+            if (MessageBox.Show("Удалить таблицу?", "Удаление таблицы", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            Table.Remove(metaDbContainer,name);
+
+            var parentNode = MainTreeView.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals("Tables"));
+            parentNode.Nodes.Remove(parentNode.Nodes.Cast<TreeNode>().First(x=>x.Tag.Equals($"[tabl]{name}")));
+        }
+        private void DeleteQuery(string name)
+        {
+            if (MessageBox.Show("Удалить запрос?", "Удаление запроса",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            Query.Remove(metaDbContainer, name);
+
+            var parentNode = MainTreeView.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals("Queries"));
+            parentNode.Nodes.Remove(parentNode.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals($"[quer]{name}")));
+        }
+        private void DeleteView(string name)
+        {
+            if (MessageBox.Show("Удалить форму?", "Удаление формы",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            View.Remove(metaDbContainer, name);
+
+            var parentNode = MainTreeView.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals("Views"));
+            parentNode.Nodes.Remove(parentNode.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals($"[view]{name}")));
+        }
+        private void DeleteReport(string name)
+        {
+            if (MessageBox.Show("Удалить отчёт?", "Удаление отчёта",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
+            Report.Remove(metaDbContainer, name);
+
+            var parentNode = MainTreeView.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals("Reports"));
+            parentNode.Nodes.Remove(parentNode.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals($"[repo]{name}")));
+        }
+
+        private void переименоватьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStrip ts = ((ToolStripMenuItem)sender).GetCurrentParent();
+
+            string name = ts.Tag.ToString().Substring(6);
+            string nodeText = MainTreeView.Nodes.Cast<TreeNode>()
+                .Select(x => x.Nodes)
+                .Select(x => x.Cast<TreeNode>()
+                            .First(t => t.Tag.Equals($"{ts.Tag}"))).First().Text;
+            GetStringForm gst = new GetStringForm("Введите новое имя", "Переименование");
+            gst.SetValue(nodeText);
+
+            if (gst.ShowDialog() == DialogResult.Cancel || gst.Value == nodeText)
+                return;
+
+            string newName = gst.Value;
+            switch (ts.Tag.ToString().Substring(0, 6))
+            {
+                case "[tabl]":
+                {
+                    if (metaDbContainer.TableSet.Any(x => x.Name == newName))
+                    {
+                        MessageBox.Show("Таблица с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        переименоватьToolStripMenuItem_Click(sender, null);
+                    }
+
+                    metaDbContainer.TableSet.First(x => x.RealName == name).Name = newName;
+                    metaDbContainer.SaveChanges();
+                    break;
+                }
+                case "[quer]":
+                {
+                    if (metaDbContainer.QuerySet.Any(x => x.Name == newName))
+                    {
+                        MessageBox.Show("Запрос с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        переименоватьToolStripMenuItem_Click(sender, null);
+                    }
+
+                    metaDbContainer.QuerySet.First(x => x.Name == name).Name = newName;
+                    metaDbContainer.SaveChanges();
+                    break;
+                }
+                case "[view]":
+                {
+                    if (metaDbContainer.ViewSet.Any(x => x.Name == newName))
+                    {
+                        MessageBox.Show("Форма с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        переименоватьToolStripMenuItem_Click(sender, null);
+                    }
+
+                    metaDbContainer.ViewSet.First(x => x.Name == name).Name = newName;
+                    metaDbContainer.SaveChanges();
+                    break;
+                }
+                case "[repo]":
+                {
+                    if (metaDbContainer.ReportSet.Any(x => x.Name == newName))
+                    {
+                        MessageBox.Show("Отчёт с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        переименоватьToolStripMenuItem_Click(sender, null);
+                    }
+
+                    metaDbContainer.ReportSet.First(x => x.Name == name).Name = newName;
+                    metaDbContainer.SaveChanges();
+                    break;
+                }
+            }
         }
     }
 }
