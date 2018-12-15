@@ -100,15 +100,20 @@ namespace WowCaseApp.Forms.View
 
         void ViewForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Сохранить?", "Закрытие формы",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            var result = MessageBox.Show("Сохранить?", "Закрытие формы",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Cancel)
             {
                 e.Cancel = true;
                 return;
             }
 
-            SavePanel();
-            _cont.SaveChanges();
+            if (result == DialogResult.Yes)
+            {
+                SavePanel();
+                _cont.SaveChanges();
+            }
+
             ((MainForm)Parent.Parent).LoadTreeView();
         }
     }
