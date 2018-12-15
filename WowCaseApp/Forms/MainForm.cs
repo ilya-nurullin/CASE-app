@@ -150,6 +150,14 @@ namespace WowCaseApp
             GetStringForm gsf = new GetStringForm("Создание формы","Введите название формы");
             if (gsf.ShowDialog() != DialogResult.OK)
                 return;
+
+            if (metaDbContainer.ViewSet.Any(x => x.Name == gsf.Value))
+            {
+                MessageBox.Show("ФОрма с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                создатьНовуюФормуToolStripMenuItem1_Click(null, null);
+                return;
+            }
+
             ViewForm childForm = new ViewForm(metaDbContainer,dbConnection, gsf.Value);
             childForm.MdiParent = this;
             childForm.Show();

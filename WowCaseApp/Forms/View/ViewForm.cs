@@ -107,6 +107,7 @@ namespace WowCaseApp.Forms.View
 
             SavePanel();
             _cont.SaveChanges();
+            ((MainForm)Parent).LoadTreeView();
         }
     }
 }
