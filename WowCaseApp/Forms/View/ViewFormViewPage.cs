@@ -295,7 +295,7 @@ namespace WowCaseApp.Forms.View
                 bf.Serialize(m,_savedControls);
                 bf.Serialize(m, comboBoxMainTable.SelectedItem);
                 bf.Serialize(m, comboBoxChildTable.SelectedItem??new object());
-                bf.Serialize(m, listBoxCurrent.Items);
+                bf.Serialize(m, listBoxCurrent.Items.Cast<Attribute>().ToList());
                 view.Data = m.ToArray();
                 _cont.SaveChanges();
             }
