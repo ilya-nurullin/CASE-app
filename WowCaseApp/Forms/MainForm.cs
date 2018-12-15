@@ -201,7 +201,7 @@ namespace WowCaseApp
         }
         private void OpenView(string name)
         {
-            View v = metaDbContainer.ViewSet.Find(name);
+            View v = metaDbContainer.ViewSet.First(x=>x.Name == name);
             ViewForm vf = new ViewForm(metaDbContainer,dbConnection, v);
             vf.MdiParent = this;
             vf.Show();
