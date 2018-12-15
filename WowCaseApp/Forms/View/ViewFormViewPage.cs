@@ -101,6 +101,7 @@ namespace WowCaseApp.Forms.View
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
+                label.BackColor = Color.Transparent;
 
                 PanelViewPage.Controls.Add(label);
                 PanelViewPage.Controls.Add(c);
@@ -118,6 +119,7 @@ namespace WowCaseApp.Forms.View
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
+                label.BackColor = Color.Transparent;
 
                 PanelViewPage.Controls.Add(label);
 
