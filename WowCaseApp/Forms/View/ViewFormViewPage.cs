@@ -49,7 +49,7 @@ namespace WowCaseApp.Forms.View
             PanelViewPage.Controls.Clear();
             _savedControls.Clear();
 
-            GenerateComponentsOneValue(mainAttributes);
+            GenerateComponentsOneValue(mainT, mainAttributes);
             // main is a Parent
             if (mainT.ChildTables.Contains(childT))
             {
@@ -57,13 +57,13 @@ namespace WowCaseApp.Forms.View
             }
             else
             {
-                GenerateComponentsOneValue(childAttributes);
+                GenerateComponentsOneValue(childT, childAttributes);
             }
 
             RestuctcturePanel();
             LoadData(mainT,childT,mainAttributes, childAttributes);
         }
-        void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
+        void GenerateComponentsOneValue(Table table, IEnumerable<Attribute> attributes)
         {
             foreach (var a in attributes)
             {
@@ -92,12 +92,12 @@ namespace WowCaseApp.Forms.View
 
                 }
 
-                c.Name = a.RealName;
+                c.Name = $"{table.RealName}.{a.RealName}";
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove+= Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
 
-                Control label = new Label() {Text = a.Name, Name = a.RealName + "_label"};
+                Control label = new Label() {Text = a.Name, Name = $"{table.RealName}.{a.RealName}_label"};
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
@@ -113,7 +113,8 @@ namespace WowCaseApp.Forms.View
         {
             if (attributes.Any())
             {
-                Control label = new Label(); // {Name = table.Name + "_label"};
+                Control label = new Label() {Name = table.RealName + "_label"};
+                label.Text = table.Name;
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
@@ -300,6 +301,9 @@ namespace WowCaseApp.Forms.View
 
         void SavePanel()
         {
+            foreach (var sc in _savedControls)
+                sc.Update();
+
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream m = new MemoryStream())
             {
@@ -323,16 +327,20 @@ namespace WowCaseApp.Forms.View
                 using (MemoryStream m = new MemoryStream(view.Data))
                 {
                     _savedControls = (List<SavedControl>) bf.Deserialize(m);
-                    comboBoxMainTable.SelectedItem = bf.Deserialize(m);
-                    comboBoxChildTable.SelectedItem = bf.Deserialize(m);
+                    var maint = (Table)bf.Deserialize(m);
+                    var childT = (Table)bf.Deserialize(m);
                     listBoxCurrent.Items.Clear();
-                    foreach (var obj in (List<Attribute>) bf.Deserialize(m))
+                    foreach (var a in (List<Attribute>) bf.Deserialize(m))
                     {
-                        listBoxCurrent.Items.Add(obj);
+                        listBoxCurrent.Items.Add(_cont.AttributeSet.Find(a.Id));
                     }
+
+                    comboBoxMainTable.SelectedItem = _cont.TableSet.Find(maint.Id);
+                    ChangeTableComboBox();
+                    comboBoxChildTable.SelectedItem = _cont.TableSet.Find(childT.Id);
                 }
             }
-            catch (System.Runtime.Serialization.SerializationException e)
+            catch (Exception e)
             {
                 _log.Error(e);
             }
@@ -350,6 +358,7 @@ namespace WowCaseApp.Forms.View
             }
 
             _isListBoxCurrentChanged = false;
+            LoadData();
             tabControl.SelectTab(1);
         }
 
