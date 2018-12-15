@@ -353,6 +353,9 @@ namespace WowCaseApp.Forms.View
             foreach (var savedControl in _savedControls)
             {
                 Control c = savedControl.toControl();
+                c.MouseDown += Control_MouseDown;
+                c.MouseMove += Control_MouseMove;
+                c.MouseUp += Control_MouseUp;
 
                 PanelViewPage.Controls.Add(c);
             }
