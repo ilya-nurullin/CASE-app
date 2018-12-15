@@ -158,7 +158,7 @@ namespace WowCaseApp.Forms.View
         {
             _size = getSizeTable(mainT);
 
-            countLabel.Text = $"{_indexValue + 1}/{_size}";
+            countLabel.Text = $"{(_size == 0?0:_indexValue + 1)}/{_size}";
 
             foreach (var a in mainAttributes)
             {
@@ -398,7 +398,7 @@ namespace WowCaseApp.Forms.View
         }
         void buttonNextVal_Click(object sender, EventArgs e)
         {
-            if (_indexValue == _size - 1)
+            if (_indexValue >= _size - 1)
                 return;
 
             _indexValue++;
