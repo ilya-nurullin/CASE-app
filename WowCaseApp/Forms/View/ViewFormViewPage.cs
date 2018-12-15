@@ -120,7 +120,7 @@ namespace WowCaseApp.Forms.View
 
                 PanelViewPage.Controls.Add(label);
 
-                Control dgv = new DataGridView() { Name = table.Name + "_dgv" };
+                Control dgv = new DataGridView() { Name = table.RealName + "_dgv" };
                 dgv.MouseDown += Control_MouseDown;
                 dgv.MouseMove += Control_MouseMove;
                 dgv.MouseUp += Control_MouseUp;
@@ -214,7 +214,7 @@ namespace WowCaseApp.Forms.View
 
             DataSet ds =new DataSet();
 
-            sqlDataAdapter.Fill(ds, mainT.RealName);
+            sqlDataAdapter.Fill(ds, sourceTable.RealName);
 
             // where {mainT.RealName}_FK = {getValueIdFromTable(mainT)}
             var foreignAttribs = attributes.Where(x => x.Type == mainT.RealName);
