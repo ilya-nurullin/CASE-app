@@ -131,6 +131,7 @@ namespace WowCaseApp
 
             log.Info($"Table {tableName} ({realTableName}) was created successfully");
             MessageBox.Show("Таблица успешно создана!");
+            this.Close();
         }
 
         private Table Row2ParentTable(DataGridViewRow row)
