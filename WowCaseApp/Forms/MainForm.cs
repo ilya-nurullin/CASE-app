@@ -110,7 +110,7 @@ namespace WowCaseApp
                     }
                     case "Views":
                     {
-                        foreach (var v in metaDbContainer.QuerySet)
+                        foreach (var v in metaDbContainer.ViewSet)
                         {
                             TreeNode tn = new TreeNode(v.Name);
                             tn.Tag = $"[view]{v.Name}";
@@ -120,7 +120,7 @@ namespace WowCaseApp
                     }
                     case "Reports":
                     {
-                        foreach (var r in metaDbContainer.QuerySet)
+                        foreach (var r in metaDbContainer.ReportSet)
                         {
                             TreeNode tn = new TreeNode(r.Name);
                             tn.Tag = $"[repo]{r.Name}";
