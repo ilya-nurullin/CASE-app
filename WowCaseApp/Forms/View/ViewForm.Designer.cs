@@ -76,7 +76,7 @@
             // 
             this.PanelViewPage.AutoScroll = true;
             this.PanelViewPage.BackColor = System.Drawing.Color.White;
-            this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelViewPage.Location = new System.Drawing.Point(3, 50);
             this.PanelViewPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PanelViewPage.Name = "PanelViewPage";
