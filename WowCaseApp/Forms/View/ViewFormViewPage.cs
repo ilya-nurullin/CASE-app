@@ -123,7 +123,15 @@ namespace WowCaseApp.Forms.View
 
                 PanelViewPage.Controls.Add(label);
 
-                Control dgv = new DataGridView() { Name = table.RealName + "_dgv" };
+                Control dgv = new DataGridView()
+                {
+                    Name = table.RealName + "_dgv",
+                    ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                    RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
+                    AllowUserToResizeRows = false,
+                    AllowUserToResizeColumns = false,
+                    ReadOnly = true
+                };
                 dgv.MouseDown += Control_MouseDown;
                 dgv.MouseMove += Control_MouseMove;
                 dgv.MouseUp += Control_MouseUp;
@@ -231,6 +239,9 @@ namespace WowCaseApp.Forms.View
 
             filter = filter.TrimEnd(' ', '&');
             dgv.DataSource = new DataView(ds.Tables[0], filter, "", DataViewRowState.CurrentRows);
+            if (dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible)> 0)
+                dgv.Width = Math.Min(dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + dgv.RowHeadersWidth,
+                    this.Width);
         }
 
         void RestuctcturePanel()
@@ -358,6 +369,16 @@ namespace WowCaseApp.Forms.View
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove += Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
+
+                if (c is DataGridView gridView)
+                {
+                    gridView.ColumnHeadersHeightSizeMode =
+                        DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+                    gridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+                    gridView.AllowUserToResizeRows = false;
+                    gridView.AllowUserToResizeColumns = false;
+                    gridView.ReadOnly = true;
+                }
 
                 PanelViewPage.Controls.Add(c);
             }
