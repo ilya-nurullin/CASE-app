@@ -28,13 +28,15 @@ namespace WowCaseApp.Forms.View
                 GenerateView((Table)comboBoxMainTable.SelectedItem, (Table)comboBoxChildTable.SelectedItem, listBoxCurrent.Items.Cast<Attribute>());
             else LoadViewForm();
 
-            _isListBoxCurrentChanged = false;
+            //_isListBoxCurrentChanged = false;
         }
 
         void GenerateView(Table mainT, Table childT, IEnumerable<Attribute> currentAttribs)
         {
+            _isListBoxCurrentChanged = false;
             if (!currentAttribs.Any())
             {
+                _isListBoxCurrentChanged = true;
                 MessageBox.Show("Нечего показывать");
                 tabControl.SelectedIndex = 0;
                 return;
@@ -303,6 +305,7 @@ namespace WowCaseApp.Forms.View
 
         void LoadViewForm()
         {
+            _isListBoxCurrentChanged = false;
             InitializeAttributePage();
 
             BinaryFormatter bf = new BinaryFormatter();
