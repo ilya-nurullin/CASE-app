@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WowCaseApp.Model
@@ -106,6 +107,9 @@ namespace WowCaseApp.Model
         {
             Name = name;
             RealName = realname;
+            Attributes = new List<Attribute>();
+            ChildTables = new List<Table>();
+            ParentTables = new List<Table>();
         }
 
         public static void Remove(MetaDataDBContainer container, string name)
