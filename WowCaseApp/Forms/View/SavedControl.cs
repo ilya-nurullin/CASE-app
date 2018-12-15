@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -25,9 +26,14 @@ namespace WowCaseApp.Forms.View
         public int Width;
         public int Height;
 
+        [NonSerialized]
+        public Control Control;
+
         public SavedControl(Model.Attribute attribute, Control control)
         {
             Attribute = attribute;
+
+            Control = control;
 
             Type = ControlType.Control;
 
@@ -47,6 +53,14 @@ namespace WowCaseApp.Forms.View
             Y = control.Location.Y;
             Width = control.Width;
             Height = control.Height;
+        }
+
+        public void Update()
+        {
+            X = Control.Location.X;
+            Y = Control.Location.Y;
+            Width = Control.Width;
+            Height = Control.Height;
         }
     }
 
