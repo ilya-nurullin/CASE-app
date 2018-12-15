@@ -81,7 +81,7 @@ namespace WowCaseApp
             }
         }
 
-        private void LoadTreeView()
+        public void LoadTreeView()
         {
             var nodes = MainTreeView.Nodes; 
             foreach (TreeNode node in nodes)
