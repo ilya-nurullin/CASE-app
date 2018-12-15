@@ -43,10 +43,16 @@
             this.создатьНовыйЗапросToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьНовуюФормуToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.childNodesMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.переименоватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.MainMenuStrip.SuspendLayout();
             this.tablesContextMenu.SuspendLayout();
             this.queriesMenuStrip.SuspendLayout();
             this.viewsMenuStrip.SuspendLayout();
+            this.childNodesMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTreeView
@@ -72,7 +78,7 @@
             treeNode6,
             treeNode7,
             treeNode8});
-            this.MainTreeView.Size = new System.Drawing.Size(145, 707);
+            this.MainTreeView.Size = new System.Drawing.Size(110, 573);
             this.MainTreeView.TabIndex = 0;
             this.MainTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainTreeView_MouseUp);
             // 
@@ -149,6 +155,42 @@
             this.создатьНовуюФормуToolStripMenuItem1.Text = "Создать новую форму";
             this.создатьНовуюФормуToolStripMenuItem1.Click += new System.EventHandler(this.создатьНовуюФормуToolStripMenuItem1_Click);
             // 
+            // childNodesMenuStrip
+            // 
+            this.childNodesMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem,
+            this.переименоватьToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.удалитьToolStripMenuItem});
+            this.childNodesMenuStrip.Name = "childNodesMenuStrip";
+            this.childNodesMenuStrip.Size = new System.Drawing.Size(162, 76);
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            // 
+            // переименоватьToolStripMenuItem
+            // 
+            this.переименоватьToolStripMenuItem.Name = "переименоватьToolStripMenuItem";
+            this.переименоватьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.переименоватьToolStripMenuItem.Text = "Переименовать";
+            this.переименоватьToolStripMenuItem.Click += new System.EventHandler(this.переименоватьToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -166,6 +208,7 @@
             this.tablesContextMenu.ResumeLayout(false);
             this.queriesMenuStrip.ResumeLayout(false);
             this.viewsMenuStrip.ResumeLayout(false);
+            this.childNodesMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,6 +226,11 @@
         private System.Windows.Forms.ToolStripMenuItem создатьНовыйЗапросToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip viewsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem создатьНовуюФормуToolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip childNodesMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem переименоватьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

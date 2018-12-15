@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 
 namespace WowCaseApp.Model
 {
@@ -18,6 +19,13 @@ namespace WowCaseApp.Model
             IsFKey = isFKey;
         }
 
+        public static void Remove(MetaDataDBContainer container, string name)
+        {
+            Attribute a = container.AttributeSet.First(x => x.RealName == name);
+            container.AttributeSet.Remove(a);
+            container.SaveChanges();
+        }
+
         public override string ToString()
         {
             return $"{Name}";
@@ -34,6 +42,13 @@ namespace WowCaseApp.Model
             Data = new byte[0];
         }
 
+        public static void Remove(MetaDataDBContainer container, string name)
+        {
+            View v = container.ViewSet.First(x => x.Name == name);
+            container.ViewSet.Remove(v);
+            container.SaveChanges();
+        }
+
         public override string ToString()
         {
             return $"{Name}";
@@ -47,6 +62,13 @@ namespace WowCaseApp.Model
         public Query(string name)
         {
             Name = name;
+        }
+
+        public static void Remove(MetaDataDBContainer container, string name)
+        {
+            Query q = container.QuerySet.First(x => x.Name == name);
+            container.QuerySet.Remove(q);
+            container.SaveChanges();
         }
 
         public override string ToString()
@@ -65,6 +87,13 @@ namespace WowCaseApp.Model
             Data = new byte[0];
         }
 
+        public static void Remove(MetaDataDBContainer container, string name)
+        {
+            Report r = container.ReportSet.First(x => x.Name == name);
+            container.ReportSet.Remove(r);
+            container.SaveChanges();
+        }
+
         public override string ToString()
         {
             return $"{Name}";
@@ -77,6 +106,27 @@ namespace WowCaseApp.Model
         {
             Name = name;
             RealName = realname;
+        }
+
+        public static void Remove(MetaDataDBContainer container, string name)
+        {
+            Table table = container.TableSet.First(x => x.RealName == name);
+
+            var attr = table.Attributes.ToArray();
+
+            foreach (var a in attr)
+            {
+                Attribute.Remove(container,a.RealName);
+            }
+
+            foreach (var t in table.ChildTables.Union(table.ParentTables))
+            {
+                t.ChildTables.Remove(t);
+                t.ParentTables.Remove(t);
+            }
+
+            container.TableSet.Remove(table);
+            container.SaveChanges();
         }
 
         public override string ToString()
