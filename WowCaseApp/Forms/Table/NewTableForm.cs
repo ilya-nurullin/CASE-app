@@ -29,6 +29,8 @@ namespace WowCaseApp
             { "defaultValue", 5},
         };
 
+        private readonly Dictionary<string, string> tableRealName2Name;
+
         private readonly SqlExecutor sqlExecutor;
 
         /*
@@ -46,6 +48,17 @@ namespace WowCaseApp
             this.metaDbContainer = metaDataDbContainer;
             this.dbConnection = dbConnection;
             sqlExecutor = new SqlExecutor(dbConnection);
+            tableRealName2Name = GetTableNames();
+            ((DataGridViewComboBoxColumn)fkDataGridView.Columns[0]).Items.AddRange(tableRealName2Name.Keys.Select(x => x.ToString()).ToArray());
+        }
+
+        private Dictionary<string, string> GetTableNames()
+        {
+            return metaDbContainer.TableSet.ToList().Aggregate(new Dictionary<string, string>(), (d, t) =>
+            {
+                d.Add(t.Name, t.RealName);
+                return d;
+            });
         }
 
         private void создатьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,35 +69,107 @@ namespace WowCaseApp
             var tableName = tableNameTextBox.Text;
             var realTableName = "t"+DateTime.Now.ToString("ddMMyyyy_HHmmss");
 
+            if (! CheckValidity())
+                return;
+
             var dataGridViewRows = attributes.Cast<DataGridViewRow>()
                 .Where(row => (string)row.Cells[0].EditedFormattedValue != "");
+
             var createCols = dataGridViewRows
                 .Select((row, index) => Row2SqlCreateTable(row, index));
 
+            var fkStartIndex = dataGridViewRows.Count();
+            var fkAttributes = fkDataGridView.Rows.Cast<DataGridViewRow>().Where(row => (string)row.Cells[0].EditedFormattedValue != "");
+            var fkCols = fkAttributes.Select((row, index) => FKRow2SqlCreateTable(row, index + fkStartIndex));
+
+            var colsInTable = createCols.Union(fkCols).ToList();
+
             // create table
-            sqlExecutor.ExecuteNonQuery($"CREATE TABLE {realTableName}({string.Join(", ", createCols)})");
+            sqlExecutor.ExecuteNonQuery($"CREATE TABLE {realTableName}({string.Join(", ", colsInTable)})");
 
             // create indexes
-            var s = dataGridViewRows
+            dataGridViewRows
                 .Select((row, index) => Row2SqlCreateIndex(row, index, realTableName))
                 .Where(x => x != "")
-                .Select(sqlExecutor.ExecuteNonQuery);
+                .Select(sqlExecutor.ExecuteNonQuery).ToList();
 
             // create PK
-            var d = dataGridViewRows
+            dataGridViewRows
                 .Select((row, index) => Row2SqlPK(row, index, realTableName))
                 .Where(x => x != "")
-                .Select(sqlExecutor.ExecuteNonQuery);
+                .Select(sqlExecutor.ExecuteNonQuery).ToList();
+
+            // add constraint on FK for current table
+            if (fkAttributes.Count() > 0)
+                sqlExecutor.ExecuteNonQuery($"ALTER TABLE {realTableName} ADD " 
+                                            +string.Join(", ", fkAttributes.Select((row, index) => Row2FKSql(row, index + fkStartIndex)))
+                                            );
 
             // create EF Table
             var efTable = new Table(tableName, realTableName);
-            efTable.Attributes = dataGridViewRows.Select((row, index) => Row2Attribute(row, index)).ToList();
+            efTable.Attributes = dataGridViewRows
+                .Select((row, index) => Row2Attribute(row, index))
+                .Union(
+                    fkAttributes.Select((row, index) => Row2FKAttribute(row, index + fkStartIndex))
+                )
+                .ToList();
+            efTable.ParentTables = fkAttributes.Select(row => Row2ParentTable(row)).ToList();
 
             metaDbContainer.TableSet.Add(efTable);
             metaDbContainer.SaveChanges();
 
+            fkAttributes.Select(row =>
+            {
+                string tn = row.Cells[0].EditedFormattedValue.ToString();
+                string realName = tableRealName2Name[tn];
+
+                metaDbContainer.TableSet.Where(x => x.RealName == realName).First().ChildTables.Add(efTable);
+                return 0;
+            }).ToList();
+
+            metaDbContainer.SaveChanges();
+
             log.Info($"Table {tableName} ({realTableName}) was created successfully");
             MessageBox.Show("Таблица успешно создана!");
+        }
+
+        private Table Row2ParentTable(DataGridViewRow row)
+        {
+            string tableName = row.Cells[0].EditedFormattedValue.ToString();
+            string realName = tableRealName2Name[tableName];
+
+            return metaDbContainer.TableSet.Where(x => x.RealName == realName).First();
+        }
+
+        private Attribute Row2FKAttribute(DataGridViewRow row, int index)
+        {
+            string tableName = row.Cells[0].EditedFormattedValue.ToString();
+            string realName = tableRealName2Name[tableName];
+
+            return new Attribute(
+                name: $"Ссылка на {tableName}",
+                realname: $"col{index}",
+                type: realName,
+                isIndexed: true,
+                isNullable: false,
+                isPKey: false,
+                isFKey: true
+            );
+        }
+
+        private string Row2FKSql(DataGridViewRow row, int index)
+        {
+            string tableName = row.Cells[0].EditedFormattedValue.ToString();
+            string realName = tableRealName2Name[tableName];
+            string pkName = metaDbContainer.TableSet.Where(t => t.RealName == realName).First().Attributes
+                .Where(a => a.IsPKey).First().RealName;
+            
+            return $" FOREIGN KEY (col{index}) REFERENCES {realName}({pkName})";
+        }
+
+        private bool CheckValidity()
+        {
+            return true;
         }
 
         private Attribute Row2Attribute(DataGridViewRow row, int rowIndex)
@@ -108,6 +193,17 @@ namespace WowCaseApp
             return $"col{rowIndex} {Type2Sql(type)} {NotNull2Sql(isNullable)} {Default2Sql(row)}";
         }
 
+        private string FKRow2SqlCreateTable(DataGridViewRow row, int rowIndex)
+        {
+            string tableName = row.Cells[0].EditedFormattedValue.ToString();
+            string realName = tableRealName2Name[tableName];
+
+            string type = Type2Sql(metaDbContainer.TableSet.Where(t => t.RealName == realName).First().Attributes
+                .Where(a => a.IsPKey).First().Type, true);
+
+            return $"col{rowIndex} {type} NOT NULL";
+        }
+
         private string Row2SqlCreateIndex(DataGridViewRow row, int rowIndex, string tableName)
         {
             bool isIndexed = (bool) row.Cells[indexOf["isIndexed"]].EditedFormattedValue;
@@ -123,11 +219,11 @@ namespace WowCaseApp
             return $"CREATE INDEX i{rowIndex} ON {tableName} (col{rowIndex});";
         }
 
-        private string Type2Sql(string type)
+        private string Type2Sql(string type, bool forFK = false)
         {
             switch (type)
             {
-                case "Автоинкремент": return "INT IDENTITY (1,1)";
+                case "Автоинкремент": return (forFK) ? "INT" : "INT IDENTITY (1,1)";
                 case "Строка": return "nvarchar(max)";
                 case "Текст": return "text";
                 case "Дата": return "date";
