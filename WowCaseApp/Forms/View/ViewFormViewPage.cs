@@ -217,8 +217,17 @@ namespace WowCaseApp.Forms.View
             sqlDataAdapter.Fill(ds, mainT.RealName);
 
             // where {mainT.RealName}_FK = {getValueIdFromTable(mainT)}
+            var foreignAttribs = attributes.Where(x => x.Type == mainT.RealName);
 
-            dgv.DataSource = new DataView(ds.Tables[0], $"{mainT.RealName}_FK = {getValueIdFromTable(mainT)}", "", DataViewRowState.CurrentRows);
+            var tableId = getValueIdFromTable(mainT);
+            string filter = "";
+            foreach (var fa in foreignAttribs)
+            {
+                filter += $"{fa.RealName} = {tableId} &&";
+            }
+
+            filter = filter.TrimEnd(' ', '&');
+            dgv.DataSource = new DataView(ds.Tables[0], filter, "", DataViewRowState.CurrentRows);
         }
 
         void RestuctcturePanel()
@@ -309,16 +318,23 @@ namespace WowCaseApp.Forms.View
             InitializeAttributePage();
 
             BinaryFormatter bf = new BinaryFormatter();
-            using (MemoryStream m = new MemoryStream(view.Data))
+            try
             {
-                _savedControls = (List<SavedControl>)bf.Deserialize(m);
-                comboBoxMainTable.SelectedItem=(Table)bf.Deserialize(m);  
-                comboBoxChildTable.SelectedItem=(Table)bf.Deserialize(m);
-                listBoxCurrent.Items.Clear();
-                foreach (var obj in (ListBox.ObjectCollection)bf.Deserialize(m))
+                using (MemoryStream m = new MemoryStream(view.Data))
                 {
-                    listBoxCurrent.Items.Add(obj);
+                    _savedControls = (List<SavedControl>) bf.Deserialize(m);
+                    comboBoxMainTable.SelectedItem = bf.Deserialize(m);
+                    comboBoxChildTable.SelectedItem = bf.Deserialize(m);
+                    listBoxCurrent.Items.Clear();
+                    foreach (var obj in (List<Attribute>) bf.Deserialize(m))
+                    {
+                        listBoxCurrent.Items.Add(obj);
+                    }
                 }
+            }
+            catch (System.Runtime.Serialization.SerializationException e)
+            {
+                _log.Error(e);
             }
 
             ShowAttributesInStock();
