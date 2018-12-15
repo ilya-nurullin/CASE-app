@@ -281,14 +281,14 @@ namespace WowCaseApp
             ToolStrip ts = ((ToolStripMenuItem)sender).GetCurrentParent();
 
             string name = ts.Tag.ToString().Substring(6);
-            string nodeText = MainTreeView.Nodes.Cast<TreeNode>()
+            TreeNode node = MainTreeView.Nodes.Cast<TreeNode>()
                 .Select(x => x.Nodes)
                 .Select(x => x.Cast<TreeNode>()
-                            .First(t => t.Tag.Equals($"{ts.Tag}"))).First().Text;
+                            .First(t => t.Tag.Equals($"{ts.Tag}"))).First();
             GetStringForm gst = new GetStringForm("Введите новое имя", "Переименование");
-            gst.SetValue(nodeText);
+            gst.SetValue(node.Text);
 
-            if (gst.ShowDialog() == DialogResult.Cancel || gst.Value == nodeText)
+            if (gst.ShowDialog() == DialogResult.Cancel || gst.Value == node.Text)
                 return;
 
             string newName = gst.Value;
@@ -343,6 +343,8 @@ namespace WowCaseApp
                     break;
                 }
             }
+
+            node.Text = newName;
         }
     }
 }
