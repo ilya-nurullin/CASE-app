@@ -130,9 +130,6 @@
     <Compile Include="Forms\View\ViewFormAttributesPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\View\ViewFormTablePage.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\View\ViewFormViewPage.cs">
       <SubType>Form</SubType>
     </Compile>
