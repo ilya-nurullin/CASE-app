@@ -86,6 +86,7 @@ namespace WowCaseApp
             var nodes = MainTreeView.Nodes; 
             foreach (TreeNode node in nodes)
             {
+                node.Nodes.Clear();
                 switch (node.Tag)
                 {
                     case "Tables":
