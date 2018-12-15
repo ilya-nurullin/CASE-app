@@ -26,6 +26,11 @@ namespace WowCaseApp.Forms
 
         public string Value { get; private set; }
 
+        public void SetValue(string val)
+        {
+            textBox.Text = val;
+        }
+
         void buttonOk_Click(object sender, EventArgs e)
         {
             if (textBox.Text.Trim() == "")
