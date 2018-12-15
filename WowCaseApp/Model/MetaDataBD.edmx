@@ -11,17 +11,18 @@
     <EntitySet Name="ViewSet" EntityType="MetaDataDB.Store.ViewSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ReportSet" EntityType="MetaDataDB.Store.ReportSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="QuerySet" EntityType="MetaDataDB.Store.QuerySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TableTable" EntityType="MetaDataDB.Store.TableTable" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="AttributeTable" Association="MetaDataDB.Store.AttributeTable">
       <End Role="Attribute" EntitySet="AttributeSet" />
       <End Role="Table" EntitySet="TableSet" />
     </AssociationSet>
-    <AssociationSet Name="TableTable" Association="MetaDataDB.Store.TableTable">
+    <AssociationSet Name="FK_TableTable_Table" Association="MetaDataDB.Store.FK_TableTable_Table">
       <End Role="Table" EntitySet="TableSet" />
-      <End Role="Table1" EntitySet="TableSet" />
+      <End Role="TableTable" EntitySet="TableTable" />
     </AssociationSet>
-    <AssociationSet Name="TableTable1" Association="MetaDataDB.Store.TableTable1">
-      <End Role="Table" EntitySet="TableSet" />
+    <AssociationSet Name="FK_TableTable_Table1" Association="MetaDataDB.Store.FK_TableTable_Table1">
       <End Role="Table1" EntitySet="TableSet" />
+      <End Role="TableTable" EntitySet="TableTable" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="TableSet">
@@ -31,8 +32,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RealName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TableTable_Table1_Id" Type="int" Nullable="true" />
-    <Property Name="TableTable1_Table1_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="AttributeSet">
     <Key>
@@ -72,6 +71,14 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="QueryText" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="TableTable">
+    <Key>
+      <PropertyRef Name="ParentTables_Id" />
+      <PropertyRef Name="ChildTables_Id" />
+    </Key>
+    <Property Name="ParentTables_Id" Type="int" Nullable="false" />
+    <Property Name="ChildTables_Id" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="AttributeTable">
     <End Role="Attribute" Type="MetaDataDB.Store.AttributeSet" Multiplicity="*" />
     <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="1" />
@@ -84,27 +91,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="TableTable">
-    <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="0..1" />
-    <End Role="Table1" Type="MetaDataDB.Store.TableSet" Multiplicity="*" />
+  <Association Name="FK_TableTable_Table">
+    <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="1" />
+    <End Role="TableTable" Type="MetaDataDB.Store.TableTable" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Table">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Table1">
-        <PropertyRef Name="TableTable_Table1_Id" />
+      <Dependent Role="TableTable">
+        <PropertyRef Name="ParentTables_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="TableTable1">
-    <End Role="Table" Type="MetaDataDB.Store.TableSet" Multiplicity="0..1" />
-    <End Role="Table1" Type="MetaDataDB.Store.TableSet" Multiplicity="*" />
+  <Association Name="FK_TableTable_Table1">
+    <End Role="TableTable" Type="MetaDataDB.Store.TableTable" Multiplicity="*" />
+    <End Role="Table1" Type="MetaDataDB.Store.TableSet" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="Table">
+      <Principal Role="Table1">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Table1">
-        <PropertyRef Name="TableTable1_Table1_Id" />
+      <Dependent Role="TableTable">
+        <PropertyRef Name="ChildTables_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -126,10 +133,6 @@
             <End Role="Table" EntitySet="TableSet" />
             <End Role="Table1" EntitySet="TableSet" />
           </AssociationSet>
-          <AssociationSet Name="TableTable1" Association="MetaDataDB.TableTable1">
-            <End Role="Table" EntitySet="TableSet" />
-            <End Role="Table1" EntitySet="TableSet" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Table">
           <Key>
@@ -138,9 +141,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Attributes" Relationship="MetaDataDB.AttributeTable" FromRole="Table" ToRole="Attribute" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <NavigationProperty Name="ChildTables" Relationship="MetaDataDB.TableTable" FromRole="Table" ToRole="Table1" />
           <Property Name="RealName" Type="String" Nullable="false" />
-          <NavigationProperty Name="ParentTables" Relationship="MetaDataDB.TableTable1" FromRole="Table" ToRole="Table1" />
+          <NavigationProperty Name="ChildTables" Relationship="MetaDataDB.TableTable" FromRole="Table" ToRole="Table1" />
+          <NavigationProperty Name="ParentTables" Relationship="MetaDataDB.TableTable" FromRole="Table1" ToRole="Table" />
         </EntityType>
         <EntityType Name="Attribute">
           <Key>
@@ -184,11 +187,7 @@
           <End Type="MetaDataDB.Table" Role="Table" Multiplicity="1" />
         </Association>
         <Association Name="TableTable">
-          <End Type="MetaDataDB.Table" Role="Table" Multiplicity="0..1" />
-          <End Type="MetaDataDB.Table" Role="Table1" Multiplicity="*" />
-        </Association>
-        <Association Name="TableTable1">
-          <End Type="MetaDataDB.Table" Role="Table" Multiplicity="0..1" />
+          <End Type="MetaDataDB.Table" Role="Table" Multiplicity="*" />
           <End Type="MetaDataDB.Table" Role="Table1" Multiplicity="*" />
         </Association>
       </Schema>
@@ -255,23 +254,13 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="TableTable" TypeName="MetaDataDB.TableTable" StoreEntitySet="TableSet">
+    <AssociationSetMapping Name="TableTable" TypeName="MetaDataDB.TableTable" StoreEntitySet="TableTable">
       <EndProperty Name="Table">
-        <ScalarProperty Name="Id" ColumnName="TableTable_Table1_Id" />
+        <ScalarProperty Name="Id" ColumnName="ParentTables_Id" />
       </EndProperty>
       <EndProperty Name="Table1">
-        <ScalarProperty Name="Id" ColumnName="Id" />
+        <ScalarProperty Name="Id" ColumnName="ChildTables_Id" />
       </EndProperty>
-      <Condition ColumnName="TableTable_Table1_Id" IsNull="false" />
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="TableTable1" TypeName="MetaDataDB.TableTable1" StoreEntitySet="TableSet">
-      <EndProperty Name="Table">
-        <ScalarProperty Name="Id" ColumnName="TableTable1_Table1_Id" />
-      </EndProperty>
-      <EndProperty Name="Table1">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <Condition ColumnName="TableTable1_Table1_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
@@ -301,7 +290,6 @@
         <EntityTypeShape EntityType="MetaDataDB.Query" Width="1.5" PointX="6.875" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="MetaDataDB.AttributeTable" ManuallyRouted="false" />
         <AssociationConnector Association="MetaDataDB.TableTable" />
-        <AssociationConnector Association="MetaDataDB.TableTable1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
