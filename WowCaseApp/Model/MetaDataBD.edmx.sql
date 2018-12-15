@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/14/2018 15:22:47
+-- Date Created: 12/15/2018 18:58:14
 -- Generated from EDMX file: D:\Сохранить\Other\lll курс\ll модуль\БД\wow-case-cs-app\WowCaseApp\Model\MetaDataBD.edmx
 -- --------------------------------------------------
 
@@ -55,9 +55,7 @@ GO
 CREATE TABLE [dbo].[TableSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [RealName] nvarchar(max)  NOT NULL,
-    [TableTable_Table1_Id] int  NULL,
-    [TableTable1_Table1_Id] int  NULL
+    [RealName] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -99,6 +97,13 @@ CREATE TABLE [dbo].[QuerySet] (
 );
 GO
 
+-- Creating table 'TableTable'
+CREATE TABLE [dbo].[TableTable] (
+    [ParentTables_Id] int  NOT NULL,
+    [ChildTables_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -133,6 +138,12 @@ ADD CONSTRAINT [PK_QuerySet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [ParentTables_Id], [ChildTables_Id] in table 'TableTable'
+ALTER TABLE [dbo].[TableTable]
+ADD CONSTRAINT [PK_TableTable]
+    PRIMARY KEY CLUSTERED ([ParentTables_Id], [ChildTables_Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -152,34 +163,28 @@ ON [dbo].[AttributeSet]
     ([AttributeTable_Attribute_Id]);
 GO
 
--- Creating foreign key on [TableTable_Table1_Id] in table 'TableSet'
-ALTER TABLE [dbo].[TableSet]
-ADD CONSTRAINT [FK_TableTable]
-    FOREIGN KEY ([TableTable_Table1_Id])
+-- Creating foreign key on [ParentTables_Id] in table 'TableTable'
+ALTER TABLE [dbo].[TableTable]
+ADD CONSTRAINT [FK_TableTable_Table]
+    FOREIGN KEY ([ParentTables_Id])
     REFERENCES [dbo].[TableSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_TableTable'
-CREATE INDEX [IX_FK_TableTable]
-ON [dbo].[TableSet]
-    ([TableTable_Table1_Id]);
-GO
-
--- Creating foreign key on [TableTable1_Table1_Id] in table 'TableSet'
-ALTER TABLE [dbo].[TableSet]
-ADD CONSTRAINT [FK_TableTable1]
-    FOREIGN KEY ([TableTable1_Table1_Id])
+-- Creating foreign key on [ChildTables_Id] in table 'TableTable'
+ALTER TABLE [dbo].[TableTable]
+ADD CONSTRAINT [FK_TableTable_Table1]
+    FOREIGN KEY ([ChildTables_Id])
     REFERENCES [dbo].[TableSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_TableTable1'
-CREATE INDEX [IX_FK_TableTable1]
-ON [dbo].[TableSet]
-    ([TableTable1_Table1_Id]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_TableTable_Table1'
+CREATE INDEX [IX_FK_TableTable_Table1]
+ON [dbo].[TableTable]
+    ([ChildTables_Id]);
 GO
 
 -- --------------------------------------------------
