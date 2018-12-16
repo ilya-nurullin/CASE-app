@@ -175,7 +175,7 @@ namespace WowCaseApp.Forms.View
 
             foreach (var a in mainAttributes)
             {
-                LoadDataOneValue(mainT, a, PanelViewPage.Controls[a.RealName]);
+                LoadDataOneValue(mainT, a, PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"]);
             }
 
             // main is a Parent
@@ -409,41 +409,60 @@ namespace WowCaseApp.Forms.View
             InitializeAttributePage();
 
             BinaryFormatter bf = new BinaryFormatter();
+
+            Table mainT =null, childT = null;
             try
             {
                 using (MemoryStream m = new MemoryStream(view.Data))
                 {
                     _savedControls = (List<SavedControl>) bf.Deserialize(m);
-                    var maint = (Table)bf.Deserialize(m);
-                    var childT = (Table)bf.Deserialize(m);
+                    mainT = _cont.TableSet.Find((bf.Deserialize(m) as Table)?.Id);
+                    childT = _cont.TableSet.Find((bf.Deserialize(m) as Table)?.Id);
                     listBoxCurrent.Items.Clear();
-                    foreach (var a in (List<Attribute>) bf.Deserialize(m))
+                    if (bf.Deserialize(m) is List<Attribute> atributes)
+                    foreach (var a in  atributes )
                     {
-                        listBoxCurrent.Items.Add(_cont.AttributeSet.Find(a.Id));
+                        var attr = _cont.AttributeSet.Find(a.Id);
+                        if (attr != null)
+                        listBoxCurrent.Items.Add(attr);
                     }
 
-                    comboBoxMainTable.SelectedItem = _cont.TableSet.Find(maint.Id);
+                    comboBoxMainTable.SelectedItem = mainT;
                     ChangeTableComboBox();
-                    comboBoxChildTable.SelectedItem = _cont.TableSet.Find(childT.Id);
+                    comboBoxChildTable.SelectedItem = childT;
                 }
-            }
-            catch (Exception e)
-            {
-                _log.Error(e);
-            }
+            
 
             ShowAttributesInStock();
 
 
             PanelViewPage.Controls.Clear();
 
+            var currentAttribs = listBoxCurrent.Items.Cast<Attribute>();
+
+            var mainAttributes = currentAttribs.Intersect(mainT.Attributes);
+            var childAttributes = currentAttribs.Except(mainT.Attributes);
+
             foreach (var savedControl in _savedControls)
             {
+                Attribute a = _cont.AttributeSet.Find(savedControl.Attribute.Id);
+
+                Table t = null;
+
+                if (mainT.Attributes.Contains(a))
+                    t = mainT;
+                if (childT != null && childT.Attributes.Contains(a))
+                    t = childT;
+
                 Control c = savedControl.toControl();
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove += Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
                 c.Enabled = radioButton2.Checked;
+                c.Name = $"{t.RealName}.{a.RealName}";
+
+                if (c is Label label)
+                    label.Name += "_label";
 
                 if (c is DataGridView gridView)
                 {
@@ -453,14 +472,22 @@ namespace WowCaseApp.Forms.View
                     gridView.AllowUserToResizeRows = false;
                     gridView.AllowUserToResizeColumns = false;
                     gridView.Enabled = false;
+                    gridView.Name = $"{childT.RealName}_dgv";
                 }
 
+                savedControl.Control = c;
                 PanelViewPage.Controls.Add(c);
             }
 
             _isListBoxCurrentChanged = false;
             LoadData();
             tabControl.SelectTab(1);
+
+            }
+            catch (Exception e)
+            {
+                _log.Error(e);
+            }
         }
 
         void buttonPrevVal_Click(object sender, EventArgs e)
@@ -496,7 +523,7 @@ namespace WowCaseApp.Forms.View
 
             foreach (Control c in PanelViewPage.Controls)
             {
-                c.Enabled = readOnly;
+                c.Enabled = !readOnly;
                 if (c is DataGridView)
                     c.Enabled = false;
             }
