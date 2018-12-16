@@ -170,7 +170,42 @@ namespace WowCaseApp
         }
 
         private bool CheckValidity()
+        { 
+            return CheckTableName() && CheckRows();
+        }
+
+        private bool CheckRows()
         {
+            DataGridViewRowCollection attributes = dataGridView.Rows;
+            System.Collections.IList list = attributes;
+
+            var rowsExceptTheLastOne = list.Cast<DataGridViewRow>().Reverse().Skip(1);
+
+            if (attributes.Count == 0 || rowsExceptTheLastOne.Count() == 0)
+            {
+                MessageBox.Show("Требуется создать хотя бы один столбец");
+                return false;
+            }
+
+            bool hasErrorLines = rowsExceptTheLastOne.Any(x => x.Cells[0].EditedFormattedValue.ToString() == "" 
+                                                                              && x.Cells[1].EditedFormattedValue.ToString() != "");
+            if (hasErrorLines)
+            {
+                MessageBox.Show("Имя столбца не может быть пустым");
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckTableName()
+        {
+            if (tableNameTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Имя таблицы не может быть пустым");
+                return false;
+            }
+
             return true;
         }
 
