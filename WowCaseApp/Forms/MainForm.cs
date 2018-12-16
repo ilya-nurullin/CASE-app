@@ -379,5 +379,11 @@ namespace WowCaseApp
 
             node.Text = newName;
         }
+
+        private void добавитьЗначенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var nvf = new NewValueForm(metaDbContainer, dbConnection);
+            nvf.ShowDialog();
+        }
     }
 }
