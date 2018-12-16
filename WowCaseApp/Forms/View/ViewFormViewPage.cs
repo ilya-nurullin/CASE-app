@@ -539,11 +539,15 @@ namespace WowCaseApp.Forms.View
                 string aName = c.Name.Replace(tName,"").Replace("_label","").Replace("_dgv","").Trim('.',' ');
 
                 if (_cont.TableSet.First(x => x.RealName == tName).Attributes.First(x => x.RealName == aName).IsPKey)
-                    c.Enabled = false;
+                    if (!(c is Label))
+                        ((TextBox) c).ReadOnly = true;
 
                 if (c is DataGridView)
                     c.Enabled = false;
-            }
+
+                if (c is Label)
+                    c.Enabled = true;
+                }
 
             if (_size == 0) return;
 
@@ -551,7 +555,10 @@ namespace WowCaseApp.Forms.View
             {
                 var dr =UpdateData();
                 if (dr == DialogResult.Yes)
+                {
                     radioButton1.Checked = false;
+                    radioButton2.Checked = true;
+                }
                 if (dr == DialogResult.No)
                     LoadData();
             }
