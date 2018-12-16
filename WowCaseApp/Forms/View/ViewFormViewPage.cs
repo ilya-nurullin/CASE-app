@@ -88,6 +88,10 @@ namespace WowCaseApp.Forms.View
 
                     case "Да/нет":
                         c = new CheckBox();
+                        ((CheckBox) c).CheckedChanged += (o, e) =>
+                        {
+                            ((CheckBox) o).Text = ((CheckBox) o).Checked.ToString();
+                        };
                         break;
 
                 }
@@ -284,11 +288,12 @@ namespace WowCaseApp.Forms.View
         {
             string attribs = "";
             foreach (var a in mainAttributes)
-                attribs += $"{a.RealName} = '{PanelViewPage.Controls[a.RealName].Text}',";
+                if (!a.IsPKey)
+                    attribs += $"{a.RealName} = '{PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"].Text}',";
 
             attribs = attribs.TrimEnd(',',' ');
 
-            UpdateDataInDB(mainT.RealName, attribs, $"{mainT.Attributes.First(x=>x.IsPKey)} = {getValueIdFromTable(mainT)}");
+            UpdateDataInDB(mainT.RealName, attribs, $"{mainT.Attributes.First(x=>x.IsPKey).RealName} = {getValueIdFromTable(mainT)}");
 
             // main is a Parent
             if (mainT.ChildTables.Contains(childT))
@@ -312,8 +317,10 @@ namespace WowCaseApp.Forms.View
             }
             else
             {
+                if (childT==null) return;
                 attribs = "";
                 foreach (var a in childAttributes)
+                    if(!a.IsPKey)
                     attribs += $"{a.RealName} = '{PanelViewPage.Controls[a.RealName].Text}',";
 
                 attribs = attribs.TrimEnd(',', ' ');
@@ -440,9 +447,6 @@ namespace WowCaseApp.Forms.View
 
             var currentAttribs = listBoxCurrent.Items.Cast<Attribute>();
 
-            var mainAttributes = currentAttribs.Intersect(mainT.Attributes);
-            var childAttributes = currentAttribs.Except(mainT.Attributes);
-
             foreach (var savedControl in _savedControls)
             {
                 Attribute a = _cont.AttributeSet.Find(savedControl.Attribute.Id);
@@ -460,6 +464,9 @@ namespace WowCaseApp.Forms.View
                 c.MouseUp += Control_MouseUp;
                 c.Enabled = radioButton2.Checked;
                 c.Name = $"{t.RealName}.{a.RealName}";
+
+                if (c is CheckBox ch)
+                    ch.CheckedChanged += (o, e) => { ch.Text = ch.Checked.ToString(); };
 
                 if (c is Label label)
                     label.Name += "_label";
@@ -519,11 +526,21 @@ namespace WowCaseApp.Forms.View
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
+            try
+            {
+
             bool readOnly = radioButton1.Checked;
 
             foreach (Control c in PanelViewPage.Controls)
             {
                 c.Enabled = !readOnly;
+
+                string tName = c.Name.Remove(c.Name.IndexOf('.'));
+                string aName = c.Name.Replace(tName,"").Replace("_label","").Replace("_dgv","").Trim('.',' ');
+
+                if (_cont.TableSet.First(x => x.RealName == tName).Attributes.First(x => x.RealName == aName).IsPKey)
+                    c.Enabled = false;
+
                 if (c is DataGridView)
                     c.Enabled = false;
             }
@@ -537,6 +554,12 @@ namespace WowCaseApp.Forms.View
                     radioButton1.Checked = false;
                 if (dr == DialogResult.No)
                     LoadData();
+            }
+
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
             }
         }
 
