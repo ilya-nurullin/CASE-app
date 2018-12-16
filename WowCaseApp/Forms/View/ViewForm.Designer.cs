@@ -64,9 +64,9 @@
             this.tabPage2.Controls.Add(this.PanelViewPage);
             this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage2.Size = new System.Drawing.Size(495, 289);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Tag = "Form";
@@ -78,7 +78,7 @@
             this.PanelViewPage.BackColor = System.Drawing.Color.White;
             this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelViewPage.Location = new System.Drawing.Point(2, 41);
-            this.PanelViewPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PanelViewPage.Margin = new System.Windows.Forms.Padding(2);
             this.PanelViewPage.Name = "PanelViewPage";
             this.PanelViewPage.Size = new System.Drawing.Size(491, 246);
             this.PanelViewPage.TabIndex = 1;
@@ -93,7 +93,7 @@
             this.panel1.Controls.Add(this.buttonPrevVal);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(491, 39);
             this.panel1.TabIndex = 0;
@@ -102,7 +102,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(381, 11);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(83, 17);
             this.radioButton2.TabIndex = 6;
@@ -115,7 +115,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(297, 11);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(76, 17);
             this.radioButton1.TabIndex = 5;
@@ -170,9 +170,9 @@
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.comboBoxMainTable);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage1.Size = new System.Drawing.Size(495, 289);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Tag = "Attributes";
@@ -213,9 +213,10 @@
             // 
             // comboBoxChildTable
             // 
+            this.comboBoxChildTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxChildTable.FormattingEnabled = true;
             this.comboBoxChildTable.Location = new System.Drawing.Point(256, 22);
-            this.comboBoxChildTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxChildTable.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxChildTable.Name = "comboBoxChildTable";
             this.comboBoxChildTable.Size = new System.Drawing.Size(201, 21);
             this.comboBoxChildTable.TabIndex = 10;
@@ -224,7 +225,7 @@
             // buttontoStockAll
             // 
             this.buttontoStockAll.Location = new System.Drawing.Point(221, 174);
-            this.buttontoStockAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttontoStockAll.Margin = new System.Windows.Forms.Padding(2);
             this.buttontoStockAll.Name = "buttontoStockAll";
             this.buttontoStockAll.Size = new System.Drawing.Size(32, 20);
             this.buttontoStockAll.TabIndex = 9;
@@ -236,7 +237,7 @@
             // 
             this.buttonToStock.Enabled = false;
             this.buttonToStock.Location = new System.Drawing.Point(221, 150);
-            this.buttonToStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonToStock.Margin = new System.Windows.Forms.Padding(2);
             this.buttonToStock.Name = "buttonToStock";
             this.buttonToStock.Size = new System.Drawing.Size(32, 20);
             this.buttonToStock.TabIndex = 8;
@@ -247,7 +248,7 @@
             // buttonToCurrentAll
             // 
             this.buttonToCurrentAll.Location = new System.Drawing.Point(221, 106);
-            this.buttonToCurrentAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonToCurrentAll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonToCurrentAll.Name = "buttonToCurrentAll";
             this.buttonToCurrentAll.Size = new System.Drawing.Size(32, 20);
             this.buttonToCurrentAll.TabIndex = 7;
@@ -259,7 +260,7 @@
             // 
             this.buttonToCurrent.Enabled = false;
             this.buttonToCurrent.Location = new System.Drawing.Point(221, 83);
-            this.buttonToCurrent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonToCurrent.Margin = new System.Windows.Forms.Padding(2);
             this.buttonToCurrent.Name = "buttonToCurrent";
             this.buttonToCurrent.Size = new System.Drawing.Size(32, 20);
             this.buttonToCurrent.TabIndex = 6;
@@ -281,7 +282,7 @@
             // 
             this.listBoxCurrent.FormattingEnabled = true;
             this.listBoxCurrent.Location = new System.Drawing.Point(296, 64);
-            this.listBoxCurrent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxCurrent.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxCurrent.Name = "listBoxCurrent";
             this.listBoxCurrent.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxCurrent.Size = new System.Drawing.Size(130, 173);
@@ -292,7 +293,7 @@
             // 
             this.listBoxStock.FormattingEnabled = true;
             this.listBoxStock.Location = new System.Drawing.Point(51, 64);
-            this.listBoxStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxStock.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxStock.Name = "listBoxStock";
             this.listBoxStock.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxStock.Size = new System.Drawing.Size(130, 173);
@@ -321,9 +322,10 @@
             // 
             // comboBoxMainTable
             // 
+            this.comboBoxMainTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMainTable.FormattingEnabled = true;
             this.comboBoxMainTable.Location = new System.Drawing.Point(10, 22);
-            this.comboBoxMainTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxMainTable.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxMainTable.Name = "comboBoxMainTable";
             this.comboBoxMainTable.Size = new System.Drawing.Size(201, 21);
             this.comboBoxMainTable.TabIndex = 0;
@@ -335,7 +337,7 @@
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(503, 315);
@@ -348,7 +350,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(503, 315);
             this.Controls.Add(this.tabControl);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ViewForm";
             this.Text = "VIewForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
