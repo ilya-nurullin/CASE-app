@@ -228,38 +228,41 @@ namespace WowCaseApp.Forms.View
             string attribs = "";
 
             foreach (var a in attributes)
-            {
                 attribs += a.RealName + ", ";
-            }
 
             attribs = attribs.Any()? attribs.Trim(',', ' '):"*";
 
-            string text = $"Select {attribs} from {sourceTable.RealName}";
+            var foreignAttribs = sourceTable.Attributes.Where(x => x.Type == mainT.RealName);
+            var tableId = getValueIdFromTable(mainT);
+
+            string filter = "";
+            foreach (var fa in foreignAttribs)
+                filter += $"{fa.RealName} = '{tableId}' &&";
+
+            filter = filter.TrimEnd(' ', '&');
+            if (filter != "")
+                filter = "WHERE " + filter;
+
+            string text = $"Select {attribs} from {sourceTable.RealName} {filter}";
 
             var command = new SqlCommand(text, _dbConnection);
 
             SqlDataAdapter sqlDataAdapter =new SqlDataAdapter(command);
-
             DataSet ds =new DataSet();
-
             sqlDataAdapter.Fill(ds, sourceTable.RealName);
+            
+            //var arr = ds.Tables[0].Columns.Cast<DataColumn>().ToArray();
+            //foreach (var dc in arr)
+                //if (attributes.Any(x=>x.RealName.Contains(dc.ColumnName)))
+                    //ds.Tables[0].Columns.Remove(dc);
 
-            var foreignAttribs = attributes.Where(x => x.Type == mainT.RealName);
-
-            var tableId = getValueIdFromTable(mainT);
-            string filter = "";
-            foreach (var fa in foreignAttribs)
-                filter += $"{fa.RealName} = {tableId} &&";
-
-            filter = filter.TrimEnd(' ', '&');
-
-            dgv.DataSource = new DataView(ds.Tables[0], filter, "", DataViewRowState.CurrentRows);
+            dgv.DataSource = new DataView(ds.Tables[0]);
             if (dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible)> 0)
                 dgv.Width = Math.Min(dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + dgv.RowHeadersWidth,
                     this.Width);
 
             foreach (DataGridViewColumn col in dgv.Columns)
-                col.HeaderText = attributes.First(x => x.RealName == col.HeaderText).Name;
+                col.HeaderText = attributes.First(x => x.RealName == col.DataPropertyName).Name;
 
         }
 
