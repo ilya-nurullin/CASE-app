@@ -250,11 +250,6 @@ namespace WowCaseApp.Forms.View
             SqlDataAdapter sqlDataAdapter =new SqlDataAdapter(command);
             DataSet ds =new DataSet();
             sqlDataAdapter.Fill(ds, sourceTable.RealName);
-            
-            //var arr = ds.Tables[0].Columns.Cast<DataColumn>().ToArray();
-            //foreach (var dc in arr)
-                //if (attributes.Any(x=>x.RealName.Contains(dc.ColumnName)))
-                    //ds.Tables[0].Columns.Remove(dc);
 
             dgv.DataSource = new DataView(ds.Tables[0]);
             if (dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible)> 0)
@@ -292,7 +287,9 @@ namespace WowCaseApp.Forms.View
             string attribs = "";
             foreach (var a in mainAttributes)
                 if (!a.IsPKey)
-                    attribs += $"{a.RealName} = '{PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"].Text}',";
+                    if (PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"] is DateTimePicker c)
+                        attribs += $"{a.RealName} = '{c.Value.ToShortDateString()}'";
+                    else attribs += $"{a.RealName} = '{PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"].Text}',";
 
             attribs = attribs.TrimEnd(',',' ');
 
