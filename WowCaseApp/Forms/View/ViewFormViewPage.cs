@@ -341,7 +341,7 @@ namespace WowCaseApp.Forms.View
         {
             string primaryAttributename = T.Attributes.First(a => a.IsPKey).RealName;
 
-            string text = $"Select top {_indexValue+1} {primaryAttributename} from {T.RealName}";
+            string text = $"Select top {_indexValue+1} {primaryAttributename} from {T.RealName} order by {primaryAttributename}";
 
             var command = new SqlCommand(text, _dbConnection);
             var sqlreader = command.ExecuteReader();
