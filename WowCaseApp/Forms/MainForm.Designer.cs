@@ -32,7 +32,6 @@
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Таблицы");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Формы");
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Запросы");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Отчеты");
             this.MainTreeView = new System.Windows.Forms.TreeView();
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,14 +69,10 @@
             treeNode7.Name = "Queries";
             treeNode7.Tag = "Queries";
             treeNode7.Text = "Запросы";
-            treeNode8.Name = "Reports";
-            treeNode8.Tag = "Reports";
-            treeNode8.Text = "Отчеты";
             this.MainTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode5,
             treeNode6,
-            treeNode7,
-            treeNode8});
+            treeNode7});
             this.MainTreeView.Size = new System.Drawing.Size(110, 573);
             this.MainTreeView.TabIndex = 0;
             this.MainTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainTreeView_MouseUp);
