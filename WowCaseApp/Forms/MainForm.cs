@@ -291,9 +291,9 @@ namespace WowCaseApp
 
             string name = ts.Tag.ToString().Substring(6);
             TreeNode node = MainTreeView.Nodes.Cast<TreeNode>()
-                .Select(x => x.Nodes)
-                .Select(x => x.Cast<TreeNode>()
-                            .First(t => t.Tag.Equals($"{ts.Tag}"))).First();
+                .SelectMany(x => x.Nodes.Cast<TreeNode>())
+                .First(t => t.Tag.Equals($"{ts.Tag}"));
+
             GetStringForm gst = new GetStringForm("Введите новое имя", "Переименование");
             gst.SetValue(node.Text);
 
