@@ -233,15 +233,18 @@ namespace WowCaseApp.Forms.View
             var tableId = getValueIdFromTable(mainT);
             string filter = "";
             foreach (var fa in foreignAttribs)
-            {
                 filter += $"{fa.RealName} = {tableId} &&";
-            }
 
             filter = filter.TrimEnd(' ', '&');
+
             dgv.DataSource = new DataView(ds.Tables[0], filter, "", DataViewRowState.CurrentRows);
             if (dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible)> 0)
                 dgv.Width = Math.Min(dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + dgv.RowHeadersWidth,
                     this.Width);
+
+            foreach (DataGridViewColumn col in dgv.Columns)
+                col.HeaderText = attributes.First(x => x.RealName == col.HeaderText).Name;
+
         }
 
         void RestuctcturePanel()
