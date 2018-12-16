@@ -108,7 +108,7 @@ namespace WowCaseApp.Forms.View
 
             if (result == DialogResult.Yes)
             {
-                SavePanel();
+                SaveViewForm();
                 _cont.SaveChanges();
             }
 

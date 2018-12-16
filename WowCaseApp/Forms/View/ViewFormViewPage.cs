@@ -26,7 +26,7 @@ namespace WowCaseApp.Forms.View
             _indexValue = 0;
             if (_isListBoxCurrentChanged)
                 GenerateView((Table)comboBoxMainTable.SelectedItem, (Table)comboBoxChildTable.SelectedItem, listBoxCurrent.Items.Cast<Attribute>());
-            else LoadViewForm();
+            //else LoadViewForm();
 
             //_isListBoxCurrentChanged = false;
         }
@@ -96,6 +96,7 @@ namespace WowCaseApp.Forms.View
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove+= Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
+                c.Enabled = radioButton2.Checked;
 
                 Control label = new Label() {Text = a.Name, Name = $"{table.RealName}.{a.RealName}_label"};
                 label.MouseDown += Control_MouseDown;
@@ -130,7 +131,8 @@ namespace WowCaseApp.Forms.View
                     RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
                     AllowUserToResizeRows = false,
                     AllowUserToResizeColumns = false,
-                    ReadOnly = true
+                    Enabled = false,
+                    //ReadOnly = true
                 };
                 dgv.MouseDown += Control_MouseDown;
                 dgv.MouseMove += Control_MouseMove;
@@ -140,6 +142,17 @@ namespace WowCaseApp.Forms.View
                 
                 _savedControls.Add(new SavedControl(null, label));
                 _savedControls.Add(new SavedControl(null, dgv));
+            }
+        }
+
+        void RestuctcturePanel()
+        {
+            int previousY = 0;
+
+            foreach (Control c in PanelViewPage.Controls)
+            {
+                c.Location = new Point(0, previousY);
+                previousY += c.Height;
             }
         }
 
@@ -227,7 +240,6 @@ namespace WowCaseApp.Forms.View
 
             sqlDataAdapter.Fill(ds, sourceTable.RealName);
 
-            // where {mainT.RealName}_FK = {getValueIdFromTable(mainT)}
             var foreignAttribs = attributes.Where(x => x.Type == mainT.RealName);
 
             var tableId = getValueIdFromTable(mainT);
@@ -247,15 +259,75 @@ namespace WowCaseApp.Forms.View
 
         }
 
-        void RestuctcturePanel()
+        DialogResult UpdateData()
         {
-            int previousY = 0;
+            var mainT = (Table)comboBoxMainTable.SelectedItem;
+            var childT = (Table)comboBoxChildTable.SelectedItem;
+            var currentAttribs = listBoxCurrent.Items.Cast<Attribute>();
 
-            foreach (Control c in PanelViewPage.Controls)
+            var mainAttributes = currentAttribs.Intersect(mainT.Attributes);
+            var childAttributes = currentAttribs.Except(mainT.Attributes);
+
+            try
             {
-                c.Location = new Point(0, previousY);
-                previousY += c.Height;
+                UpdateData(mainT, childT, mainAttributes, childAttributes);
+
             }
+            catch (Exception e)
+            {
+                return MessageBox.Show("Ошибка в некоторых данных. \nНеобходимо исправить. \n(Yes - исправить, No - откатить)", "Ошибка данных", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            }
+
+            return DialogResult.OK;
+        }
+        void UpdateData(Table mainT, Table childT, IEnumerable<Attribute> mainAttributes,IEnumerable<Attribute> childAttributes)
+        {
+            string attribs = "";
+            foreach (var a in mainAttributes)
+                attribs += $"{a.RealName} = '{PanelViewPage.Controls[a.RealName].Text}',";
+
+            attribs = attribs.TrimEnd(',',' ');
+
+            UpdateDataInDB(mainT.RealName, attribs, $"{mainT.Attributes.First(x=>x.IsPKey)} = {getValueIdFromTable(mainT)}");
+
+            // main is a Parent
+            if (mainT.ChildTables.Contains(childT))
+            {
+                //TODO
+                //var dgv = (DataGridView) PanelViewPage.Controls[childT.RealName + "_dgv"];
+
+                //var dv = (DataView)dgv.DataSource;
+                //var dt = dv.Table;
+                //var dtc = dt.Columns;
+                //var dtr = dt.Rows;
+
+                //attribs = "";
+
+                //foreach (DataColumn dc in dtc)
+                //{
+                //    attribs += $"{a.RealName} = '{PanelViewPage.Controls[a.RealName].Text}',";
+                //}
+
+                //UpdateDataManyValue(mainT, childT, childAttributes, );
+            }
+            else
+            {
+                attribs = "";
+                foreach (var a in childAttributes)
+                    attribs += $"{a.RealName} = '{PanelViewPage.Controls[a.RealName].Text}',";
+
+                attribs = attribs.TrimEnd(',', ' ');
+
+                UpdateDataInDB(childT.RealName, attribs, $"{childT.Attributes.First(x => x.IsPKey)} = {getValueIdFromTable(childT)}");
+            }
+        }
+        void UpdateDataInDB(string sourcetable, string values, string where)
+        {
+            string sql = $"UPDATE {sourcetable} " +
+                         $"SET {values} " +
+                         $"WHERE {where}";
+
+            SqlExecutor.ExecuteNonQuery(_dbConnection, sql);
         }
 
         string getValueIdFromTable(Table T)
@@ -315,7 +387,7 @@ namespace WowCaseApp.Forms.View
             }
         }
 
-        void SavePanel()
+        void SaveViewForm()
         {
             foreach (var sc in _savedControls)
                 sc.Update();
@@ -331,7 +403,6 @@ namespace WowCaseApp.Forms.View
                 _cont.SaveChanges();
             }
         }
-
         void LoadViewForm()
         {
             _isListBoxCurrentChanged = false;
@@ -372,6 +443,7 @@ namespace WowCaseApp.Forms.View
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove += Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
+                c.Enabled = radioButton2.Checked;
 
                 if (c is DataGridView gridView)
                 {
@@ -380,7 +452,7 @@ namespace WowCaseApp.Forms.View
                     gridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
                     gridView.AllowUserToResizeRows = false;
                     gridView.AllowUserToResizeColumns = false;
-                    gridView.ReadOnly = true;
+                    gridView.Enabled = false;
                 }
 
                 PanelViewPage.Controls.Add(c);
@@ -396,7 +468,12 @@ namespace WowCaseApp.Forms.View
             if (_indexValue == 0)
                 return;
 
-            _indexValue--;
+            var dr = UpdateData();
+            if (dr == DialogResult.Yes)
+                return;
+            if (dr == DialogResult.OK)
+                _indexValue--;
+
             LoadData();
         }
         void buttonNextVal_Click(object sender, EventArgs e)
@@ -404,8 +481,36 @@ namespace WowCaseApp.Forms.View
             if (_indexValue >= _size - 1)
                 return;
 
-            _indexValue++;
+            var dr = UpdateData();
+            if (dr == DialogResult.Yes)
+                return;
+            if (dr == DialogResult.OK)
+                _indexValue++;
+
             LoadData();
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            bool readOnly = radioButton1.Checked;
+
+            foreach (Control c in PanelViewPage.Controls)
+            {
+                c.Enabled = readOnly;
+                if (c is DataGridView)
+                    c.Enabled = false;
+            }
+
+            if (_size == 0) return;
+
+            if (readOnly)
+            {
+                var dr =UpdateData();
+                if (dr == DialogResult.Yes)
+                    radioButton1.Checked = false;
+                if (dr == DialogResult.No)
+                    LoadData();
+            }
         }
 
         // ----------- Перетаскивание----------------

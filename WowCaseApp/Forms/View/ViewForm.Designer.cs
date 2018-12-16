@@ -31,6 +31,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.PanelViewPage = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.countLabel = new System.Windows.Forms.Label();
             this.buttonNextVal = new System.Windows.Forms.Button();
             this.buttonPrevVal = new System.Windows.Forms.Button();
@@ -61,11 +63,11 @@
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
             this.tabPage2.Controls.Add(this.PanelViewPage);
             this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(663, 359);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Size = new System.Drawing.Size(495, 289);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Tag = "Form";
             this.tabPage2.Text = "Форма";
@@ -75,41 +77,67 @@
             this.PanelViewPage.AutoScroll = true;
             this.PanelViewPage.BackColor = System.Drawing.Color.White;
             this.PanelViewPage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelViewPage.Location = new System.Drawing.Point(3, 50);
-            this.PanelViewPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PanelViewPage.Location = new System.Drawing.Point(2, 41);
+            this.PanelViewPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PanelViewPage.Name = "PanelViewPage";
-            this.PanelViewPage.Size = new System.Drawing.Size(657, 305);
+            this.PanelViewPage.Size = new System.Drawing.Size(491, 246);
             this.PanelViewPage.TabIndex = 1;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.radioButton2);
+            this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Controls.Add(this.countLabel);
             this.panel1.Controls.Add(this.buttonNextVal);
             this.panel1.Controls.Add(this.buttonPrevVal);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 2);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(657, 48);
+            this.panel1.Size = new System.Drawing.Size(491, 39);
             this.panel1.TabIndex = 0;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(381, 11);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(83, 17);
+            this.radioButton2.TabIndex = 6;
+            this.radioButton2.Text = "Изменение";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(297, 11);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(76, 17);
+            this.radioButton1.TabIndex = 5;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Просмотр";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // countLabel
             // 
             this.countLabel.AutoSize = true;
-            this.countLabel.Location = new System.Drawing.Point(173, 16);
-            this.countLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.countLabel.Location = new System.Drawing.Point(130, 13);
             this.countLabel.Name = "countLabel";
-            this.countLabel.Size = new System.Drawing.Size(28, 17);
+            this.countLabel.Size = new System.Drawing.Size(24, 13);
             this.countLabel.TabIndex = 4;
             this.countLabel.Text = "1/1";
             // 
             // buttonNextVal
             // 
-            this.buttonNextVal.Location = new System.Drawing.Point(236, 5);
-            this.buttonNextVal.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonNextVal.Location = new System.Drawing.Point(177, 4);
             this.buttonNextVal.Name = "buttonNextVal";
-            this.buttonNextVal.Size = new System.Drawing.Size(133, 39);
+            this.buttonNextVal.Size = new System.Drawing.Size(100, 32);
             this.buttonNextVal.TabIndex = 1;
             this.buttonNextVal.Text = "Следующий >";
             this.buttonNextVal.UseVisualStyleBackColor = true;
@@ -117,10 +145,9 @@
             // 
             // buttonPrevVal
             // 
-            this.buttonPrevVal.Location = new System.Drawing.Point(9, 5);
-            this.buttonPrevVal.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonPrevVal.Location = new System.Drawing.Point(7, 4);
             this.buttonPrevVal.Name = "buttonPrevVal";
-            this.buttonPrevVal.Size = new System.Drawing.Size(133, 39);
+            this.buttonPrevVal.Size = new System.Drawing.Size(100, 32);
             this.buttonPrevVal.TabIndex = 0;
             this.buttonPrevVal.Text = "< Предыдущий";
             this.buttonPrevVal.UseVisualStyleBackColor = true;
@@ -142,11 +169,11 @@
             this.tabPage1.Controls.Add(this.labelTableAttributes);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.comboBoxMainTable);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(663, 359);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Size = new System.Drawing.Size(495, 289);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Tag = "Attributes";
             this.tabPage1.Text = "Атрибуты";
@@ -155,10 +182,9 @@
             // downButton
             // 
             this.downButton.Enabled = false;
-            this.downButton.Location = new System.Drawing.Point(599, 169);
-            this.downButton.Margin = new System.Windows.Forms.Padding(4);
+            this.downButton.Location = new System.Drawing.Point(449, 137);
             this.downButton.Name = "downButton";
-            this.downButton.Size = new System.Drawing.Size(32, 28);
+            this.downButton.Size = new System.Drawing.Size(24, 23);
             this.downButton.TabIndex = 13;
             this.downButton.Text = "▼";
             this.downButton.UseVisualStyleBackColor = true;
@@ -167,10 +193,9 @@
             // upButton
             // 
             this.upButton.Enabled = false;
-            this.upButton.Location = new System.Drawing.Point(599, 127);
-            this.upButton.Margin = new System.Windows.Forms.Padding(4);
+            this.upButton.Location = new System.Drawing.Point(449, 103);
             this.upButton.Name = "upButton";
-            this.upButton.Size = new System.Drawing.Size(32, 28);
+            this.upButton.Size = new System.Drawing.Size(24, 23);
             this.upButton.TabIndex = 12;
             this.upButton.Text = "▲";
             this.upButton.UseVisualStyleBackColor = true;
@@ -179,28 +204,29 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(395, 7);
+            this.label2.Location = new System.Drawing.Point(296, 6);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 17);
+            this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 11;
             this.label2.Text = "Подчинённая таблица";
             // 
             // comboBoxChildTable
             // 
             this.comboBoxChildTable.FormattingEnabled = true;
-            this.comboBoxChildTable.Location = new System.Drawing.Point(341, 27);
-            this.comboBoxChildTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxChildTable.Location = new System.Drawing.Point(256, 22);
+            this.comboBoxChildTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxChildTable.Name = "comboBoxChildTable";
-            this.comboBoxChildTable.Size = new System.Drawing.Size(267, 24);
+            this.comboBoxChildTable.Size = new System.Drawing.Size(201, 21);
             this.comboBoxChildTable.TabIndex = 10;
             this.comboBoxChildTable.SelectedValueChanged += new System.EventHandler(this.comboBoxTables_SelectedValueChanged);
             // 
             // buttontoStockAll
             // 
-            this.buttontoStockAll.Location = new System.Drawing.Point(295, 214);
-            this.buttontoStockAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttontoStockAll.Location = new System.Drawing.Point(221, 174);
+            this.buttontoStockAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttontoStockAll.Name = "buttontoStockAll";
-            this.buttontoStockAll.Size = new System.Drawing.Size(43, 25);
+            this.buttontoStockAll.Size = new System.Drawing.Size(32, 20);
             this.buttontoStockAll.TabIndex = 9;
             this.buttontoStockAll.Text = "<<";
             this.buttontoStockAll.UseVisualStyleBackColor = true;
@@ -209,10 +235,10 @@
             // buttonToStock
             // 
             this.buttonToStock.Enabled = false;
-            this.buttonToStock.Location = new System.Drawing.Point(295, 185);
-            this.buttonToStock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonToStock.Location = new System.Drawing.Point(221, 150);
+            this.buttonToStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonToStock.Name = "buttonToStock";
-            this.buttonToStock.Size = new System.Drawing.Size(43, 25);
+            this.buttonToStock.Size = new System.Drawing.Size(32, 20);
             this.buttonToStock.TabIndex = 8;
             this.buttonToStock.Text = "<";
             this.buttonToStock.UseVisualStyleBackColor = true;
@@ -220,10 +246,10 @@
             // 
             // buttonToCurrentAll
             // 
-            this.buttonToCurrentAll.Location = new System.Drawing.Point(295, 130);
-            this.buttonToCurrentAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonToCurrentAll.Location = new System.Drawing.Point(221, 106);
+            this.buttonToCurrentAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonToCurrentAll.Name = "buttonToCurrentAll";
-            this.buttonToCurrentAll.Size = new System.Drawing.Size(43, 25);
+            this.buttonToCurrentAll.Size = new System.Drawing.Size(32, 20);
             this.buttonToCurrentAll.TabIndex = 7;
             this.buttonToCurrentAll.Text = ">>";
             this.buttonToCurrentAll.UseVisualStyleBackColor = true;
@@ -232,10 +258,10 @@
             // buttonToCurrent
             // 
             this.buttonToCurrent.Enabled = false;
-            this.buttonToCurrent.Location = new System.Drawing.Point(295, 102);
-            this.buttonToCurrent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonToCurrent.Location = new System.Drawing.Point(221, 83);
+            this.buttonToCurrent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonToCurrent.Name = "buttonToCurrent";
-            this.buttonToCurrent.Size = new System.Drawing.Size(43, 25);
+            this.buttonToCurrent.Size = new System.Drawing.Size(32, 20);
             this.buttonToCurrent.TabIndex = 6;
             this.buttonToCurrent.Text = ">";
             this.buttonToCurrent.UseVisualStyleBackColor = true;
@@ -244,61 +270,62 @@
             // labelCurrentAttributes
             // 
             this.labelCurrentAttributes.AutoSize = true;
-            this.labelCurrentAttributes.Location = new System.Drawing.Point(412, 57);
+            this.labelCurrentAttributes.Location = new System.Drawing.Point(309, 46);
+            this.labelCurrentAttributes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCurrentAttributes.Name = "labelCurrentAttributes";
-            this.labelCurrentAttributes.Size = new System.Drawing.Size(133, 17);
+            this.labelCurrentAttributes.Size = new System.Drawing.Size(102, 13);
             this.labelCurrentAttributes.TabIndex = 5;
             this.labelCurrentAttributes.Text = "Текущие атрибуты";
             // 
             // listBoxCurrent
             // 
             this.listBoxCurrent.FormattingEnabled = true;
-            this.listBoxCurrent.ItemHeight = 16;
-            this.listBoxCurrent.Location = new System.Drawing.Point(395, 79);
-            this.listBoxCurrent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listBoxCurrent.Location = new System.Drawing.Point(296, 64);
+            this.listBoxCurrent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBoxCurrent.Name = "listBoxCurrent";
             this.listBoxCurrent.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxCurrent.Size = new System.Drawing.Size(172, 212);
+            this.listBoxCurrent.Size = new System.Drawing.Size(130, 173);
             this.listBoxCurrent.TabIndex = 4;
             this.listBoxCurrent.Click += new System.EventHandler(this.listBoxCurrent_Click);
             // 
             // listBoxStock
             // 
             this.listBoxStock.FormattingEnabled = true;
-            this.listBoxStock.ItemHeight = 16;
-            this.listBoxStock.Location = new System.Drawing.Point(68, 79);
-            this.listBoxStock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listBoxStock.Location = new System.Drawing.Point(51, 64);
+            this.listBoxStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBoxStock.Name = "listBoxStock";
             this.listBoxStock.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxStock.Size = new System.Drawing.Size(172, 212);
+            this.listBoxStock.Size = new System.Drawing.Size(130, 173);
             this.listBoxStock.TabIndex = 3;
             this.listBoxStock.Click += new System.EventHandler(this.listBoxStock_Click);
             // 
             // labelTableAttributes
             // 
             this.labelTableAttributes.AutoSize = true;
-            this.labelTableAttributes.Location = new System.Drawing.Point(112, 58);
+            this.labelTableAttributes.Location = new System.Drawing.Point(84, 47);
+            this.labelTableAttributes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTableAttributes.Name = "labelTableAttributes";
-            this.labelTableAttributes.Size = new System.Drawing.Size(72, 17);
+            this.labelTableAttributes.Size = new System.Drawing.Size(55, 13);
             this.labelTableAttributes.TabIndex = 2;
             this.labelTableAttributes.Text = "Атрибуты";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 7);
+            this.label1.Location = new System.Drawing.Point(67, 6);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 17);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Главная таблица";
             // 
             // comboBoxMainTable
             // 
             this.comboBoxMainTable.FormattingEnabled = true;
-            this.comboBoxMainTable.Location = new System.Drawing.Point(13, 27);
-            this.comboBoxMainTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxMainTable.Location = new System.Drawing.Point(10, 22);
+            this.comboBoxMainTable.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxMainTable.Name = "comboBoxMainTable";
-            this.comboBoxMainTable.Size = new System.Drawing.Size(267, 24);
+            this.comboBoxMainTable.Size = new System.Drawing.Size(201, 21);
             this.comboBoxMainTable.TabIndex = 0;
             this.comboBoxMainTable.SelectedValueChanged += new System.EventHandler(this.comboBoxTables_SelectedValueChanged);
             // 
@@ -308,20 +335,20 @@
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(671, 388);
+            this.tabControl.Size = new System.Drawing.Size(503, 315);
             this.tabControl.TabIndex = 0;
             this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
             // 
             // ViewForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(671, 388);
+            this.ClientSize = new System.Drawing.Size(503, 315);
             this.Controls.Add(this.tabControl);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ViewForm";
             this.Text = "VIewForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -361,5 +388,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxMainTable;
         private System.Windows.Forms.TabControl tabControl;
+		private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
