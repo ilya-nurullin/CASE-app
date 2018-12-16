@@ -51,8 +51,6 @@ namespace WowCaseApp.Forms.View
                 _cont.SaveChanges();
 
                 InitializeAttributePage();
-
-                ((MainForm)Parent.Parent).LoadTreeView();
             }
             catch (Exception e)
             {
@@ -114,6 +112,11 @@ namespace WowCaseApp.Forms.View
                 _cont.SaveChanges();
             }
 
+            ((MainForm)Parent.Parent).LoadTreeView();
+        }
+
+        private void ViewForm_Load(object sender, EventArgs e)
+        {
             ((MainForm)Parent.Parent).LoadTreeView();
         }
     }
