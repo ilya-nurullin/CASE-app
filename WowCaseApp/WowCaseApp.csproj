@@ -126,6 +126,12 @@
     <Compile Include="Forms\Query\QueriesForm.Designer.cs">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Table\TableInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Table\TableInfoForm.Designer.cs">
+      <DependentUpon>TableInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\View\SavedControl.cs" />
     <Compile Include="Forms\View\ViewFormAttributesPage.cs">
       <SubType>Form</SubType>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\NewTableForm.resx">
       <DependentUpon>NewTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Table\TableInfoForm.resx">
+      <DependentUpon>TableInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

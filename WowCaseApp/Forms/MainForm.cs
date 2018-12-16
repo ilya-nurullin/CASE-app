@@ -194,7 +194,9 @@ namespace WowCaseApp
         }
         private void OpenTable(string name)
         {
-            //TODO
+            var form = new TableInfoForm(name, metaDbContainer, dbConnection);
+            form.MdiParent = this;
+            form.Show();
         }
         private void OpenQuery(string name)
         {
