@@ -225,6 +225,8 @@ namespace WowCaseApp.Forms.View
         }
         void LoadDataManyValue(Table mainT, Table sourceTable, IEnumerable<Attribute> attributes, DataGridView dgv)
         {
+            if (!attributes.Any()) return;
+
             string attribs = "";
 
             foreach (var a in attributes)
