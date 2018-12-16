@@ -126,9 +126,9 @@ namespace WowCaseApp
                 string Where3 = cmbItems3.getRealNameTableAttribute(metaDbContainer) + " " + cmbOperations3.Text.ToString() + " " + txbValues3.Text.ToString() + " " + cmbJoins3.Text.ToString();
 
                 //All joined tables . Distinct()
-                string[] JoinedTables = null;
+                string[] JoinedTables = new string [0];
 
-                string[] FactTables = null;
+                string[] FactTables = new string[0];
 
 
                 string Select = $"SELECT {Elements} ";
@@ -165,7 +165,7 @@ namespace WowCaseApp
                 if (txbValues1.Text != string.Empty || txbValues2.Text != string.Empty || txbValues3.Text != string.Empty)
                 {
 
-                    string pattern = @"[>|>|=|!|IS]";
+                    string pattern = @"[>|<|=|!|IS]";
                     Regex regex = new Regex(pattern);
                     if (!Regex.IsMatch(Where1, pattern, RegexOptions.IgnoreCase))
                     { Where1 = ""; }
@@ -319,8 +319,31 @@ namespace WowCaseApp
         {
             var elementsForQuery = listBoxSelected.Items.Cast<string>().ToArray();
 
+            var distinctElementsForQUery = elementsForQuery.Select(x=>  x.Substring(x.IndexOf('.')+1)).Distinct().ToArray();
+
+       
             //Convert TableNames to TableRealNames as String
-            string Elements = String.Join(",", elementsForQuery.Distinct().ToList().Select(c => { c = metaDbContainer.TableSet.Where(y => y.Name == c.Substring(0, c.IndexOf("."))).Select(z => z.RealName).FirstOrDefault() + "." + metaDbContainer.AttributeSet.Where(y => y.Name == c.Substring(c.IndexOf(".") + 1)).Select(z => z.RealName).FirstOrDefault(); return c; }).ToList());
+            string Elements = String.Join(",", elementsForQuery.Distinct().ToList().Select(c => { c = metaDbContainer.TableSet.Where(y => y.Name == c.Substring(0, c.IndexOf("."))).Select(z => z.RealName).FirstOrDefault() + "." + metaDbContainer.AttributeSet.Where(y => y.Name == c.Substring(c.IndexOf(".") + 1)).Select(z => z.RealName+ " as '"+ z.Name.ToString()).FirstOrDefault()+"'"; return c; }).ToList());
+            if (distinctElementsForQUery.Count() != elementsForQuery.Count()) { 
+
+            Regex r = new Regex(Regex.Escape("'") + "(.*?)" + Regex.Escape("'"));
+            MatchCollection matches = r.Matches(Elements);
+                
+               string ElementsNew = "";
+                foreach(string str in Elements.Split(','))
+                {
+                    var a =r.Match(str).ToString().Replace("'","");
+                    if (distinctElementsForQUery.Contains(a))
+                    {
+                        string tmp_substr = str.Split('.')[0];
+                        string tmp = metaDbContainer.TableSet.Where(x => x.RealName == tmp_substr).FirstOrDefault().Name + "." + a;
+                        ElementsNew += str.Replace(a, tmp)+",";
+                    }
+                }
+
+                ElementsNew = ElementsNew.Substring(0, ElementsNew.Length - 1);
+                return ElementsNew;
+            }
             return Elements;
 
         }
