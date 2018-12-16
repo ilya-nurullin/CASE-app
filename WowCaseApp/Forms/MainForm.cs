@@ -247,11 +247,24 @@ namespace WowCaseApp
             if (MessageBox.Show("Удалить таблицу?", "Удаление таблицы", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
+            try
+            {
+                SqlExecutor.ExecuteNonQuery(dbConnection, $"DROP TABLE {name}");
+                Table.Remove(metaDbContainer, name);
 
-            Table.Remove(metaDbContainer,name);
+                var parentNode = MainTreeView.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals("Tables"));
+                parentNode.Nodes.Remove(parentNode.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals($"[tabl]{name}")));
+            }
+            catch (SqlException e)
+            {
+                if (e.Message.Contains("because it is referenced by a FOREIGN KEY constraint"))
+                {
+                    MessageBox.Show("Не могу удалить таблицу, т.к. от неё зависят другие таблицы");
+                }
+                else
+                    throw e;
+            }
 
-            var parentNode = MainTreeView.Nodes.Cast<TreeNode>().First(x => x.Tag.Equals("Tables"));
-            parentNode.Nodes.Remove(parentNode.Nodes.Cast<TreeNode>().First(x=>x.Tag.Equals($"[tabl]{name}")));
         }
         private void DeleteQuery(string name)
         {

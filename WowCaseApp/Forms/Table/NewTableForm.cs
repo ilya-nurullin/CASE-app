@@ -131,6 +131,7 @@ namespace WowCaseApp
 
             log.Info($"Table {tableName} ({realTableName}) was created successfully");
             MessageBox.Show("Таблица успешно создана!");
+            ((MainForm)Parent.Parent).LoadTreeView();
             this.Close();
         }
 
