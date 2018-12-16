@@ -332,8 +332,9 @@ namespace WowCaseApp
                string ElementsNew = "";
                 foreach(string str in Elements.Split(','))
                 {
+                    var ss = elementsForQuery.Except(distinctElementsForQUery).ToArray(); //попробовать реплейснуть после точки
                     var a =r.Match(str).ToString().Replace("'","");
-                    if (distinctElementsForQUery.Contains(a))
+                    if (elementsForQuery.Except(distinctElementsForQUery).Contains(a))
                     {
                         string tmp_substr = str.Split('.')[0];
                         string tmp = metaDbContainer.TableSet.Where(x => x.RealName == tmp_substr).FirstOrDefault().Name + "." + a;
