@@ -39,6 +39,8 @@
             this.cmbJoinTypes = new System.Windows.Forms.ComboBox();
             this.CreateJoin = new System.Windows.Forms.Button();
             this.labelJoinType = new System.Windows.Forms.Label();
+            this.cmbOn = new System.Windows.Forms.ComboBox();
+            this.labelOn = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmbT1
@@ -49,6 +51,7 @@
             this.cmbT1.Name = "cmbT1";
             this.cmbT1.Size = new System.Drawing.Size(184, 24);
             this.cmbT1.TabIndex = 0;
+            this.cmbT1.SelectedIndexChanged += new System.EventHandler(this.cmbT1_SelectedIndexChanged);
             // 
             // cmbT2
             // 
@@ -58,6 +61,7 @@
             this.cmbT2.Name = "cmbT2";
             this.cmbT2.Size = new System.Drawing.Size(184, 24);
             this.cmbT2.TabIndex = 1;
+            this.cmbT2.SelectedIndexChanged += new System.EventHandler(this.cmbT2_SelectedIndexChanged);
             // 
             // cmbA1
             // 
@@ -122,14 +126,14 @@
             "LEFT JOIN",
             "RIGHT JOIN",
             "FULL OUTER JOIN"});
-            this.cmbJoinTypes.Location = new System.Drawing.Point(120, 175);
+            this.cmbJoinTypes.Location = new System.Drawing.Point(120, 193);
             this.cmbJoinTypes.Name = "cmbJoinTypes";
             this.cmbJoinTypes.Size = new System.Drawing.Size(334, 24);
             this.cmbJoinTypes.TabIndex = 8;
             // 
             // CreateJoin
             // 
-            this.CreateJoin.Location = new System.Drawing.Point(164, 216);
+            this.CreateJoin.Location = new System.Drawing.Point(164, 234);
             this.CreateJoin.Name = "CreateJoin";
             this.CreateJoin.Size = new System.Drawing.Size(147, 23);
             this.CreateJoin.TabIndex = 9;
@@ -140,17 +144,46 @@
             // labelJoinType
             // 
             this.labelJoinType.AutoSize = true;
-            this.labelJoinType.Location = new System.Drawing.Point(26, 175);
+            this.labelJoinType.Location = new System.Drawing.Point(26, 193);
             this.labelJoinType.Name = "labelJoinType";
             this.labelJoinType.Size = new System.Drawing.Size(63, 17);
             this.labelJoinType.TabIndex = 10;
             this.labelJoinType.Text = "Вид Join";
             // 
+            // cmbOn
+            // 
+            this.cmbOn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOn.FormattingEnabled = true;
+            this.cmbOn.Items.AddRange(new object[] {
+            "=",
+            "!=",
+            ">",
+            "<",
+            "<=",
+            ">="});
+            this.cmbOn.Location = new System.Drawing.Point(224, 159);
+            this.cmbOn.Name = "cmbOn";
+            this.cmbOn.Size = new System.Drawing.Size(39, 24);
+            this.cmbOn.TabIndex = 11;
+            // 
+            // labelOn
+            // 
+            this.labelOn.AutoSize = true;
+            this.labelOn.Location = new System.Drawing.Point(26, 162);
+            this.labelOn.MaximumSize = new System.Drawing.Size(63, 17);
+            this.labelOn.MinimumSize = new System.Drawing.Size(63, 17);
+            this.labelOn.Name = "labelOn";
+            this.labelOn.Size = new System.Drawing.Size(63, 17);
+            this.labelOn.TabIndex = 12;
+            this.labelOn.Text = "Условие";
+            // 
             // JoinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(525, 251);
+            this.ClientSize = new System.Drawing.Size(525, 268);
+            this.Controls.Add(this.labelOn);
+            this.Controls.Add(this.cmbOn);
             this.Controls.Add(this.labelJoinType);
             this.Controls.Add(this.CreateJoin);
             this.Controls.Add(this.cmbJoinTypes);
@@ -182,5 +215,7 @@
         private System.Windows.Forms.ComboBox cmbJoinTypes;
         private System.Windows.Forms.Button CreateJoin;
         private System.Windows.Forms.Label labelJoinType;
+        private System.Windows.Forms.ComboBox cmbOn;
+        private System.Windows.Forms.Label labelOn;
     }
 }
