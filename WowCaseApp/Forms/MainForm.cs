@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -326,7 +327,9 @@ namespace WowCaseApp
                         переименоватьToolStripMenuItem_Click(sender, null);
                     }
 
-                    metaDbContainer.TableSet.First(x => x.RealName == name).Name = newName;
+                    var t = metaDbContainer.TableSet.First(x => x.RealName == name);
+                    t.Name = newName;
+                    metaDbContainer.Entry(t).State = EntityState.Modified;
                     metaDbContainer.SaveChanges();
                     break;
                 }
@@ -338,7 +341,9 @@ namespace WowCaseApp
                         переименоватьToolStripMenuItem_Click(sender, null);
                     }
 
-                    metaDbContainer.QuerySet.First(x => x.Name == name).Name = newName;
+                    var q = metaDbContainer.QuerySet.First(x => x.Name == name);
+                    q.Name = newName;
+                    metaDbContainer.Entry(q).State = EntityState.Modified;
                     metaDbContainer.SaveChanges();
                     break;
                 }
@@ -350,7 +355,9 @@ namespace WowCaseApp
                         переименоватьToolStripMenuItem_Click(sender, null);
                     }
 
-                    metaDbContainer.ViewSet.First(x => x.Name == name).Name = newName;
+                    var v = metaDbContainer.ViewSet.First(x => x.Name == name);
+                    v.Name = newName;
+                    metaDbContainer.Entry(v).State = EntityState.Modified;
                     metaDbContainer.SaveChanges();
                     break;
                 }
@@ -362,7 +369,9 @@ namespace WowCaseApp
                         переименоватьToolStripMenuItem_Click(sender, null);
                     }
 
-                    metaDbContainer.ReportSet.First(x => x.Name == name).Name = newName;
+                    var r = metaDbContainer.ReportSet.First(x => x.Name == name);
+                    r.Name = newName;
+                    metaDbContainer.Entry(r).State = EntityState.Modified;
                     metaDbContainer.SaveChanges();
                     break;
                 }
