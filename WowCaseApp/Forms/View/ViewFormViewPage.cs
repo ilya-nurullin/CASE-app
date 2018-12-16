@@ -101,12 +101,14 @@ namespace WowCaseApp.Forms.View
                 c.MouseMove+= Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
                 c.Enabled = radioButton2.Checked;
+                c.AutoSize = true;
 
                 Control label = new Label() {Text = a.Name, Name = $"{table.RealName}.{a.RealName}_label"};
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
                 label.BackColor = Color.Transparent;
+                label.AutoSize = true;
 
                 PanelViewPage.Controls.Add(label);
                 PanelViewPage.Controls.Add(c);
@@ -125,6 +127,7 @@ namespace WowCaseApp.Forms.View
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
                 label.BackColor = Color.Transparent;
+                label.AutoSize = true;
 
                 PanelViewPage.Controls.Add(label);
 
@@ -447,8 +450,6 @@ namespace WowCaseApp.Forms.View
 
             PanelViewPage.Controls.Clear();
 
-            var currentAttribs = listBoxCurrent.Items.Cast<Attribute>();
-
             foreach (var savedControl in _savedControls)
             {
                 Attribute a = _cont.AttributeSet.Find(savedControl.Attribute.Id);
@@ -466,6 +467,7 @@ namespace WowCaseApp.Forms.View
                 c.MouseUp += Control_MouseUp;
                 c.Enabled = radioButton2.Checked;
                 c.Name = $"{t.RealName}.{a.RealName}";
+                c.AutoSize = true;
 
                 if (c is CheckBox ch)
                     ch.CheckedChanged += (o, e) => { ch.Text = ch.Checked.ToString(); };

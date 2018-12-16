@@ -84,6 +84,7 @@ namespace WowCaseApp.Forms.View
                 c.Name = $"{a.RealName}";
 
                 c.Margin = new Padding(50, 5, 0, 5);
+                c.AutoSize = true;
 
                 Control label = new Label() { Text = a.Name, Margin = new Padding(50,5,0,5), AutoSize = true};
                 label.BackColor = Color.Transparent;
