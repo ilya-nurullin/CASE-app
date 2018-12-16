@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WowCaseApp.Model;
+using Attribute = WowCaseApp.Model.Attribute;
 
 namespace WowCaseApp
 {
@@ -39,12 +40,37 @@ namespace WowCaseApp
                 {
                     var cells = dataGridView1.Rows[i].Cells;
                     cells[0].Value = allAttrs[i].Name;
+                    cells[0].Tag = allAttrs[i];
                     cells[1].Value = (allAttrs[i].Type.StartsWith("t")) ? "Ссылка на таблицу" : allAttrs[i].Type;
                     cells[2].Value = allAttrs[i].IsPKey;
                     cells[3].Value = allAttrs[i].IsNullable;
                     cells[4].Value = allAttrs[i].IsIndexed;
                 }
             }
+        }
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.FormattedValue.ToString() == "")
+            {
+                MessageBox.Show("Имя не может быть пустым");
+                e.Cancel = true;
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var rows = dataGridView1.Rows;
+            for (int i = 0; i < rows.Count; i++)
+            {
+                var nameCell = rows[i].Cells[0];
+                var attr = (Attribute)nameCell.Tag;
+                attr.Name = nameCell.EditedFormattedValue.ToString();
+            }
+
+            metaDbContainer.SaveChanges();
+            MessageBox.Show("Изменения успешно сохранены");
+            Close();
         }
     }
 }
