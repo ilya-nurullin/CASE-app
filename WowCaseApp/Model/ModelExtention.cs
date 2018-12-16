@@ -20,9 +20,9 @@ namespace WowCaseApp.Model
             IsFKey = isFKey;
         }
 
-        public static void Remove(MetaDataDBContainer container, string name)
+        public static void Remove(MetaDataDBContainer container, int id)
         {
-            Attribute a = container.AttributeSet.First(x => x.RealName == name);
+            Attribute a = container.AttributeSet.Find(id);
             container.AttributeSet.Remove(a);
             container.SaveChanges();
         }
@@ -120,7 +120,7 @@ namespace WowCaseApp.Model
 
             foreach (var a in attr)
             {
-                Attribute.Remove(container,a.RealName);
+                Attribute.Remove(container,a.Id);
             }
 
             foreach (var t in table.ChildTables.Union(table.ParentTables))

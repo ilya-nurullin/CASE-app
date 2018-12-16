@@ -49,7 +49,7 @@ namespace WowCaseApp.Forms.View
             PanelViewPage.Controls.Clear();
             _savedControls.Clear();
 
-            GenerateComponentsOneValue(mainAttributes);
+            GenerateComponentsOneValue(mainT, mainAttributes);
             // main is a Parent
             if (mainT.ChildTables.Contains(childT))
             {
@@ -57,13 +57,13 @@ namespace WowCaseApp.Forms.View
             }
             else
             {
-                GenerateComponentsOneValue(childAttributes);
+                GenerateComponentsOneValue(childT, childAttributes);
             }
 
             RestuctcturePanel();
             LoadData(mainT,childT,mainAttributes, childAttributes);
         }
-        void GenerateComponentsOneValue(IEnumerable<Attribute> attributes)
+        void GenerateComponentsOneValue(Table table, IEnumerable<Attribute> attributes)
         {
             foreach (var a in attributes)
             {
@@ -92,15 +92,16 @@ namespace WowCaseApp.Forms.View
 
                 }
 
-                c.Name = a.RealName;
+                c.Name = $"{table.RealName}.{a.RealName}";
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove+= Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
 
-                Control label = new Label() {Text = a.Name, Name = a.RealName + "_label"};
+                Control label = new Label() {Text = a.Name, Name = $"{table.RealName}.{a.RealName}_label"};
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
+                label.BackColor = Color.Transparent;
 
                 PanelViewPage.Controls.Add(label);
                 PanelViewPage.Controls.Add(c);
@@ -113,14 +114,24 @@ namespace WowCaseApp.Forms.View
         {
             if (attributes.Any())
             {
-                Control label = new Label(); // {Name = table.Name + "_label"};
+                Control label = new Label() {Name = table.RealName + "_label"};
+                label.Text = table.Name;
                 label.MouseDown += Control_MouseDown;
                 label.MouseMove += Control_MouseMove;
                 label.MouseUp += Control_MouseUp;
+                label.BackColor = Color.Transparent;
 
                 PanelViewPage.Controls.Add(label);
 
-                Control dgv = new DataGridView() { Name = table.Name + "_dgv" };
+                Control dgv = new DataGridView()
+                {
+                    Name = table.RealName + "_dgv",
+                    ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                    RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing,
+                    AllowUserToResizeRows = false,
+                    AllowUserToResizeColumns = false,
+                    ReadOnly = true
+                };
                 dgv.MouseDown += Control_MouseDown;
                 dgv.MouseMove += Control_MouseMove;
                 dgv.MouseUp += Control_MouseUp;
@@ -147,7 +158,7 @@ namespace WowCaseApp.Forms.View
         {
             _size = getSizeTable(mainT);
 
-            countLabel.Text = $"{_indexValue + 1}/{_size}";
+            countLabel.Text = $"{(_size == 0?0:_indexValue + 1)}/{_size}";
 
             foreach (var a in mainAttributes)
             {
@@ -214,7 +225,7 @@ namespace WowCaseApp.Forms.View
 
             DataSet ds =new DataSet();
 
-            sqlDataAdapter.Fill(ds, mainT.RealName);
+            sqlDataAdapter.Fill(ds, sourceTable.RealName);
 
             // where {mainT.RealName}_FK = {getValueIdFromTable(mainT)}
             var foreignAttribs = attributes.Where(x => x.Type == mainT.RealName);
@@ -228,6 +239,9 @@ namespace WowCaseApp.Forms.View
 
             filter = filter.TrimEnd(' ', '&');
             dgv.DataSource = new DataView(ds.Tables[0], filter, "", DataViewRowState.CurrentRows);
+            if (dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible)> 0)
+                dgv.Width = Math.Min(dgv.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + dgv.RowHeadersWidth,
+                    this.Width);
         }
 
         void RestuctcturePanel()
@@ -300,6 +314,9 @@ namespace WowCaseApp.Forms.View
 
         void SavePanel()
         {
+            foreach (var sc in _savedControls)
+                sc.Update();
+
             BinaryFormatter bf = new BinaryFormatter();
             using (MemoryStream m = new MemoryStream())
             {
@@ -323,16 +340,20 @@ namespace WowCaseApp.Forms.View
                 using (MemoryStream m = new MemoryStream(view.Data))
                 {
                     _savedControls = (List<SavedControl>) bf.Deserialize(m);
-                    comboBoxMainTable.SelectedItem = bf.Deserialize(m);
-                    comboBoxChildTable.SelectedItem = bf.Deserialize(m);
+                    var maint = (Table)bf.Deserialize(m);
+                    var childT = (Table)bf.Deserialize(m);
                     listBoxCurrent.Items.Clear();
-                    foreach (var obj in (List<Attribute>) bf.Deserialize(m))
+                    foreach (var a in (List<Attribute>) bf.Deserialize(m))
                     {
-                        listBoxCurrent.Items.Add(obj);
+                        listBoxCurrent.Items.Add(_cont.AttributeSet.Find(a.Id));
                     }
+
+                    comboBoxMainTable.SelectedItem = _cont.TableSet.Find(maint.Id);
+                    ChangeTableComboBox();
+                    comboBoxChildTable.SelectedItem = _cont.TableSet.Find(childT.Id);
                 }
             }
-            catch (System.Runtime.Serialization.SerializationException e)
+            catch (Exception e)
             {
                 _log.Error(e);
             }
@@ -345,11 +366,25 @@ namespace WowCaseApp.Forms.View
             foreach (var savedControl in _savedControls)
             {
                 Control c = savedControl.toControl();
+                c.MouseDown += Control_MouseDown;
+                c.MouseMove += Control_MouseMove;
+                c.MouseUp += Control_MouseUp;
+
+                if (c is DataGridView gridView)
+                {
+                    gridView.ColumnHeadersHeightSizeMode =
+                        DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+                    gridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+                    gridView.AllowUserToResizeRows = false;
+                    gridView.AllowUserToResizeColumns = false;
+                    gridView.ReadOnly = true;
+                }
 
                 PanelViewPage.Controls.Add(c);
             }
 
             _isListBoxCurrentChanged = false;
+            LoadData();
             tabControl.SelectTab(1);
         }
 
@@ -363,7 +398,7 @@ namespace WowCaseApp.Forms.View
         }
         void buttonNextVal_Click(object sender, EventArgs e)
         {
-            if (_indexValue == _size - 1)
+            if (_indexValue >= _size - 1)
                 return;
 
             _indexValue++;
