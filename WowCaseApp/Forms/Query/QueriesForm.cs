@@ -24,17 +24,18 @@ namespace WowCaseApp
 
         public QueriesForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection)
         {
-            InitializeComponent();
-            //  cmbTables.SelectedIndex = 0;
-            log.Debug("QueriesForm opened");
-            this.metaDbContainer = metaDataDbContainer;
-            this.dbConnection = dbConnection;
-            sqlExecutor = new SqlExecutor(dbConnection);
-            cmbTables.DataSource = metaDataDbContainer.TableSet.Select(x => x.Name).ToList();
-            cmbTables.SelectedIndex = 0;
+            
+                InitializeComponent();
+                //  cmbTables.SelectedIndex = 0;
+                log.Debug("QueriesForm opened");
+                this.metaDbContainer = metaDataDbContainer;
+                this.dbConnection = dbConnection;
+                sqlExecutor = new SqlExecutor(dbConnection);
+                cmbTables.DataSource = metaDataDbContainer.TableSet.Select(x => x.Name).ToList();
+                cmbTables.SelectedIndex = 0;
 
-            btnAddJoin.Enabled = false; CreateQuery.Enabled = false;
-
+                btnAddJoin.Enabled = false; CreateQuery.Enabled = false;
+             
 
         }
         private void UpdateDataSourse()

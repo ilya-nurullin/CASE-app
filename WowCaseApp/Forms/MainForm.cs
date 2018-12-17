@@ -136,15 +136,22 @@ namespace WowCaseApp
 
         private void создатьНовуюТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
         {
+           
             NewTableForm form = new NewTableForm(metaDbContainer, dbConnection);
             form.MdiParent = this;
             form.Show();
+        
+
         }
         private void создатьНовыйЗапросToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection);
+        { //На случай если попытаются открыть запрос без таблиц
+            try
+            {
+                QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection);
             childForm.MdiParent = this;
             childForm.Show();
+            }
+            catch (Exception a) { MessageBox.Show("Нет таблиц для запроса");   }
         }
         private void создатьНовуюФормуToolStripMenuItem1_Click(object sender, EventArgs e)
         {
