@@ -161,7 +161,7 @@ namespace WowCaseApp
                 if (listBoxJoins.Items.Count != 0)
                 {
 
-                    JoinedTables = listBoxJoins.Items.Cast<string>().Select(x => (/*x.Split(' ')[3].Substring(0, x.Split(' ')[3].IndexOf('.')) + "|" +*/x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.'))).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
+                    JoinedTables = listBoxJoins.Items.Cast<string>().Select(x => (x.Split(' ')[3].Substring(0, x.Split(' ')[3].IndexOf('.')) /*+ "|" +x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.'))*/).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
 
                     //Tables without joins
                     FactTables = Tables.Split(',').Except(JoinedTables).ToArray();
@@ -174,17 +174,17 @@ namespace WowCaseApp
                     Select += $"FROM { Tables}";
                 }
                 //JOINS ONLY
-                else if (FactTables.Count() == 0)
+                else if (Tables.Split(',').Count()-1==listBoxJoins.Items.Count)
                 {
-                    Select += $"FROM { listBoxJoins.getJoins(metaDbContainer).joinToString()}";
+                    Select += $"FROM {String.Join(",",JoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString()}";
 
                 }
                 //JOINS + JUST TABLE SELECT
-                else
+              else
                 {
                     //туть может быть ошибка
 
-                    Select += $"FROM {FactTables.joinToString()} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
+                    Select += $"FROM {JoinedTables.joinToString()} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
                 }
 
 
