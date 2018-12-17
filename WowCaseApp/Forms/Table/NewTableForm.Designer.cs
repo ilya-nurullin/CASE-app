@@ -37,7 +37,6 @@
             this.DefaultValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -129,8 +128,7 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.создатьToolStripMenuItem,
-            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem});
+            this.создатьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1128, 28);
@@ -143,12 +141,6 @@
             this.создатьToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
             this.создатьToolStripMenuItem.Text = "Создать";
             this.создатьToolStripMenuItem.Click += new System.EventHandler(this.создатьToolStripMenuItem_Click);
-            // 
-            // добавитьСсылкуНаДругуюТаблицыToolStripMenuItem
-            // 
-            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem.Name = "добавитьСсылкуНаДругуюТаблицыToolStripMenuItem";
-            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem.Size = new System.Drawing.Size(273, 24);
-            this.добавитьСсылкуНаДругуюТаблицыToolStripMenuItem.Text = "Добавить ссылку на другую таблицу";
             // 
             // splitContainer1
             // 
@@ -258,7 +250,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem добавитьСсылкуНаДругуюТаблицыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox tableNameTextBox;

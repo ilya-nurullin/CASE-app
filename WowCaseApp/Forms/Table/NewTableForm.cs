@@ -102,7 +102,7 @@ namespace WowCaseApp
             // add constraint on FK for current table
             if (fkAttributes.Count() > 0)
                 sqlExecutor.ExecuteNonQuery($"ALTER TABLE {realTableName} ADD " 
-                                            +string.Join(", ", fkAttributes.Select((row, index) => Row2FKSql(row, index + fkStartIndex)))
+                                            +string.Join(", ", fkAttributes.Select((row, index) => Row2FKSql(row, index + fkStartIndex, realTableName)))
                                             );
 
             // create EF Table
@@ -159,14 +159,14 @@ namespace WowCaseApp
             );
         }
 
-        private string Row2FKSql(DataGridViewRow row, int index)
+        private string Row2FKSql(DataGridViewRow row, int index, string realTableName)
         {
             string tableName = row.Cells[0].EditedFormattedValue.ToString();
             string realName = tableRealName2Name[tableName];
             string pkName = metaDbContainer.TableSet.Where(t => t.RealName == realName).First().Attributes
                 .Where(a => a.IsPKey).First().RealName;
             
-            return $" FOREIGN KEY (col{index}) REFERENCES {realName}({pkName})";
+            return $" CONSTRAINT FK_{realTableName}_col{index} FOREIGN KEY (col{index}) REFERENCES {realName}({pkName})";
         }
 
         private bool CheckValidity()

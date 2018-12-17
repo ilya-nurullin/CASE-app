@@ -36,6 +36,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьВыбранноеПолеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,7 +102,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сохранитьToolStripMenuItem});
+            this.сохранитьToolStripMenuItem,
+            this.удалитьВыбранноеПолеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(985, 28);
@@ -114,6 +116,13 @@
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(95, 24);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // удалитьВыбранноеПолеToolStripMenuItem
+            // 
+            this.удалитьВыбранноеПолеToolStripMenuItem.Name = "удалитьВыбранноеПолеToolStripMenuItem";
+            this.удалитьВыбранноеПолеToolStripMenuItem.Size = new System.Drawing.Size(223, 24);
+            this.удалитьВыбранноеПолеToolStripMenuItem.Text = "Удалить выбранную колонку";
+            this.удалитьВыбранноеПолеToolStripMenuItem.Click += new System.EventHandler(this.удалитьВыбранноеПолеToolStripMenuItem_Click);
             // 
             // TableInfoForm
             // 
@@ -144,5 +153,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column5;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьВыбранноеПолеToolStripMenuItem;
     }
 }
