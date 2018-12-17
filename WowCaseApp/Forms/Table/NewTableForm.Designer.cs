@@ -75,6 +75,7 @@
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.Size = new System.Drawing.Size(1128, 269);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
             // 
             // Title
             // 
@@ -167,6 +168,7 @@
             this.tableNameTextBox.Name = "tableNameTextBox";
             this.tableNameTextBox.Size = new System.Drawing.Size(213, 22);
             this.tableNameTextBox.TabIndex = 1;
+            this.tableNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tableNameTextBox_KeyPress);
             // 
             // label1
             // 

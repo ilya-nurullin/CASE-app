@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WowCaseApp.Model;
@@ -19,7 +20,7 @@ namespace WowCaseApp
         private static readonly ILog log = LogManager.GetLogger(typeof(NewTableForm));
         private readonly MetaDataDBContainer metaDbContainer;
         private readonly SqlConnection dbConnection;
-        private static readonly Dictionary<String, int>  indexOf = new Dictionary<String, int>()
+        private static readonly Dictionary<String, int> indexOf = new Dictionary<String, int>()
         {
             { "title", 0 },
             { "type", 1},
@@ -67,9 +68,9 @@ namespace WowCaseApp
 
             System.Collections.IList list = attributes;
             var tableName = tableNameTextBox.Text;
-            var realTableName = "t"+DateTime.Now.ToString("ddMMyyyy_HHmmss");
+            var realTableName = "t" + DateTime.Now.ToString("ddMMyyyy_HHmmss");
 
-            if (! CheckValidity())
+            if (!CheckValidity())
                 return;
 
             var dataGridViewRows = attributes.Cast<DataGridViewRow>()
@@ -101,8 +102,8 @@ namespace WowCaseApp
 
             // add constraint on FK for current table
             if (fkAttributes.Count() > 0)
-                sqlExecutor.ExecuteNonQuery($"ALTER TABLE {realTableName} ADD " 
-                                            +string.Join(", ", fkAttributes.Select((row, index) => Row2FKSql(row, index + fkStartIndex, realTableName)))
+                sqlExecutor.ExecuteNonQuery($"ALTER TABLE {realTableName} ADD "
+                                            + string.Join(", ", fkAttributes.Select((row, index) => Row2FKSql(row, index + fkStartIndex, realTableName)))
                                             );
 
             // create EF Table
@@ -165,12 +166,12 @@ namespace WowCaseApp
             string realName = tableRealName2Name[tableName];
             string pkName = metaDbContainer.TableSet.Where(t => t.RealName == realName).First().Attributes
                 .Where(a => a.IsPKey).First().RealName;
-            
+
             return $" CONSTRAINT FK_{realTableName}_col{index} FOREIGN KEY (col{index}) REFERENCES {realName}({pkName})";
         }
 
         private bool CheckValidity()
-        { 
+        {
             return CheckTableName() && CheckRows();
         }
 
@@ -187,7 +188,7 @@ namespace WowCaseApp
                 return false;
             }
 
-            bool hasErrorLines = rowsExceptTheLastOne.Any(x => x.Cells[0].EditedFormattedValue.ToString() == "" 
+            bool hasErrorLines = rowsExceptTheLastOne.Any(x => x.Cells[0].EditedFormattedValue.ToString() == ""
                                                                               && x.Cells[1].EditedFormattedValue.ToString() != "");
             if (hasErrorLines)
             {
@@ -226,7 +227,7 @@ namespace WowCaseApp
             string type = row.Cells[indexOf["type"]].EditedFormattedValue.ToString();
             string attrName = row.Cells[indexOf["title"]].EditedFormattedValue.ToString();
             bool isNullable = (bool)row.Cells[indexOf["isNullable"]].EditedFormattedValue;
-            
+
             return $"col{rowIndex} {Type2Sql(type)} {NotNull2Sql(isNullable)} {Default2Sql(row)}";
         }
 
@@ -243,7 +244,7 @@ namespace WowCaseApp
 
         private string Row2SqlCreateIndex(DataGridViewRow row, int rowIndex, string tableName)
         {
-            bool isIndexed = (bool) row.Cells[indexOf["isIndexed"]].EditedFormattedValue;
+            bool isIndexed = (bool)row.Cells[indexOf["isIndexed"]].EditedFormattedValue;
 
             if (!isIndexed)
                 return "";
@@ -305,7 +306,30 @@ namespace WowCaseApp
 
         private T Row2Val<T>(DataGridViewRow row, string key)
         {
-            return (T) row.Cells[indexOf[key]].EditedFormattedValue;
+            return (T)row.Cells[indexOf[key]].EditedFormattedValue;
+        }
+
+
+
+        private void tableNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int)Keys.Space)
+                e.KeyChar = '\0';
+        }
+
+        private static KeyPressEventHandler NumericCheckHandler = new KeyPressEventHandler(SpaceCheck);
+        private static void SpaceCheck(object sender, KeyPressEventArgs e)
+        {
+            DataGridViewTextBoxEditingControl s = sender as DataGridViewTextBoxEditingControl;
+            if (e.KeyChar == (int)Keys.Space)
+                e.Handled = true;
+        }
+
+        private void dataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if( dataGridView.CurrentCell.ColumnIndex ==0)
+                e.Control.KeyPress += SpaceCheck;
+
         }
     }
 }
