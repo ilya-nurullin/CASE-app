@@ -360,8 +360,9 @@ namespace WowCaseApp
                         MessageBox.Show("Запрос с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         переименоватьToolStripMenuItem_Click(sender, null);
                     }
+                        node.Tag = node.Tag.ToString().Substring(0, 6) + newName;
 
-                    metaDbContainer.QuerySet.First(x => x.Name == name).Name = newName;
+                        metaDbContainer.QuerySet.First(x => x.Name == name).Name = newName;
                     metaDbContainer.SaveChanges();
                     break;
                 }
@@ -375,7 +376,10 @@ namespace WowCaseApp
 
                     metaDbContainer.ViewSet.First(x => x.Name == name).Name = newName;
                     metaDbContainer.SaveChanges();
-                    break;
+                        node.Tag = node.Tag.ToString().Substring(0, 6) + newName;
+
+
+                        break;
                 }
                 case "[repo]":
                 {
@@ -392,7 +396,6 @@ namespace WowCaseApp
             }
 
             node.Text = newName;
-            node.Tag = node.Tag.ToString().Substring(0,6)+newName;
         }
     }
 }
