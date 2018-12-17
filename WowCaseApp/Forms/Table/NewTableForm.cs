@@ -150,7 +150,7 @@ namespace WowCaseApp
             string realName = tableRealName2Name[tableName];
 
             return new Attribute(
-                name: $"Ссылка на {tableName}",
+                name: $"Ссылка_на_{tableName}",
                 realname: $"col{index}",
                 type: realName,
                 isIndexed: true,
