@@ -39,10 +39,7 @@ namespace WowCaseApp
             log.Debug("App stopped");
         }
 
-        private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
+        
 
         private TreeNode m_OldSelectNode;
 
@@ -144,10 +141,22 @@ namespace WowCaseApp
 
         }
         private void создатьНовыйЗапросToolStripMenuItem1_Click(object sender, EventArgs e)
-        { //На случай если попытаются открыть запрос без таблиц
+        { 
+            //На случай если попытаются открыть запрос без таблиц
             try
             {
-                QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection);
+                GetStringForm gsf = new GetStringForm("Создание запроса", "Введите название запроса");
+                if (gsf.ShowDialog() != DialogResult.OK)
+                    return;
+
+                if (metaDbContainer.QuerySet.Any(x => x.Name == gsf.Value))
+                {
+                    MessageBox.Show("Запрос с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    создатьНовыйЗапросToolStripMenuItem1_Click(null, null);
+                     return;
+                }
+ 
+            QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection, gsf.Value);
             childForm.MdiParent = this;
             childForm.Show();
             }
@@ -207,7 +216,14 @@ namespace WowCaseApp
         }
         private void OpenQuery(string name)
         {
-            //TODO
+            try
+            {
+                string queryParametrs = metaDbContainer.QuerySet.Where(x => x.Name == name).Select(y => y.QueryText).FirstOrDefault();
+                var form = new QueriesForm(metaDbContainer, dbConnection, name, queryParametrs);
+                form.MdiParent = this;
+                form.Show();
+            }
+            catch { MessageBox.Show("Возникла ошибка при обращении к базе данных"); }
         }
         private void OpenView(string name)
         {
@@ -376,6 +392,7 @@ namespace WowCaseApp
             }
 
             node.Text = newName;
+            node.Tag = node.Tag.ToString().Substring(0,6)+newName;
         }
     }
 }
