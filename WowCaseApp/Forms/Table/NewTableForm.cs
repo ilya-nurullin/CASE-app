@@ -55,7 +55,7 @@ namespace WowCaseApp
 
         private Dictionary<string, string> GetTableNames()
         {
-            return metaDbContainer.TableSet.ToList().Aggregate(new Dictionary<string, string>(), (d, t) =>
+            return metaDbContainer.TableSet.Where(t => t.Attributes.Any(a => a.IsPKey)).ToList().Aggregate(new Dictionary<string, string>(), (d, t) =>
             {
                 d.Add(t.Name, t.RealName);
                 return d;
