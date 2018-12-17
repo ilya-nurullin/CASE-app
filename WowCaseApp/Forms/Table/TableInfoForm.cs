@@ -72,5 +72,43 @@ namespace WowCaseApp
             MessageBox.Show("Изменения успешно сохранены");
             Close();
         }
+
+        private void удалитьВыбранноеПолеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var cells = dataGridView1.SelectedCells.Cast<DataGridViewCell>();
+            var cell = cells.First();
+            if (! cells.All(c => c.RowIndex == cell.RowIndex) || cells.Count() == 0)
+            {
+                MessageBox.Show("Выберите ячейки одной строки");
+                return;
+            }
+
+
+            Attribute attribute = ((Attribute) dataGridView1.Rows[cell.RowIndex].Cells[0].Tag);
+            if (attribute.IsPKey)
+            {
+                MessageBox.Show("Нельзя удалять первичный ключ");
+                return;
+            }
+
+            
+            metaDbContainer.AttributeSet.Remove(attribute);
+            currenTable.Attributes.Remove(attribute);
+            metaDbContainer.SaveChanges();
+
+            if (attribute.IsFKey)
+            {
+                Table parentTable = metaDbContainer.TableSet.Where(t => t.RealName == attribute.Type)
+                    .First();
+                currenTable.ParentTables.Remove(parentTable);
+                parentTable.ChildTables.Remove(currenTable);
+                SqlExecutor.ExecuteNonQuery(dbConnection, $"ALTER TABLE {currenTable.RealName} DROP constraint [FK_{currenTable.RealName}_{attribute.RealName}]");
+                metaDbContainer.SaveChanges();
+            }
+
+            SqlExecutor.ExecuteNonQuery(dbConnection, $"ALTER TABLE {currenTable.RealName} DROP COLUMN {attribute.RealName}");
+            dataGridView1.Rows.RemoveAt(cell.RowIndex);
+            MessageBox.Show("Колонка успешно удалена");
+        }
     }
 }

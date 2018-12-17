@@ -21,9 +21,30 @@ namespace WowCaseApp
         private readonly SqlConnection dbConnection;
         private static readonly ILog log = LogManager.GetLogger(typeof(NewTableForm));
         private readonly SqlExecutor sqlExecutor;
-
-        public QueriesForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection)
+        string QueryName;
+        bool needToAdd = false;
+        string QueryText;
+        public QueriesForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection, string QueryName)
         {
+            
+                InitializeComponent();
+                //  cmbTables.SelectedIndex = 0;
+                log.Debug("QueriesForm opened");
+                this.metaDbContainer = metaDataDbContainer;
+                this.dbConnection = dbConnection;
+                sqlExecutor = new SqlExecutor(dbConnection);
+                cmbTables.DataSource = metaDataDbContainer.TableSet.Select(x => x.Name).ToList();
+                cmbTables.SelectedIndex = 0;
+            this.QueryName = QueryName;
+
+            needToAdd = true;
+            btnAddJoin.Enabled = false; CreateQuery.Enabled = false;
+
+
+        }
+        public QueriesForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection, string QueryName, string QueryParametrs)
+        {
+
             InitializeComponent();
             //  cmbTables.SelectedIndex = 0;
             log.Debug("QueriesForm opened");
@@ -32,8 +53,13 @@ namespace WowCaseApp
             sqlExecutor = new SqlExecutor(dbConnection);
             cmbTables.DataSource = metaDataDbContainer.TableSet.Select(x => x.Name).ToList();
             cmbTables.SelectedIndex = 0;
+            this.QueryName = QueryName;
+            this.QueryText = QueryParametrs;
+            needToAdd = false;
 
             btnAddJoin.Enabled = false; CreateQuery.Enabled = false;
+
+           
 
 
         }
@@ -123,7 +149,7 @@ namespace WowCaseApp
 
                 string Where1 = cmbItems1.getRealNameTableAttribute(metaDbContainer) + " " + cmbOperations1.Text.ToString() + " " + txbValues1.Text.ToString() + " " + cmbJoins1.Text.ToString();
                 string Where2 = cmbItems2.getRealNameTableAttribute(metaDbContainer) + " " + cmbOperations2.Text.ToString() + " " + txbValues2.Text.ToString() + " " + cmbJoins2.Text.ToString();
-                string Where3 = cmbItems3.getRealNameTableAttribute(metaDbContainer) + " " + cmbOperations3.Text.ToString() + " " + txbValues3.Text.ToString() + " " + cmbJoins3.Text.ToString();
+                string Where3 = cmbItems3.getRealNameTableAttribute(metaDbContainer) + " " + cmbOperations3.Text.ToString() + " " + txbValues3.Text.ToString() + " " ;
 
                 //All joined tables . Distinct()
                 string[] JoinedTables = new string [0];
@@ -255,6 +281,78 @@ namespace WowCaseApp
             listBoxJoins.Items.Clear();
 
         }
+
+       
+
+        private void QueriesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Сохранить?", "Закрытие формы",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            if (result == DialogResult.Yes)
+            {
+
+
+                Query query = new Model.Query(this.QueryName);
+                //add selected attr + joins
+                var selectedAttributes = listBoxSelected.Items.Cast<string>().ToArray();
+                var joinedTables = listBoxJoins.Items.Cast<string>().ToArray();
+
+                query.QueryText = "" + string.Join(",", selectedAttributes) + "|" + string.Join(",", joinedTables);
+
+                //add where clause
+                query.QueryText += "|" + cmbItems1.SelectedIndex + "," + cmbOperations1.SelectedIndex + "," + txbValues1.Text + "," + cmbJoins1.SelectedIndex;
+                query.QueryText += "|" + cmbItems2.SelectedIndex + "," + cmbOperations2.SelectedIndex + "," + txbValues2.Text + "," + cmbJoins2.SelectedIndex;
+                query.QueryText += "|" + cmbItems3.SelectedIndex + "," + cmbOperations3.SelectedIndex + "," + txbValues3.Text + "," ;
+
+                if (needToAdd)
+                { metaDbContainer.QuerySet.Add(query); metaDbContainer.SaveChanges(); }
+
+                else
+                {
+                    var oldQuery = metaDbContainer.QuerySet.Where(x => x.Name == query.Name).FirstOrDefault();
+                    metaDbContainer.QuerySet.Remove(oldQuery);
+                    metaDbContainer.QuerySet.Add(query);
+                    metaDbContainer.SaveChanges();
+
+                }
+
+            }
+            ((MainForm)Parent.Parent).LoadTreeView();
+
+        }
+
+        private void QueriesForm_Load(object sender, EventArgs e)
+        {
+            if (!this.needToAdd) { 
+            var parametrs = this.QueryText.Split('|');
+            if (parametrs[0] != "") listBoxSelected.Items.AddRange(parametrs[0].Split(','));
+            if (parametrs[1] != "") listBoxJoins.Items.AddRange(parametrs[1].Split(','));
+            UpdateDataSourse();
+
+            var where1Val = parametrs[2].Split(',');
+
+                if (where1Val[0] != "-1") cmbItems1.SelectedIndex =  int.Parse(where1Val[0]);
+                if (where1Val[1] != "-1") cmbOperations1.SelectedIndex = int.Parse(where1Val[1]);
+                txbValues1.Text = where1Val[2];
+                if (where1Val[3] != "-1") cmbJoins1.SelectedIndex = int.Parse(where1Val[3]);
+
+            var where2Val = parametrs[3].Split(',');
+                if (where2Val[0] != "-1") cmbItems2.SelectedIndex = int.Parse(where2Val[0]);
+                if (where2Val[1] != "-1") cmbOperations2.SelectedIndex = int.Parse(where2Val[1]);
+                txbValues2.Text = where2Val[2];
+                if (where2Val[3] != "-1") cmbJoins2.SelectedIndex = int.Parse(where2Val[3]);
+            var where3Val = parametrs[4].Split(',');
+                if (where3Val[0] != "-1") cmbItems3.SelectedIndex = int.Parse(where3Val[0]);
+                if (where3Val[1] != "-1") cmbOperations3.SelectedIndex = int.Parse(where3Val[1]);
+                txbValues3.Text = where3Val[2];
+            }
+        }
     }
 
     public static class Extension
@@ -332,8 +430,9 @@ namespace WowCaseApp
                string ElementsNew = "";
                 foreach(string str in Elements.Split(','))
                 {
+                    var ss = elementsForQuery.Except(distinctElementsForQUery).ToArray(); //попробовать реплейснуть после точки
                     var a =r.Match(str).ToString().Replace("'","");
-                    if (distinctElementsForQUery.Contains(a))
+                    if (elementsForQuery.Except(distinctElementsForQUery).Contains(a))
                     {
                         string tmp_substr = str.Split('.')[0];
                         string tmp = metaDbContainer.TableSet.Where(x => x.RealName == tmp_substr).FirstOrDefault().Name + "." + a;

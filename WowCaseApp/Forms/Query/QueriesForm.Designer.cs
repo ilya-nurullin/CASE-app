@@ -30,8 +30,11 @@
         {
             this.tabControlQuery = new System.Windows.Forms.TabControl();
             this.tabPageQuery = new System.Windows.Forms.TabPage();
+            this.btnClearJoin = new System.Windows.Forms.Button();
+            this.btnDeleteJoin = new System.Windows.Forms.Button();
+            this.labelForListBoxJoin = new System.Windows.Forms.Label();
+            this.listBoxJoins = new System.Windows.Forms.ListBox();
             this.btnAddJoin = new System.Windows.Forms.Button();
-            this.cmbJoins3 = new System.Windows.Forms.ComboBox();
             this.txbValues3 = new System.Windows.Forms.TextBox();
             this.cmbOperations3 = new System.Windows.Forms.ComboBox();
             this.cmbItems3 = new System.Windows.Forms.ComboBox();
@@ -58,10 +61,6 @@
             this.tabPageResult = new System.Windows.Forms.TabPage();
             this.dgvResult = new System.Windows.Forms.DataGridView();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
-            this.listBoxJoins = new System.Windows.Forms.ListBox();
-            this.labelForListBoxJoin = new System.Windows.Forms.Label();
-            this.btnDeleteJoin = new System.Windows.Forms.Button();
-            this.btnClearJoin = new System.Windows.Forms.Button();
             this.tabControlQuery.SuspendLayout();
             this.tabPageQuery.SuspendLayout();
             this.tabPageResult.SuspendLayout();
@@ -87,7 +86,6 @@
             this.tabPageQuery.Controls.Add(this.labelForListBoxJoin);
             this.tabPageQuery.Controls.Add(this.listBoxJoins);
             this.tabPageQuery.Controls.Add(this.btnAddJoin);
-            this.tabPageQuery.Controls.Add(this.cmbJoins3);
             this.tabPageQuery.Controls.Add(this.txbValues3);
             this.tabPageQuery.Controls.Add(this.cmbOperations3);
             this.tabPageQuery.Controls.Add(this.cmbItems3);
@@ -119,6 +117,45 @@
             this.tabPageQuery.Text = "Конструктор запроса";
             this.tabPageQuery.UseVisualStyleBackColor = true;
             // 
+            // btnClearJoin
+            // 
+            this.btnClearJoin.Location = new System.Drawing.Point(729, 355);
+            this.btnClearJoin.Name = "btnClearJoin";
+            this.btnClearJoin.Size = new System.Drawing.Size(310, 27);
+            this.btnClearJoin.TabIndex = 55;
+            this.btnClearJoin.Text = "Очистить связи";
+            this.btnClearJoin.UseVisualStyleBackColor = true;
+            this.btnClearJoin.Click += new System.EventHandler(this.btnClearJoin_Click);
+            // 
+            // btnDeleteJoin
+            // 
+            this.btnDeleteJoin.AccessibleDescription = "";
+            this.btnDeleteJoin.Location = new System.Drawing.Point(729, 326);
+            this.btnDeleteJoin.Name = "btnDeleteJoin";
+            this.btnDeleteJoin.Size = new System.Drawing.Size(310, 27);
+            this.btnDeleteJoin.TabIndex = 54;
+            this.btnDeleteJoin.Text = "Удалить выбранную связь";
+            this.btnDeleteJoin.UseVisualStyleBackColor = true;
+            this.btnDeleteJoin.Click += new System.EventHandler(this.btnDeleteJoin_Click);
+            // 
+            // labelForListBoxJoin
+            // 
+            this.labelForListBoxJoin.AutoSize = true;
+            this.labelForListBoxJoin.Location = new System.Drawing.Point(726, 108);
+            this.labelForListBoxJoin.Name = "labelForListBoxJoin";
+            this.labelForListBoxJoin.Size = new System.Drawing.Size(47, 17);
+            this.labelForListBoxJoin.TabIndex = 53;
+            this.labelForListBoxJoin.Text = "Связи";
+            // 
+            // listBoxJoins
+            // 
+            this.listBoxJoins.FormattingEnabled = true;
+            this.listBoxJoins.ItemHeight = 16;
+            this.listBoxJoins.Location = new System.Drawing.Point(729, 153);
+            this.listBoxJoins.Name = "listBoxJoins";
+            this.listBoxJoins.Size = new System.Drawing.Size(310, 164);
+            this.listBoxJoins.TabIndex = 52;
+            // 
             // btnAddJoin
             // 
             this.btnAddJoin.Location = new System.Drawing.Point(84, 326);
@@ -128,18 +165,6 @@
             this.btnAddJoin.Text = "Добавить связь";
             this.btnAddJoin.UseVisualStyleBackColor = true;
             this.btnAddJoin.Click += new System.EventHandler(this.btnAddJoin_Click);
-            // 
-            // cmbJoins3
-            // 
-            this.cmbJoins3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbJoins3.FormattingEnabled = true;
-            this.cmbJoins3.Items.AddRange(new object[] {
-            "AND",
-            "OR"});
-            this.cmbJoins3.Location = new System.Drawing.Point(608, 452);
-            this.cmbJoins3.Name = "cmbJoins3";
-            this.cmbJoins3.Size = new System.Drawing.Size(71, 24);
-            this.cmbJoins3.TabIndex = 50;
             // 
             // txbValues3
             // 
@@ -396,7 +421,7 @@
             this.tabPageResult.Location = new System.Drawing.Point(4, 25);
             this.tabPageResult.Name = "tabPageResult";
             this.tabPageResult.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResult.Size = new System.Drawing.Size(1116, 555);
+            this.tabPageResult.Size = new System.Drawing.Size(1213, 555);
             this.tabPageResult.TabIndex = 1;
             this.tabPageResult.Text = "Результат";
             this.tabPageResult.UseVisualStyleBackColor = true;
@@ -408,7 +433,7 @@
             this.dgvResult.Location = new System.Drawing.Point(3, 3);
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowTemplate.Height = 24;
-            this.dgvResult.Size = new System.Drawing.Size(1110, 549);
+            this.dgvResult.Size = new System.Drawing.Size(1207, 549);
             this.dgvResult.TabIndex = 0;
             // 
             // entityCommand1
@@ -419,45 +444,6 @@
             this.entityCommand1.EnablePlanCaching = true;
             this.entityCommand1.Transaction = null;
             // 
-            // listBoxJoins
-            // 
-            this.listBoxJoins.FormattingEnabled = true;
-            this.listBoxJoins.ItemHeight = 16;
-            this.listBoxJoins.Location = new System.Drawing.Point(729, 153);
-            this.listBoxJoins.Name = "listBoxJoins";
-            this.listBoxJoins.Size = new System.Drawing.Size(310, 164);
-            this.listBoxJoins.TabIndex = 52;
-            // 
-            // labelForListBoxJoin
-            // 
-            this.labelForListBoxJoin.AutoSize = true;
-            this.labelForListBoxJoin.Location = new System.Drawing.Point(726, 108);
-            this.labelForListBoxJoin.Name = "labelForListBoxJoin";
-            this.labelForListBoxJoin.Size = new System.Drawing.Size(47, 17);
-            this.labelForListBoxJoin.TabIndex = 53;
-            this.labelForListBoxJoin.Text = "Связи";
-            // 
-            // btnDeleteJoin
-            // 
-            this.btnDeleteJoin.AccessibleDescription = "";
-            this.btnDeleteJoin.Location = new System.Drawing.Point(729, 326);
-            this.btnDeleteJoin.Name = "btnDeleteJoin";
-            this.btnDeleteJoin.Size = new System.Drawing.Size(310, 27);
-            this.btnDeleteJoin.TabIndex = 54;
-            this.btnDeleteJoin.Text = "Удалить выбранную связь";
-            this.btnDeleteJoin.UseVisualStyleBackColor = true;
-            this.btnDeleteJoin.Click += new System.EventHandler(this.btnDeleteJoin_Click);
-            // 
-            // btnClearJoin
-            // 
-            this.btnClearJoin.Location = new System.Drawing.Point(729, 355);
-            this.btnClearJoin.Name = "btnClearJoin";
-            this.btnClearJoin.Size = new System.Drawing.Size(310, 27);
-            this.btnClearJoin.TabIndex = 55;
-            this.btnClearJoin.Text = "Очистить связи";
-            this.btnClearJoin.UseVisualStyleBackColor = true;
-            this.btnClearJoin.Click += new System.EventHandler(this.btnClearJoin_Click);
-            // 
             // QueriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -467,6 +453,8 @@
             this.Name = "QueriesForm";
             this.Text = "Queries";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QueriesForm_FormClosing);
+            this.Load += new System.EventHandler(this.QueriesForm_Load);
             this.tabControlQuery.ResumeLayout(false);
             this.tabPageQuery.ResumeLayout(false);
             this.tabPageQuery.PerformLayout();
@@ -481,7 +469,6 @@
         private System.Windows.Forms.TabControl tabControlQuery;
         private System.Windows.Forms.TabPage tabPageQuery;
         private System.Windows.Forms.Button btnAddJoin;
-        private System.Windows.Forms.ComboBox cmbJoins3;
         private System.Windows.Forms.TextBox txbValues3;
         private System.Windows.Forms.ComboBox cmbOperations3;
         private System.Windows.Forms.ComboBox cmbJoins2;

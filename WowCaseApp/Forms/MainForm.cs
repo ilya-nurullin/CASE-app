@@ -40,10 +40,7 @@ namespace WowCaseApp
             log.Debug("App stopped");
         }
 
-        private void создатьНовыйToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
+        
 
         private TreeNode m_OldSelectNode;
 
@@ -137,15 +134,34 @@ namespace WowCaseApp
 
         private void создатьНовуюТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
         {
+           
             NewTableForm form = new NewTableForm(metaDbContainer, dbConnection);
             form.MdiParent = this;
             form.Show();
+        
+
         }
         private void создатьНовыйЗапросToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection);
+        { 
+            //На случай если попытаются открыть запрос без таблиц
+            try
+            {
+                GetStringForm gsf = new GetStringForm("Создание запроса", "Введите название запроса");
+                if (gsf.ShowDialog() != DialogResult.OK)
+                    return;
+
+                if (metaDbContainer.QuerySet.Any(x => x.Name == gsf.Value))
+                {
+                    MessageBox.Show("Запрос с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    создатьНовыйЗапросToolStripMenuItem1_Click(null, null);
+                     return;
+                }
+ 
+            QueriesForm childForm = new QueriesForm(metaDbContainer, dbConnection, gsf.Value);
             childForm.MdiParent = this;
             childForm.Show();
+            }
+            catch (Exception a) { MessageBox.Show("Нет таблиц для запроса");   }
         }
         private void создатьНовуюФормуToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -201,7 +217,14 @@ namespace WowCaseApp
         }
         private void OpenQuery(string name)
         {
-            //TODO
+            try
+            {
+                string queryParametrs = metaDbContainer.QuerySet.Where(x => x.Name == name).Select(y => y.QueryText).FirstOrDefault();
+                var form = new QueriesForm(metaDbContainer, dbConnection, name, queryParametrs);
+                form.MdiParent = this;
+                form.Show();
+            }
+            catch { MessageBox.Show("Возникла ошибка при обращении к базе данных"); }
         }
         private void OpenView(string name)
         {
@@ -340,6 +363,7 @@ namespace WowCaseApp
                         MessageBox.Show("Запрос с таким именем уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         переименоватьToolStripMenuItem_Click(sender, null);
                     }
+                        node.Tag = node.Tag.ToString().Substring(0, 6) + newName;
 
                     var q = metaDbContainer.QuerySet.First(x => x.Name == name);
                     q.Name = newName;
@@ -359,7 +383,10 @@ namespace WowCaseApp
                     v.Name = newName;
                     metaDbContainer.Entry(v).State = EntityState.Modified;
                     metaDbContainer.SaveChanges();
-                    break;
+                        node.Tag = node.Tag.ToString().Substring(0, 6) + newName;
+
+
+                        break;
                 }
                 case "[repo]":
                 {
