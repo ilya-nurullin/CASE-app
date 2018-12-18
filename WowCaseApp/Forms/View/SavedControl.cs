@@ -66,7 +66,7 @@ namespace WowCaseApp.Forms.View
 
     static class SaveControlExt
     {
-        public static Control toControl(this SavedControl control)
+        public static Control toControl(this SavedControl control, string anotherType ="")
         {
             Control c = new Control();
             // {Width = control.Width, Height = control.Height, Location = new System.Drawing.Point(control.X,control.Y)}
@@ -90,7 +90,9 @@ namespace WowCaseApp.Forms.View
                     Location = new Point(control.X, control.Y)
                 };
 
-            switch (control.Attribute.Type)
+            string type = anotherType==""?control.Attribute.Type:anotherType;
+
+            switch (type)
             {
                 case "Автоинкремент":
                 case "Целое число со знаком":

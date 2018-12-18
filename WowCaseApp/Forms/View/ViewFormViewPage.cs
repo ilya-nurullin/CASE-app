@@ -68,7 +68,10 @@ namespace WowCaseApp.Forms.View
             foreach (var a in attributes)
             {
                 Control c = new Control();
-                switch (a.Type)
+                string type = a.Type;
+                if (a.IsFKey)
+                    type = _cont.TableSet.First(x => x.RealName == a.Type).Attributes.First(x => x.IsPKey).Type;
+                switch (type)
                 {
                     case "Автоинкремент":
                     case "Целое число со знаком":
@@ -293,7 +296,7 @@ namespace WowCaseApp.Forms.View
             foreach (var a in mainAttributes)
                 if (!a.IsPKey)
                     if (PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"] is DateTimePicker c)
-                        attribs += $"{a.RealName} = '{c.Value.ToShortDateString()}'";
+                        attribs += $"{a.RealName} = '{c.Value.ToShortDateString()}',";
                     else attribs += $"{a.RealName} = '{PanelViewPage.Controls[$"{mainT.RealName}.{a.RealName}"].Text}',";
 
             attribs = attribs.TrimEnd(',',' ');
@@ -461,7 +464,13 @@ namespace WowCaseApp.Forms.View
                 if (childT != null && childT.Attributes.Contains(a))
                     t = childT;
 
-                Control c = savedControl.toControl();
+                Control c;
+
+                if (a.IsFKey)
+                    c = savedControl.toControl(_cont.TableSet.First(x => x.RealName == a.Type).Attributes
+                        .First(x => x.IsPKey).Type);
+                    else c = savedControl.toControl();
+
                 c.MouseDown += Control_MouseDown;
                 c.MouseMove += Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
