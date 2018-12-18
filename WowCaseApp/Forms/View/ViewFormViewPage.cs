@@ -548,20 +548,25 @@ namespace WowCaseApp.Forms.View
 
             foreach (Control c in PanelViewPage.Controls)
             {
+                if (c is DataGridView)
+                {
+                    c.Enabled = false;
+                    continue;
+                }
+
+                if (c is Label)
+                {
+                    c.Enabled = true;
+                    continue; 
+                }
+
                 c.Enabled = !readOnly;
 
                 string tName = c.Name.Remove(c.Name.IndexOf('.'));
                 string aName = c.Name.Replace(tName,"").Replace("_label","").Replace("_dgv","").Trim('.',' ');
 
                 if (_cont.TableSet.First(x => x.RealName == tName).Attributes.First(x => x.RealName == aName).IsPKey)
-                    if (!(c is Label))
-                        ((TextBox) c).ReadOnly = true;
-
-                if (c is DataGridView)
-                    c.Enabled = false;
-
-                if (c is Label)
-                    c.Enabled = true;
+                    ((TextBox) c).ReadOnly = true;
                 }
 
             if (_size == 0) return;
