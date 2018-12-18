@@ -181,7 +181,7 @@ namespace WowCaseApp
                 else if (Tables.Split(',').Count()-1==listBoxJoins.Items.Count)
                 {
                     // Select += $"FROM {String.Join(",", RightjoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
-                    Select += $"FROM {String.Join(",", JoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString()}";
+                    Select += $"FROM {String.Join(",", JoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
 
                 }
                 //JOINS + JUST TABLE SELECT
