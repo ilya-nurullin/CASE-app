@@ -195,6 +195,13 @@ namespace WowCaseApp
                 MessageBox.Show("Имя столбца не может быть пустым");
                 return false;
             }
+            hasErrorLines = rowsExceptTheLastOne.Any(x => x.Cells[0].EditedFormattedValue.ToString() != ""
+                                                          && x.Cells[1].EditedFormattedValue.ToString() == "");
+            if (hasErrorLines)
+            {
+                MessageBox.Show("Тип не может быть пустым");
+                return false;
+            }
 
             return true;
         }
