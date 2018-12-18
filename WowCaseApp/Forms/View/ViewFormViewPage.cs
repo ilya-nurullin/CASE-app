@@ -455,7 +455,9 @@ namespace WowCaseApp.Forms.View
 
             foreach (var savedControl in _savedControls)
             {
-                Attribute a = _cont.AttributeSet.Find(savedControl.Attribute.Id);
+                Attribute a =null ;
+                    if (savedControl.Attribute  != null)
+                        a= _cont.AttributeSet.Find(savedControl.Attribute.Id);
 
                 Table t = null;
 
@@ -466,7 +468,7 @@ namespace WowCaseApp.Forms.View
 
                 Control c;
 
-                if (a.IsFKey)
+                if (a!=null && a.IsFKey)
                     c = savedControl.toControl(_cont.TableSet.First(x => x.RealName == a.Type).Attributes
                         .First(x => x.IsPKey).Type);
                     else c = savedControl.toControl();
@@ -475,7 +477,7 @@ namespace WowCaseApp.Forms.View
                 c.MouseMove += Control_MouseMove;
                 c.MouseUp += Control_MouseUp;
                 c.Enabled = radioButton2.Checked;
-                c.Name = $"{t.RealName}.{a.RealName}";
+                c.Name = $"{t?.RealName}.{a?.RealName}";
                 c.AutoSize = true;
 
                 if (c is CheckBox ch)
