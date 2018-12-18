@@ -156,6 +156,7 @@ namespace WowCaseApp
 
                 string[] FactTables = new string[0];
 
+                string[] RightjoinedTables = new string[0];
 
                 string Select = $"SELECT {Elements} ";
                 if (listBoxJoins.Items.Count != 0)
@@ -164,7 +165,9 @@ namespace WowCaseApp
                     JoinedTables = listBoxJoins.Items.Cast<string>().Select(x => (x.Split(' ')[3].Substring(0, x.Split(' ')[3].IndexOf('.')) /*+ "|" +x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.'))*/).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
 
                     //Tables without joins
-                    FactTables = Tables.Split(',').Except(JoinedTables).ToArray();
+                     RightjoinedTables = listBoxJoins.Items.Cast<string>().Select(x =>  ( x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.')) ).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
+
+                    FactTables = Tables.Split(',').Except(RightjoinedTables).ToArray();
 
                 }
 
@@ -176,7 +179,7 @@ namespace WowCaseApp
                 //JOINS ONLY
                 else if (Tables.Split(',').Count()-1==listBoxJoins.Items.Count)
                 {
-                    Select += $"FROM {String.Join(",",JoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString()}";
+                    Select += $"FROM {String.Join(",", RightjoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
 
                 }
                 //JOINS + JUST TABLE SELECT
@@ -184,7 +187,7 @@ namespace WowCaseApp
                 {
                     //туть может быть ошибка
 
-                    Select += $"FROM {JoinedTables.joinToString()} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
+                    Select += $"FROM  { listBoxJoins.getJoinsWithPar(metaDbContainer).joinToString(" ")}, {(FactTables.Except(JoinedTables).ToArray()).joinToString()}";
                 }
 
 
@@ -432,7 +435,7 @@ namespace WowCaseApp
                 {
                     var ss = elementsForQuery.Except(distinctElementsForQUery).ToArray(); //попробовать реплейснуть после точки
                     var a =r.Match(str).ToString().Replace("'","");
-                    if (elementsForQuery.Except(distinctElementsForQUery).Contains(a))
+                    //if (elementsForQuery.Except(distinctElementsForQUery).Contains(a))
                     {
                         string tmp_substr = str.Split('.')[0];
                         string tmp = metaDbContainer.TableSet.Where(x => x.RealName == tmp_substr).FirstOrDefault().Name + "." + a;
@@ -457,8 +460,17 @@ namespace WowCaseApp
         }
         public static string[] getJoins(this ListBox listBoxJoins, MetaDataDBContainer metaDbContainer)
         {
-
+var a =            listBoxJoins.Items.Cast<string>().ToArray();
             string[] Result = listBoxJoins.Items.Cast<string>().Select(x => x.Split(' ')[0] + " " + x.Split(' ')[1] + " " + String.Join("", x.Split(' ')[5].TakeWhile(sep => sep != '.')).getRealNameTable(metaDbContainer) + " ON (" + x.Split(' ')[3].getRealNameTableAttribute(metaDbContainer) + " " + x.Split(' ')[4] + " " + x.Split(' ')[5].getRealNameTableAttribute(metaDbContainer) + ")").ToArray();
+
+
+            return Result;
+
+        }
+        public static string[] getJoinsWithPar(this ListBox listBoxJoins, MetaDataDBContainer metaDbContainer)
+        {
+            var a = listBoxJoins.Items.Cast<string>().ToArray();
+            string[] Result = listBoxJoins.Items.Cast<string>().Select(x => String.Join("", x.Split(' ')[3].TakeWhile(sep => sep != '.')).getRealNameTable(metaDbContainer) +" "+    x.Split(' ')[0] + " " + x.Split(' ')[1] + " " + String.Join("", x.Split(' ')[5].TakeWhile(sep => sep != '.')).getRealNameTable(metaDbContainer) + " ON (" + x.Split(' ')[3].getRealNameTableAttribute(metaDbContainer) + " " + x.Split(' ')[4] + " " + x.Split(' ')[5].getRealNameTableAttribute(metaDbContainer) + ")").ToArray();
 
 
             return Result;
