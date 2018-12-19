@@ -142,7 +142,7 @@ namespace WowCaseApp.Forms.View
                     AllowUserToResizeRows = false,
                     AllowUserToResizeColumns = false,
                     Enabled = false,
-                    //ReadOnly = true
+                    ReadOnly = true
                 };
                 dgv.MouseDown += Control_MouseDown;
                 dgv.MouseMove += Control_MouseMove;
@@ -548,19 +548,10 @@ namespace WowCaseApp.Forms.View
 
             foreach (Control c in PanelViewPage.Controls)
             {
-                if (c is DataGridView)
-                {
-                    c.Enabled = false;
-                    continue;
-                }
-
-                if (c is Label)
-                {
-                    c.Enabled = true;
-                    continue; 
-                }
-
                 c.Enabled = !readOnly;
+                
+                if (c is DataGridView || c is Label)
+                    continue;
 
                 string tName = c.Name.Remove(c.Name.IndexOf('.'));
                 string aName = c.Name.Replace(tName,"").Replace("_label","").Replace("_dgv","").Trim('.',' ');
