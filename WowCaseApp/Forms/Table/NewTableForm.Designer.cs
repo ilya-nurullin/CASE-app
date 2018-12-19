@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttrType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.IsPK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IsNullable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IsIndexed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DefaultValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -43,6 +37,12 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fkDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttrType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.IsPK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsNullable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsIndexed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DefaultValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -76,54 +76,6 @@
             this.dataGridView.Size = new System.Drawing.Size(1128, 269);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
-            // 
-            // Title
-            // 
-            this.Title.Frozen = true;
-            this.Title.HeaderText = "Название столбца";
-            this.Title.Name = "Title";
-            this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Title.Width = 200;
-            // 
-            // AttrType
-            // 
-            this.AttrType.Frozen = true;
-            this.AttrType.HeaderText = "Тип";
-            this.AttrType.Items.AddRange(new object[] {
-            "Да/нет",
-            "Дата",
-            "Дата и время",
-            "Дробное число",
-            "Строка",
-            "Текст",
-            "Автоинкремент",
-            "Целое число со знаком"});
-            this.AttrType.Name = "AttrType";
-            this.AttrType.Width = 150;
-            // 
-            // IsPK
-            // 
-            this.IsPK.HeaderText = "Является ПК?";
-            this.IsPK.Name = "IsPK";
-            this.IsPK.Width = 110;
-            // 
-            // IsNullable
-            // 
-            this.IsNullable.HeaderText = "Может быть пустым?";
-            this.IsNullable.Name = "IsNullable";
-            this.IsNullable.Width = 160;
-            // 
-            // IsIndexed
-            // 
-            this.IsIndexed.HeaderText = "Индексируется?";
-            this.IsIndexed.Name = "IsIndexed";
-            this.IsIndexed.Width = 130;
-            // 
-            // DefaultValue
-            // 
-            this.DefaultValue.HeaderText = "По умолчанию";
-            this.DefaultValue.Name = "DefaultValue";
-            this.DefaultValue.Width = 150;
             // 
             // menuStrip1
             // 
@@ -218,6 +170,54 @@
             this.Column1.Name = "Column1";
             this.Column1.Width = 300;
             // 
+            // Title
+            // 
+            this.Title.Frozen = true;
+            this.Title.HeaderText = "Название столбца";
+            this.Title.Name = "Title";
+            this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Title.Width = 200;
+            // 
+            // AttrType
+            // 
+            this.AttrType.Frozen = true;
+            this.AttrType.HeaderText = "Тип";
+            this.AttrType.Items.AddRange(new object[] {
+            "Да/нет",
+            "Дата",
+            "Дата и время",
+            "Дробное число",
+            "Строка",
+            "Текст",
+            "Автоинкремент",
+            "Целое число со знаком"});
+            this.AttrType.Name = "AttrType";
+            this.AttrType.Width = 150;
+            // 
+            // IsPK
+            // 
+            this.IsPK.HeaderText = "Является ПК?";
+            this.IsPK.Name = "IsPK";
+            this.IsPK.Width = 110;
+            // 
+            // IsNullable
+            // 
+            this.IsNullable.HeaderText = "Может быть пустым?";
+            this.IsNullable.Name = "IsNullable";
+            this.IsNullable.Width = 160;
+            // 
+            // IsIndexed
+            // 
+            this.IsIndexed.HeaderText = "Индексируется?";
+            this.IsIndexed.Name = "IsIndexed";
+            this.IsIndexed.Width = 130;
+            // 
+            // DefaultValue
+            // 
+            this.DefaultValue.HeaderText = "По умолчанию";
+            this.DefaultValue.Name = "DefaultValue";
+            this.DefaultValue.Width = 130;
+            // 
             // NewTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -256,14 +256,14 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox tableNameTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.DataGridView fkDataGridView;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewComboBoxColumn AttrType;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsPK;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsNullable;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsIndexed;
         private System.Windows.Forms.DataGridViewTextBoxColumn DefaultValue;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.DataGridView fkDataGridView;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
     }
 }

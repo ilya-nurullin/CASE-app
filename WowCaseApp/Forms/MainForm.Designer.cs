@@ -35,6 +35,7 @@
             this.MainTreeView = new System.Windows.Forms.TreeView();
             this.tablesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьНовуюТаблицуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьЗначенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queriesMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.создатьНовыйЗапросToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -44,7 +45,6 @@
             this.переименоватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьЗначенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tablesContextMenu.SuspendLayout();
             this.queriesMenuStrip.SuspendLayout();
             this.viewsMenuStrip.SuspendLayout();
@@ -55,7 +55,7 @@
             // 
             this.MainTreeView.Dock = System.Windows.Forms.DockStyle.Left;
             this.MainTreeView.Location = new System.Drawing.Point(0, 0);
-            this.MainTreeView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MainTreeView.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.MainTreeView.Name = "MainTreeView";
             treeNode1.Name = "Tables";
             treeNode1.Tag = "Tables";
@@ -70,7 +70,7 @@
             treeNode1,
             treeNode2,
             treeNode3});
-            this.MainTreeView.Size = new System.Drawing.Size(110, 735);
+            this.MainTreeView.Size = new System.Drawing.Size(169, 735);
             this.MainTreeView.TabIndex = 0;
             this.MainTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainTreeView_MouseUp);
             // 
@@ -81,14 +81,21 @@
             this.создатьНовуюТаблицуToolStripMenuItem,
             this.добавитьЗначенияToolStripMenuItem});
             this.tablesContextMenu.Name = "tablesContextMenu";
-            this.tablesContextMenu.Size = new System.Drawing.Size(205, 70);
+            this.tablesContextMenu.Size = new System.Drawing.Size(243, 52);
             // 
             // создатьНовуюТаблицуToolStripMenuItem
             // 
             this.создатьНовуюТаблицуToolStripMenuItem.Name = "создатьНовуюТаблицуToolStripMenuItem";
-            this.создатьНовуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.создатьНовуюТаблицуToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
             this.создатьНовуюТаблицуToolStripMenuItem.Text = "Создать новую таблицу";
             this.создатьНовуюТаблицуToolStripMenuItem.Click += new System.EventHandler(this.создатьНовуюТаблицуToolStripMenuItem_Click);
+            // 
+            // добавитьЗначенияToolStripMenuItem
+            // 
+            this.добавитьЗначенияToolStripMenuItem.Name = "добавитьЗначенияToolStripMenuItem";
+            this.добавитьЗначенияToolStripMenuItem.Size = new System.Drawing.Size(242, 24);
+            this.добавитьЗначенияToolStripMenuItem.Text = "Добавить значения";
+            this.добавитьЗначенияToolStripMenuItem.Click += new System.EventHandler(this.добавитьЗначенияToolStripMenuItem_Click);
             // 
             // queriesMenuStrip
             // 
@@ -96,12 +103,12 @@
             this.queriesMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьНовыйЗапросToolStripMenuItem1});
             this.queriesMenuStrip.Name = "queriesMenuStrip";
-            this.queriesMenuStrip.Size = new System.Drawing.Size(198, 26);
+            this.queriesMenuStrip.Size = new System.Drawing.Size(237, 28);
             // 
             // создатьНовыйЗапросToolStripMenuItem1
             // 
             this.создатьНовыйЗапросToolStripMenuItem1.Name = "создатьНовыйЗапросToolStripMenuItem1";
-            this.создатьНовыйЗапросToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            this.создатьНовыйЗапросToolStripMenuItem1.Size = new System.Drawing.Size(236, 24);
             this.создатьНовыйЗапросToolStripMenuItem1.Text = "Создать новый запрос";
             this.создатьНовыйЗапросToolStripMenuItem1.Click += new System.EventHandler(this.создатьНовыйЗапросToolStripMenuItem1_Click);
             // 
@@ -111,13 +118,13 @@
             this.viewsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.создатьНовуюФормуToolStripMenuItem1});
             this.viewsMenuStrip.Name = "queriesMenuStrip";
-            this.viewsMenuStrip.Size = new System.Drawing.Size(198, 26);
+            this.viewsMenuStrip.Size = new System.Drawing.Size(233, 28);
             this.viewsMenuStrip.Tag = "Views";
             // 
             // создатьНовуюФормуToolStripMenuItem1
             // 
             this.создатьНовуюФормуToolStripMenuItem1.Name = "создатьНовуюФормуToolStripMenuItem1";
-            this.создатьНовуюФормуToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            this.создатьНовуюФормуToolStripMenuItem1.Size = new System.Drawing.Size(232, 24);
             this.создатьНовуюФормуToolStripMenuItem1.Text = "Создать новую форму";
             this.создатьНовуюФормуToolStripMenuItem1.Click += new System.EventHandler(this.создатьНовуюФормуToolStripMenuItem1_Click);
             // 
@@ -135,14 +142,14 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // переименоватьToolStripMenuItem
             // 
             this.переименоватьToolStripMenuItem.Name = "переименоватьToolStripMenuItem";
-            this.переименоватьToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.переименоватьToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.переименоватьToolStripMenuItem.Text = "Переименовать";
             this.переименоватьToolStripMenuItem.Click += new System.EventHandler(this.переименоватьToolStripMenuItem_Click);
             // 
@@ -154,25 +161,18 @@
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(190, 24);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
-            // добавитьЗначенияToolStripMenuItem
-            // 
-            this.добавитьЗначенияToolStripMenuItem.Name = "добавитьЗначенияToolStripMenuItem";
-            this.добавитьЗначенияToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.добавитьЗначенияToolStripMenuItem.Text = "Добавить значения";
-            this.добавитьЗначенияToolStripMenuItem.Click += new System.EventHandler(this.добавитьЗначенияToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1033, 597);
+            this.ClientSize = new System.Drawing.Size(1377, 735);
             this.Controls.Add(this.MainTreeView);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wow Case App";

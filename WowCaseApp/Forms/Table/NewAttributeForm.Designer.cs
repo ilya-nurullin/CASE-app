@@ -32,7 +32,6 @@
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.typeComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.isPKCheckBox = new System.Windows.Forms.CheckBox();
             this.isNullableCheckBox = new System.Windows.Forms.CheckBox();
             this.isIndexedCheckBox = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -71,20 +70,10 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Тип";
             // 
-            // isPKCheckBox
-            // 
-            this.isPKCheckBox.AutoSize = true;
-            this.isPKCheckBox.Location = new System.Drawing.Point(53, 79);
-            this.isPKCheckBox.Name = "isPKCheckBox";
-            this.isPKCheckBox.Size = new System.Drawing.Size(124, 21);
-            this.isPKCheckBox.TabIndex = 3;
-            this.isPKCheckBox.Text = "Является ПК?";
-            this.isPKCheckBox.UseVisualStyleBackColor = true;
-            // 
             // isNullableCheckBox
             // 
             this.isNullableCheckBox.AutoSize = true;
-            this.isNullableCheckBox.Location = new System.Drawing.Point(53, 106);
+            this.isNullableCheckBox.Location = new System.Drawing.Point(54, 80);
             this.isNullableCheckBox.Name = "isNullableCheckBox";
             this.isNullableCheckBox.Size = new System.Drawing.Size(169, 21);
             this.isNullableCheckBox.TabIndex = 3;
@@ -94,7 +83,7 @@
             // isIndexedCheckBox
             // 
             this.isIndexedCheckBox.AutoSize = true;
-            this.isIndexedCheckBox.Location = new System.Drawing.Point(53, 133);
+            this.isIndexedCheckBox.Location = new System.Drawing.Point(54, 107);
             this.isIndexedCheckBox.Name = "isIndexedCheckBox";
             this.isIndexedCheckBox.Size = new System.Drawing.Size(139, 21);
             this.isIndexedCheckBox.TabIndex = 3;
@@ -103,29 +92,35 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(71, 169);
+            this.button1.Location = new System.Drawing.Point(72, 143);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 33);
             this.button1.TabIndex = 4;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // NewAttributeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 227);
+            this.ClientSize = new System.Drawing.Size(265, 185);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.isIndexedCheckBox);
             this.Controls.Add(this.isNullableCheckBox);
-            this.Controls.Add(this.isPKCheckBox);
             this.Controls.Add(this.typeComboBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "NewAttributeForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление нового атрибута";
+            this.Load += new System.EventHandler(this.NewAttributeForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,7 +132,6 @@
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.ComboBox typeComboBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox isPKCheckBox;
         private System.Windows.Forms.CheckBox isNullableCheckBox;
         private System.Windows.Forms.CheckBox isIndexedCheckBox;
         private System.Windows.Forms.Button button1;

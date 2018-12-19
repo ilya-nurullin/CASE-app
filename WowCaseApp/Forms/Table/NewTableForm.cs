@@ -264,7 +264,7 @@ namespace WowCaseApp
             return $"CREATE INDEX i{rowIndex} ON {tableName} (col{rowIndex});";
         }
 
-        private string Type2Sql(string type, bool forFK = false)
+        public static string Type2Sql(string type, bool forFK = false)
         {
             switch (type)
             {
