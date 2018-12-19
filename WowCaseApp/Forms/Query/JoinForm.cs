@@ -55,19 +55,22 @@ namespace WowCaseApp.Forms.Query
         List<string> selectedTables ;
         public JoinForm(MetaDataDBContainer metaDataDbContainer, SqlConnection dbConnection,string tablesFrom)
         {
-            selectedTables = tablesFrom.Split(',').ToList();
-            InitializeComponent();
-            this.metaDbContainer = metaDataDbContainer;
-            this.dbConnection = dbConnection;
-            cmbT1.DataSource = new BindingSource(selectedTables, string.Empty);
-            cmbT1.SelectedIndex = 0;
-            cmbT2.DataSource = new BindingSource(selectedTables, string.Empty);
-            cmbT2.SelectedIndex = 1;
-            cmbT1.DataSource = new BindingSource(selectedTables, string.Empty);
-            cmbOn.SelectedIndex = 0;
-            cmbJoinTypes.SelectedIndex = 0;
-        
-         
+            try
+            {
+                selectedTables = tablesFrom.Split(',').ToList();
+                InitializeComponent();
+                this.metaDbContainer = metaDataDbContainer;
+                this.dbConnection = dbConnection;
+                cmbT1.DataSource = new BindingSource(selectedTables, string.Empty);
+                cmbT1.SelectedIndex = 0;
+                cmbT2.DataSource = new BindingSource(selectedTables, string.Empty);
+                cmbT2.SelectedIndex = 1;
+                cmbT1.DataSource = new BindingSource(selectedTables, string.Empty);
+                cmbOn.SelectedIndex = 0;
+                cmbJoinTypes.SelectedIndex = 0;
+
+            }
+            catch { }
 
         }
         private void CreateJoin_Click(object sender, EventArgs e)

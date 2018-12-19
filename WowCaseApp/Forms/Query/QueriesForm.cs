@@ -156,7 +156,7 @@ namespace WowCaseApp
 
                 string[] FactTables = new string[0];
 
-                string[] RightjoinedTables = new string[0];
+                //string[] RightjoinedTables = new string[0];
 
                 string Select = $"SELECT {Elements} ";
                 if (listBoxJoins.Items.Count != 0)
@@ -165,9 +165,10 @@ namespace WowCaseApp
                     JoinedTables = listBoxJoins.Items.Cast<string>().Select(x => (x.Split(' ')[3].Substring(0, x.Split(' ')[3].IndexOf('.')) /*+ "|" +x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.'))*/).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
 
                     //Tables without joins
-                     RightjoinedTables = listBoxJoins.Items.Cast<string>().Select(x =>  ( x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.')) ).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
+                    //   RightjoinedTables = listBoxJoins.Items.Cast<string>().Select(x =>  ( x.Split(' ')[5].Substring(0, x.Split(' ')[5].IndexOf('.')) ).Split('|')).ToArray()[0].getRealNamesTables(metaDbContainer).Split(',');// + ","+x.Split(' ')[5].Take(x.Split(' ')[5].IndexOf(".")).ToString()).ToArray();
 
-                    FactTables = Tables.Split(',').Except(RightjoinedTables).ToArray();
+                    // FactTables = Tables.Split(',').Except(RightjoinedTables).ToArray();
+                    FactTables = Tables.Split(',').Except(JoinedTables).ToArray();
 
                 }
 
@@ -179,11 +180,12 @@ namespace WowCaseApp
                 //JOINS ONLY
                 else if (Tables.Split(',').Count()-1==listBoxJoins.Items.Count)
                 {
-                    Select += $"FROM {String.Join(",", RightjoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
+                    // Select += $"FROM {String.Join(",", RightjoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
+                    Select += $"FROM {String.Join(",", JoinedTables)} { listBoxJoins.getJoins(metaDbContainer).joinToString(" ")}";
 
                 }
                 //JOINS + JUST TABLE SELECT
-              else
+                else
                 {
                     //туть может быть ошибка
 
@@ -191,7 +193,7 @@ namespace WowCaseApp
                 }
 
 
-                if (txbValues1.Text != string.Empty || txbValues2.Text != string.Empty || txbValues3.Text != string.Empty)
+                if (txbValues1.Text != string.Empty || txbValues2.Text != string.Empty || txbValues3.Text != string.Empty||Where1.Contains("IS") || Where2.Contains("IS") || Where3.Contains("IS"))
                 {
 
                     string pattern = @"[>|<|=|!|IS]";
