@@ -26,7 +26,7 @@ namespace WowCaseApp
             this.dbConnection = dbConnection;
             this.currentTable = currentTable;
             tableRealName2Name = metaDbContainer.TableSet
-                .Where(t => t.Attributes.Any(a => a.IsPKey)).ToList().Where(t => !currentTable.ParentTables.Contains(t))
+                .Where(t => t.Attributes.Any(a => a.IsPKey)).ToList().Where(t => !currentTable.ParentTables.Contains(t) && t.RealName != currentTable.RealName)
                 .Aggregate(new Dictionary<string, string>(), (d, t) =>
                 {
                     d.Add("Ссылка на " + t.Name, t.RealName);
@@ -65,16 +65,40 @@ namespace WowCaseApp
                 return;
             }
 
-            SqlExecutor.ExecuteNonQuery(dbConnection, $"ALTER TABLE {currentTable.RealName} ADD  col{currentTable.Attributes.Count} {MapType(typeComboBox.Text)} {((!isNullableCheckBox.Checked) ? "NOT" : "")} NULL");
+            int sqlResCode = SqlExecutor.ExecuteNonQuery(dbConnection,
+                $"ALTER TABLE {currentTable.RealName} ADD col{currentTable.Attributes.Count} {MapType(typeComboBox.Text)} {((!isNullableCheckBox.Checked) ? "NOT" : "")} NULL");
+
+            bool itIsFK = typeComboBox.Text.StartsWith("Ссылка на");
+            if (sqlResCode > -1 && itIsFK)
+            {
+                string realName = tableRealName2Name[typeComboBox.Text];
+                string pkName = metaDbContainer.TableSet.Where(t => t.RealName == realName).First().Attributes
+                    .Where(a => a.IsPKey).First().RealName;
+                sqlResCode = SqlExecutor.ExecuteNonQuery(dbConnection,
+                    $"ALTER TABLE {currentTable.RealName} ADD CONSTRAINT FK_{currentTable.RealName}_col{currentTable.Attributes.Count} FOREIGN KEY (col{currentTable.Attributes.Count}) REFERENCES {realName}({pkName})");
+            }
+
+            if (sqlResCode < 0)
+            {
+                return;
+            }
             currentTable.Attributes.Add(new Model.Attribute(
                 name: nameTextBox.Text,
                 realname: $"col{currentTable.Attributes.Count}",
                 type: MapAttrType(typeComboBox.Text),
-                isIndexed: isIndexedCheckBox.Checked,
+                isIndexed: (itIsFK) ? true : isIndexedCheckBox.Checked,
                 isNullable: isNullableCheckBox.Checked,
                 isPKey: false
             ));
             metaDbContainer.SaveChanges();
+
+            if (itIsFK)
+            {
+                var prn = tableRealName2Name[typeComboBox.Text];
+                var parent = metaDbContainer.TableSet.First(t => t.RealName == prn);
+                currentTable.ParentTables.Add(parent);
+                parent.ChildTables.Add(currentTable);
+            }
 
             MessageBox.Show("Атрибут успешно добавлен");
             this.DialogResult = DialogResult.OK;
@@ -91,11 +115,11 @@ namespace WowCaseApp
             }
         }
 
-        private string MapType(string input)
+        private string MapType(string input, bool forFK = false)
         {
             switch (input)
             {
-                case "Автоинкремент": return "INT IDENTITY (1,1)";
+                case "Автоинкремент": return (forFK) ? "INT" : "INT IDENTITY (1,1)";
                 case "Строка": return "nvarchar(max)";
                 case "Текст": return "text";
                 case "Дата": return "date";
@@ -105,8 +129,10 @@ namespace WowCaseApp
                 case "Да/нет": return "bit";
             }
 
-            return metaDbContainer.TableSet.First(t => t.RealName == tableRealName2Name[input]).Attributes
-                .First(a => a.IsPKey).Type;
+            var rtn = tableRealName2Name[input];
+
+            return MapType(metaDbContainer.TableSet.First(t => t.RealName == rtn).Attributes
+                .First(a => a.IsPKey).Type, true);
         }
     }
 }
